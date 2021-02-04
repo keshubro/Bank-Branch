@@ -18,7 +18,7 @@ module.exports = ({ mode }) => {
       extensions: ['.js']
     },
     entry: {
-      'demo-element': ['./src/MainComponent.js']
+      'demo-element': ['./src/demo-element.js']
     },
     output: {
       path: resolve(__dirname, 'dist/'),
