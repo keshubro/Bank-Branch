@@ -1,11 +1,11 @@
-import { html } from 'lit-html';
-import '../src/MainComponent';
+// import { html } from 'lit-html';
+// import '../src/MainComponent';
 
-export default{
-    title: 'main-comp'
-};
+// export default{
+//     title: 'main-comp'
+// };
 
-export const Primary = () =>
-html`
-    <main-component></main-component>
-`;
+// export const Primary = () =>
+// html`
+//     <main-component></main-component>
+// `;
