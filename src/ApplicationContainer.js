@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit-element";
 import './header-component';
 import './LoginComponent';
-import './AboutComponent';
+import './SearchComponent';
 import { Router } from '@vaadin/router';
 
 export class ApplicationContainer extends LitElement
