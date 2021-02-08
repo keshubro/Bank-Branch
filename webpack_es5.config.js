@@ -34,7 +34,7 @@ module.exports = ({ mode }) => {
       extensions: ['.js']
     },
     entry: {
-      'demo-element': ['babel-polyfill', './src/routes.js']
+      'demo-element': ['babel-polyfill', './src/ApplicationContainer.js']
     },
     output: {
       path: resolve(__dirname, 'dist/legacy'),
