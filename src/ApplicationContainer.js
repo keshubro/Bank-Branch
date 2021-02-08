@@ -48,7 +48,7 @@ export class ApplicationContainer extends LitElement
             <div id="header-div">
                 <header-component></header-component>
             </div>
-            <div id="outlet">
+            <div id="outlet" class="inlet">
                 <!-- Here Vaadin.Router inserts the current page content -->
             </div>
         `;
