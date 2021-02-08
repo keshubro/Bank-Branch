@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit-element";
-import './HeaderComponent';
+import './header-component';
 import './LoginComponent';
 import './AboutComponent';
 import { Router } from '@vaadin/router';
