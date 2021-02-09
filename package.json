@@ -32,7 +32,7 @@
         "@lion/radio-group": "^0.12.13",
         "@lion/select": "^0.8.14",
         "@lion/tabs": "^0.5.10",
-        "@lion/validate-messages": "^0.3.13",
+        "@lion/validate-messages": "^0.3.16",
         "@vaadin/router": "^1.7.3",
         "@webcomponents/webcomponentsjs": "^2.4.0",
         "bootstrap": "^5.0.0-beta1",

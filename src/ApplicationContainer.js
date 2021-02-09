@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit-element";
 import './header-component';
 import './LoginComponent';
-import './AboutComponent';
+import './SearchComponent';
 import { Router } from '@vaadin/router';
 
 export class ApplicationContainer extends LitElement
@@ -48,7 +48,7 @@ export class ApplicationContainer extends LitElement
             <div id="header-div">
                 <header-component></header-component>
             </div>
-            <div id="outlet" class="inlet">
+            <div id="outlet" class="outlet">
                 <!-- Here Vaadin.Router inserts the current page content -->
             </div>
         `;
