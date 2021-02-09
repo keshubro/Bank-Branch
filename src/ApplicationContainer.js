@@ -14,13 +14,17 @@ export class ApplicationContainer extends LitElement
     static get styles()
     {
         return css`
-            #outlet{
-                background-color: red;
+            .outlet{
+                min-height: 90vh;
+
             }
 
+            
+
             #header-div{
-                background-color: #555;
+                min-height: 10vh;
             }
+
         `;
     }
 
@@ -45,12 +49,16 @@ export class ApplicationContainer extends LitElement
     render()
     {
         return html`
+            <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+
             <div id="header-div">
                 <header-component></header-component>
             </div>
-            <div id="outlet" class="outlet">
+            
+            <div id="outlet" class="outlet d-flex justify-content-center align-items-center">
                 <!-- Here Vaadin.Router inserts the current page content -->
             </div>
+            
         `;
     }
 }

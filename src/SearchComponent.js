@@ -17,6 +17,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
     static get styles() {
         return css`
+            
             .search-component{
                 background-color: white;
             }
@@ -24,6 +25,8 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             .container{
                 width: 500px;
                 background-color: lightblue;
+                box-shadow: 5px 10px 18px #888888;
+                border-radius: 5px;
             }
             
             lion-input{
@@ -72,6 +75,8 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 
             }
 
+            
+
         `
 
     }
@@ -86,6 +91,8 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             'type' : 'string'
         }
     }
+
+   
 
     render() {
         loadDefaultFeedbackMessages();
