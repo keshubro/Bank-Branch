@@ -18,3 +18,7 @@ export class AboutComponent extends LitElement
 }
 
 customElements.define('about-component', AboutComponent);
+
+
+
+//Added line
