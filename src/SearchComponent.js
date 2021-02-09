@@ -17,6 +17,12 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
     static get styles() {
         return css`
+
+            .oneitem:hover{
+                background-color: #555;
+                margin: 0;
+                padding: 0;
+            }
             
             .search-component{
                 background-color: white;
@@ -84,11 +90,76 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     
     constructor(){
         super();
+        this.search = '';
+        this.matchList = '';
     }
 
     static get properties() {
         return{
             'type' : 'string'
+        }
+    }
+
+    updated()
+    {
+        super.updated();
+        // debugger;
+        this.search = this.shadowRoot.getElementById('search');
+        this.matchList = this.shadowRoot.getElementById('match-list');
+
+        console.log(this.search);
+        console.log(this.matchList);
+
+        this.search.addEventListener('input', () => this.searchStates(this.search.value));
+        this.matchList.addEventListener('click', this.yoyo.bind(this));
+    }
+
+    yoyo(e)
+    {
+        // debugger;
+        this.search.value = e.target.parentElement.querySelector('input').value;
+        this.matchList.innerHTML = '';
+        console.log(this.search);
+    }
+
+    async searchStates(searchText)
+    {
+        // debugger;
+        if(searchText.length < 3)
+            return false;
+
+        const res = await fetch('http://localhost:3000/customers');
+        const customers = await res.json();
+        
+        //Get matches to current text input
+        let matches = customers.filter(customer => {
+            const regex = new RegExp(`^${searchText}`, 'gi');   // 'gi' makes it case insensitive
+            return customer.accountno.match(regex);
+        });
+
+        if(searchText.length === 0)
+        {
+            // If nothing is there in the input field
+            matches = [];
+            this.matchList.innerHTML = '';
+        }
+
+        this.outputHtml(matches);
+    }
+
+    outputHtml(matches)
+    {
+        if(matches.length > 0)
+        {
+            const html = matches.map(match => `
+                <div class="oneitem">
+                    <h4>${match.accountno}</h4>
+                    <input type='hidden' value="${match.accountno}" class="item-input">
+                </div>
+            `)
+            .join('');
+
+            this.matchList.innerHTML = html;
         }
     }
 
@@ -104,7 +175,8 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                             <h2>Search Customer</h2>
                         </div>
                         <div class="account-number">
-                            <lion-input name= "account number" label="${localize.msg('lit-html-example:accountnumber')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Account Number</lion-input>
+                            <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Account Number</lion-input>
+                            <div id="match-list"></div>
                         </div>
                         <div class="search">    
                             <lion-button type="submit" ><a href="/search">${localize.msg('lit-html-example:search')}</a></lion-button>
