@@ -1,3 +1,8 @@
 export default {
-    heading: "Afdeling Bankieren"
+    heading: "Afdeling Bankieren",
+    username: "Gebruikersnaam",
+    password: "Wachtwoord",
+    btn: "Log in",
+    accountnumber: "Rekeningnummer",
+    search: "zoeken"
 }

@@ -1,5 +1,3 @@
-// Here the Login Page will go
-
 
 import { LitElement, html, css } from 'lit-element';
 import '@lion/form/lion-form.js';
@@ -7,15 +5,74 @@ import '@lion/input/lion-input.js';
 import '@lion/button/lion-button.js';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required, Pattern } from '@lion/form-core';
+import { localize,LocalizeMixin } from '@lion/localize';
 
+export class LoginComponent extends LocalizeMixin(LitElement){
 
+    static get localizeNamespaces() {
+        return [
+          { 'lit-html-example': locale => import(`../translations/${locale}.js`) },
+          ...super.localizeNamespaces,
+        ];
+    }
 
-const formSubmit =(ev) => {
-    const formData = ev.target.serializedValue;
-    console.log(formData);
-}
+    static get styles() {
+        return css`
+            .login-form{
+                background-color: white;
+            }
 
-export class LoginComponent extends LitElement{
+            .container{
+                width: 500px;
+                background-color: lightblue;
+            }
+            
+            lion-input{
+                padding: 15px;
+            }
+
+            input{
+                border-radius: 5px;
+            }
+
+            button{
+                margin: 0px;
+                font-size: 14px;
+                height:30px;
+                border: 1px solid #fff; 
+                background-color: transparent;
+            }
+
+            .login{
+                
+                text-align: right;
+                padding: 15px;
+                text-transform: uppercase;
+                font-size: 16px;
+                font-weight: bold;
+                outline: none; 
+            }
+            
+            button:hover,
+            button:active,
+            button:focus 
+            {
+                background-color: white;
+                color: steelblue;
+                border: 1px solid steelblue;
+                outline: none;
+                cursor: pointer;
+                
+            }    
+
+            h2{
+                text-align: center;
+                
+            }
+
+        `
+
+    }
 
     constructor(){
         super();
@@ -30,14 +87,21 @@ export class LoginComponent extends LitElement{
     render() {
         loadDefaultFeedbackMessages();
         return html`
-            <lion-form @submit=${formSubmit}>
+            <lion-form>
                 <form class="login-form" @submit=${ev => ev.preventDefault()}>
-                    <div>
-                        <h2>Login Details</h2>
-                        <lion-input name= "user-name" label="User Name" .validators="${[new Required()]}">Username</lion-input>
-                        <lion-input name= "password" label="Password" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Password</lion-input>
-                        <button type="submit" ><a href="/search">Login</a></button>
-
+                    <div class="container">
+                        <div class="title">
+                            <h2>Login Details</h2>
+                        </div>
+                        <div class="username">
+                            <lion-input name= "user-name" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required()]}">Username</lion-input>
+                        </div>
+                        <div class="password">
+                            <lion-input name= "password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Password</lion-input>
+                        </div>
+                        <div class="login">
+                            <button type="submit" ><a href="/search">${localize.msg('lit-html-example:btn')}</a></button>
+                        </div>
                     </div>
                 </form>
             </lion-form>
