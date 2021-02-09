@@ -22,6 +22,17 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 background-color: #555;
                 margin: 0;
                 padding: 0;
+                cursor: pointer;
+            }
+
+            #match-list{
+                background-color: white;
+            }
+
+            .oneitem > p{
+                padding: 5px;
+                margin: 0;
+                border-bottom: 1px solid;
             }
             
             .search-component{
@@ -36,7 +47,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             }
             
             lion-input{
-                padding: 15px;
+                padding: 0px;
             }
 
             input{
@@ -81,6 +92,10 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 
             }
 
+            #nomatch{
+                display: none;
+            }
+
             
 
         `
@@ -104,6 +119,14 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     {
         super.updated();
         // debugger;
+        // The user should only be able to enter a number
+        this.shadowRoot.getElementById('search').addEventListener('input', function(){
+            if(isNaN(this.value))
+            {
+                this.value = this.value.substr(0, this.value.length - 1);
+            }
+        });
+
         this.search = this.shadowRoot.getElementById('search');
         this.matchList = this.shadowRoot.getElementById('match-list');
 
@@ -125,8 +148,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     async searchStates(searchText)
     {
         // debugger;
-        if(searchText.length < 3)
-            return false;
+        
 
         const res = await fetch('http://localhost:3000/customers');
         const customers = await res.json();
@@ -137,11 +159,29 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             return customer.accountno.match(regex);
         });
 
-        if(searchText.length === 0)
+        debugger;
+        if(searchText.length < 3)
         {
             // If nothing is there in the input field
             matches = [];
             this.matchList.innerHTML = '';
+        }
+
+        // If the value entered does not match any accountno in the database
+        if(searchText.length >=3)
+        {
+            // debugger;
+            console.log(this.shadowRoot.getElementById('nomatch'));
+            if(matches.length == 0)
+            {
+                this.shadowRoot.getElementById('nomatch').style.display = 'block';
+                this.shadowRoot.getElementById('nomatch').innerHTML = `<p style="color:red">No match found !</p>`;
+            }
+            else
+            {
+                this.shadowRoot.getElementById('nomatch').style.display = 'none';
+            }
+            
         }
 
         this.outputHtml(matches);
@@ -153,11 +193,12 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         {
             const html = matches.map(match => `
                 <div class="oneitem">
-                    <h4>${match.accountno}</h4>
+                    <p>${match.accountno}</p>
                     <input type='hidden' value="${match.accountno}" class="item-input">
                 </div>
             `)
             .join('');
+
 
             this.matchList.innerHTML = html;
         }
@@ -176,7 +217,9 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                         </div>
                         <div class="account-number">
                             <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Account Number</lion-input>
+                            
                             <div id="match-list"></div>
+                            <div id="nomatch"></div>
                         </div>
                         <div class="search">    
                             <lion-button type="submit" ><a href="/search">${localize.msg('lit-html-example:search')}</a></lion-button>
