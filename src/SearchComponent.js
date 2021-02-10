@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 import '@lion/form/lion-form.js';
 import '@lion/input/lion-input.js';
 import '@lion/button/lion-button.js';
+import { ajax } from '@lion/ajax';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
@@ -134,10 +135,10 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.matchList);
 
         this.search.addEventListener('input', () => this.searchStates(this.search.value));
-        this.matchList.addEventListener('click', this.yoyo.bind(this));
+        this.matchList.addEventListener('click', this.itemClicked.bind(this));
     }
 
-    yoyo(e)
+    itemClicked(e)
     {
         // debugger;
         this.search.value = e.target.parentElement.querySelector('input').value;
@@ -150,8 +151,17 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         // debugger;
         
 
-        const res = await fetch('http://localhost:3000/customers');
-        const customers = await res.json();
+        // const res = await fetch('http://localhost:3000/customers');
+        // const customers = await res.json();
+
+        let customers;
+
+        await ajax
+        .get('http://localhost:3000/customers')
+        .then(response => {
+            console.log(response.data);
+            customers = response.data;
+        })
         
         //Get matches to current text input
         let matches = customers.filter(customer => {
@@ -159,12 +169,13 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             return customer.accountno.match(regex);
         });
 
-        debugger;
+        
         if(searchText.length < 3)
         {
             // If nothing is there in the input field
             matches = [];
             this.matchList.innerHTML = '';
+            this.shadowRoot.getElementById('nomatch').style.display = 'none';
         }
 
         // If the value entered does not match any accountno in the database
