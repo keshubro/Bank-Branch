@@ -1,23 +1,4 @@
 {
-  "users": [
-     {
-        "id": "1",
-        "username": "keshav",
-        "password": "keshav123"
-     },
-     {
-       "id": "2",
-       "username": "preti",
-       "password": "preti123"
-        
-     },
-     
-     {
-       "id": "3",
-       "username": "padma",
-       "password": "padma123"
-     }
-  ],
   "customers" : [
     {
        "id": "1",
