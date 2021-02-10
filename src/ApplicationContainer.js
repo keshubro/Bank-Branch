@@ -14,10 +14,14 @@ export class ApplicationContainer extends LitElement
     static get styles()
     {
         return css`
+<<<<<<< HEAD
             .outlet{
                 min-height: 90vh;
 
             }
+=======
+           
+>>>>>>> 61ecd1e (search functionality added)
 
             
 
