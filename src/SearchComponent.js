@@ -221,7 +221,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         loadDefaultFeedbackMessages();
         return html`
             <lion-form >
-                <form class="search-component" @submit=${ev => ev.preventDefault()}>
+                <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
                     <div class="container">
                         <div class="search-customer">
                             <h2>Search Customer</h2>
