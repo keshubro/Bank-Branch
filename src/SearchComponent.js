@@ -129,15 +129,14 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         .then(response => {
             console.log(response.data);
             this.customers = response.data;
-        })
-        
-
+        });
     }
 
     updated()
     {
         super.updated();
         // The user should only be able to enter a number
+        console.log(this.shadowRoot);
         this.shadowRoot.getElementById('search').addEventListener('input', function(){
             if(isNaN(this.value))
             {

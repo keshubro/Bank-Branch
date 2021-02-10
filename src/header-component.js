@@ -14,11 +14,27 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
     static get styles() {
         return css`
-        .header-cnt{
+        .header-cnt, .home-link{
           padding:5px;
           text-align: center;
           color:white;
           background-color: brown;
+        }
+
+        .home-link > a{
+            text-decoration: none;
+            color: white;
+        }
+
+        .home-link{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .home-link-a{
+            display: none;
         }
 
         #heading{
@@ -52,11 +68,15 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     this.buttonNL={};
   }
 
+
   render() {
     return html`
     <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <div class="container-fluid">
       <div class="row">
+        <div class="col home-link">
+            <a href="/search" class="home-link-a">Home</a>
+        </div>
         <div class="col-10 header-cnt" id="heading">
         ${localize.msg('lit-html-example:heading')}
         </div>
@@ -71,10 +91,31 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     `;
   }
 
+    routeChanged()
+    {
+        // debugger;
+        if(window.location.pathname == '/')
+        {
+            console.log(this.shadowRoot);
+            this.shadowRoot.querySelector('.home-link-a').style.display = "none";
+        }
+        else
+        {
+            this.shadowRoot.querySelector('.home-link-a').style.display = "block";
+        }
+    }
+
   updated(){
     this.buttonEL=this.shadowRoot.querySelector("#btnEl");
     this.buttonNL=this.shadowRoot.querySelector("#btnNL");
-  }
+  } 
+
+    firstUpdated()
+    {
+        super.firstUpdated();
+        debugger;
+        window.addEventListener('popstate', this.routeChanged.bind(this));
+    }
 
   changeLangToEL(){
     localize.locale = 'en-GB';
