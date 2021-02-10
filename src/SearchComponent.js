@@ -6,7 +6,7 @@ import { ajax } from '@lion/ajax';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
-import { ajax } from '@lion/ajax';
+//import { ajax } from '@lion/ajax';
 import './card-comp.js';
 
 
@@ -22,7 +22,6 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     static get styles() {
         return css`
 
-<<<<<<< HEAD
             .oneitem:hover{
                 background-color: #555;
                 margin: 0;
@@ -40,13 +39,11 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 border-bottom: 1px solid;
             }
             
-=======
             .search-comp-container{
-                background: #e9ecef;
+                width: 550px;
                
             }
             /*
->>>>>>> 61ecd1e (search functionality added)
             .search-component{
                 background-color: white;
             }
@@ -145,12 +142,10 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     
     constructor(){
         super();
-<<<<<<< HEAD
+        this.customers = '';
         this.search = '';
         this.matchList = '';
-=======
         this.cards=[];
->>>>>>> 61ecd1e (search functionality added)
     }
 
     static get properties() {
@@ -160,7 +155,18 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         }
     }
 
-<<<<<<< HEAD
+    firstUpdated(){
+        super.firstUpdated();
+        ajax
+        .get('http://localhost:3000/customers')
+        .then(response => {
+            console.log(response.data);
+            this.customers = response.data;
+        })
+        
+
+    }
+
     updated()
     {
         super.updated();
@@ -191,7 +197,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
     }
 
-    async searchStates(searchText)
+     searchStates(searchText)
     {
         // debugger;
         
@@ -199,14 +205,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         // const res = await fetch('http://localhost:3000/customers');
         // const customers = await res.json();
 
-        let customers;
-
-        await ajax
-        .get('http://localhost:3000/customers')
-        .then(response => {
-            console.log(response.data);
-            customers = response.data;
-        })
+        let customers=this.customers;
         
         //Get matches to current text input
         let matches = customers.filter(customer => {
@@ -262,7 +261,6 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
    
 
-=======
     fetchDetails(accno){
         const url = 'http://localhost:3000/customers?accountno_like=' + accno;
         console.log(url);
@@ -270,6 +268,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         ajax
       .get(url)
       .then(response => {
+          console.log("fetched after search button clicked")
         console.log(response.data);
         this.cards=response.data;
       })
@@ -280,40 +279,31 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     }
 
     searchBtnClicked(){
+        this.matchList.innerHTML='';
         console.log("serach btn clicked");
-        const accno = this.shadowRoot.getElementById('accountno').value;
+        const accno = this.shadowRoot.getElementById('search').value;
         console.log(accno);
         this.fetchDetails(accno);
     }
 
->>>>>>> 61ecd1e (search functionality added)
     render() {
         loadDefaultFeedbackMessages();
         return html`
             <div class="search-comp-container">
             <lion-form >
-<<<<<<< HEAD
                 <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
                     <div class="container">
-=======
-                <form @submit=${ev => ev.preventDefault()}>
-                    <div>
->>>>>>> 61ecd1e (search functionality added)
                         <div class="search-customer">
                             <h2>Search Customer</h2>
                         </div>
                         <div class="account-number">
-<<<<<<< HEAD
-                            <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Account Number</lion-input>
+                            <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}">Account Number</lion-input>
                             
                             <div id="match-list"></div>
                             <div id="nomatch"></div>
-=======
-                            <lion-input id="accountno" name= "account number" label="${localize.msg('lit-html-example:accountnumber')}">Account Number</lion-input>
->>>>>>> 61ecd1e (search functionality added)
                         </div>
                         <div class="search">    
-                            <lion-button @click=${this.searchBtnClicked}>${localize.msg('lit-html-example:search')}</lion-button>
+                            <lion-button  @click=${this.searchBtnClicked}>${localize.msg('lit-html-example:search')}</lion-button>
                         </div>
                     </div>
                     

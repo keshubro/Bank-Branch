@@ -14,17 +14,10 @@ export class ApplicationContainer extends LitElement
     static get styles()
     {
         return css`
-<<<<<<< HEAD
-            .outlet{
+            /*.outlet{
                 min-height: 90vh;
 
-            }
-=======
-           
->>>>>>> 61ecd1e (search functionality added)
-
-            
-
+            }*/
             #header-div{
                 min-height: 10vh;
             }
@@ -58,9 +51,10 @@ export class ApplicationContainer extends LitElement
             <div id="header-div">
                 <header-component></header-component>
             </div>
-            
-            <div id="outlet" class="outlet d-flex justify-content-center align-items-center">
+            <div  class="d-flex justify-content-center align-items-center">
+            <div id="outlet" class="outlet">
                 <!-- Here Vaadin.Router inserts the current page content -->
+            </div>
             </div>
             
         `;
