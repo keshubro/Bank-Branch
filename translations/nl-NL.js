@@ -4,5 +4,5 @@ export default {
     password: "Wachtwoord",
     btn: "Log in",
     accountnumber: "Rekeningnummer",
-    search: "zoeken"
+    search: "Zoeken"
 }

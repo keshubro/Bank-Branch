@@ -6,6 +6,9 @@ import { ajax } from '@lion/ajax';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
+//import { ajax } from '@lion/ajax';
+import './card-comp.js';
+
 
 export class SearchComponent extends LocalizeMixin(LitElement){
 
@@ -36,6 +39,11 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 border-bottom: 1px solid;
             }
             
+            .search-comp-container{
+                width: 550px;
+               
+            }
+            /*
             .search-component{
                 background-color: white;
             }
@@ -46,6 +54,10 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 box-shadow: 5px 10px 18px #888888;
                 border-radius: 5px;
             }
+            */
+            .search-customer{
+                padding-top:15px;
+            }
             
             lion-input{
                 padding: 0px;
@@ -53,6 +65,12 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
             input{
                 border-radius: 5px;
+            }
+
+            lion-button{
+                background-color: green;
+                color:white;
+                border-radius:5px;
             }
 
             button{
@@ -68,7 +86,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 
                 text-align: right;
                 padding: 15px;
-                text-transform: uppercase;
+               /* text-transform: uppercase;*/
                 font-size: 16px;
                 font-weight: bold;
                 outline: none; 
@@ -86,11 +104,29 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 outline: none;
                 cursor: pointer;
                 
-            }    
+            }  
+            
+            h1{
+                margin:0px;
+            }
 
             h2{
                 text-align: center;
-                
+                margin:0px;
+            }
+
+            card-comp {
+                margin: 12px;
+            }
+
+            .cards-container{
+                display:flex;
+                flex-wrap: wrap;
+            }
+
+            .searchresults{
+               // background: lightgrey;
+                padding: 20px;
             }
 
             #nomatch{
@@ -106,14 +142,29 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     
     constructor(){
         super();
+        this.customers = '';
         this.search = '';
         this.matchList = '';
+        this.cards=[];
     }
 
     static get properties() {
         return{
-            'type' : 'string'
+            'type' : 'string',
+            cards: { type: Array },
         }
+    }
+
+    firstUpdated(){
+        super.firstUpdated();
+        ajax
+        .get('http://localhost:3000/customers')
+        .then(response => {
+            console.log(response.data);
+            this.customers = response.data;
+        })
+        
+
     }
 
     updated()
@@ -146,7 +197,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
     }
 
-    async searchStates(searchText)
+     searchStates(searchText)
     {
         // debugger;
         
@@ -154,14 +205,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         // const res = await fetch('http://localhost:3000/customers');
         // const customers = await res.json();
 
-        let customers;
-
-        await ajax
-        .get('http://localhost:3000/customers')
-        .then(response => {
-            console.log(response.data);
-            customers = response.data;
-        })
+        let customers=this.customers;
         
         //Get matches to current text input
         let matches = customers.filter(customer => {
@@ -217,9 +261,35 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
    
 
+    fetchDetails(accno){
+        const url = 'http://localhost:3000/customers?accountno_like=' + accno;
+        console.log(url);
+
+        ajax
+      .get(url)
+      .then(response => {
+          console.log("fetched after search button clicked")
+        console.log(response.data);
+        this.cards=response.data;
+      })
+      .catch(error => {
+        console.log("failed to fetch the data");
+        console.log(error);
+      });
+    }
+
+    searchBtnClicked(){
+        this.matchList.innerHTML='';
+        console.log("serach btn clicked");
+        const accno = this.shadowRoot.getElementById('search').value;
+        console.log(accno);
+        this.fetchDetails(accno);
+    }
+
     render() {
         loadDefaultFeedbackMessages();
         return html`
+            <div class="search-comp-container">
             <lion-form >
                 <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
                     <div class="container">
@@ -227,17 +297,32 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                             <h2>Search Customer</h2>
                         </div>
                         <div class="account-number">
-                            <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Account Number</lion-input>
+                            <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}">Account Number</lion-input>
                             
                             <div id="match-list"></div>
                             <div id="nomatch"></div>
                         </div>
                         <div class="search">    
-                            <lion-button type="submit" ><a href="/search">${localize.msg('lit-html-example:search')}</a></lion-button>
+                            <lion-button  @click=${this.searchBtnClicked}>${localize.msg('lit-html-example:search')}</lion-button>
                         </div>
                     </div>
+                    
                 </form>
             </lion-form>
+            <div class="searchresults">
+           
+            <div class="cards-container">
+                ${this.cards.map(
+                    card => html`
+                    <card-comp .name=${card.name} .accountno=${card.accountno}></card-comp>
+                    `,
+                )}
+            </div>
+            
+            </div>
+
+            </div>
+            
         `;
     }
 
@@ -249,4 +334,4 @@ window.customElements.define('search-component', SearchComponent);
 
 
 
-
+// .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}"
