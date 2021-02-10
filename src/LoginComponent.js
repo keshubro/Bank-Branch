@@ -25,6 +25,9 @@ export class LoginComponent extends LocalizeMixin(LitElement){
             .container{
                 width: 500px;
                 background-color: lightblue;
+                box-shadow: 5px 10px 18px #888888;
+                border-radius: 5px;
+                height: 100%;
             }
             
             lion-input{

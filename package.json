@@ -22,6 +22,7 @@
     "license": "ISC",
     "homepage": "https://bitbucket.org/duplexascensores/starter-kit-component-lit-element#readme",
     "dependencies": {
+        "@lion/ajax": "^0.5.15",
         "@lion/button": "^0.8.9",
         "@lion/dialog": "^0.9.17",
         "@lion/form": "^0.7.14",
