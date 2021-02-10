@@ -151,7 +151,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
         console.log(this.matchList);
 
-        this.search.addEventListener('input', () => this.searchStates(this.search.value));
+        this.search.addEventListener('input', () => this.searchStates(this.search.value).bind(this));
         this.matchList.addEventListener('click', this.itemClicked.bind(this));
     }
 
@@ -163,15 +163,23 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
     }
 
-     searchStates(searchText)
+    firstUpdated()
     {
-        // debugger;
+        super.firstUpdated();
+
+        ajax
+        .get('http://localhost:3000/customers')
+        .then(response => {
+            // console.log(response.data);
+            this.customers = response.data;
+        });
+    }
+
+    searchStates(searchText)
+    {
         
 
-        // const res = await fetch('http://localhost:3000/customers');
-        // const customers = await res.json();
-
-        let customers=this.customers;
+        let customers = this.customers;
         
         //Get matches to current text input
         let matches = customers.filter(customer => {
