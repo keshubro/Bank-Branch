@@ -51,7 +51,7 @@ export class ApplicationContainer extends LitElement
             <div id="header-div">
                 <header-component></header-component>
             </div>
-            <div  class="d-flex justify-content-center align-items-center">
+            <div  class="body-container d-flex justify-content-center align-items-center">
             <div id="outlet" class="outlet">
                 <!-- Here Vaadin.Router inserts the current page content -->
             </div>

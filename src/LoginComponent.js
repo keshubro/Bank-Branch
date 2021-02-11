@@ -19,14 +19,14 @@ export class LoginComponent extends LocalizeMixin(LitElement){
     static get styles() {
         return css`
             .login-form{
-                background-color: white;
+                //background-color: white;
             }
 
             .container{
                 width: 500px;
-                background-color: lightblue;
-                box-shadow: 5px 10px 18px #888888;
-                border-radius: 5px;
+                //background-color: lightblue;
+               // box-shadow: 5px 10px 18px #888888;
+               // border-radius: 5px;
                 height: 100%;
             }
             
@@ -46,11 +46,16 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 background-color: transparent;
             }
 
+            lion-button{
+                background-color: green;
+                color:white;
+                border-radius:5px;
+            }
+
             .login{
                 
                 text-align: right;
                 padding: 15px;
-                text-transform: uppercase;
                 font-size: 16px;
                 font-weight: bold;
                 outline: none; 
@@ -73,6 +78,10 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 
             }
 
+            a{
+                text-decoration: none;
+            }
+
         `
 
     }
@@ -80,6 +89,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
     constructor(){
         super();
     }
+
 
     static get properties() {
         return{
@@ -100,10 +110,10 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                             <lion-input name= "user-name" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required()]}">Username</lion-input>
                         </div>
                         <div class="password">
-                            <lion-input name= "password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Password</lion-input>
+                            <lion-input type="password" name= "password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Password</lion-input>
                         </div>
                         <div class="login">
-                            <button type="submit" ><a href="/search">${localize.msg('lit-html-example:btn')}</a></button>
+                            <a href="/search"><lion-button id="loginBtn">${localize.msg('lit-html-example:btn')}</lion-button></a>
                         </div>
                     </div>
                 </form>

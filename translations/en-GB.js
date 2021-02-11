@@ -4,5 +4,6 @@ export default {
     password: "Password",
     btn: "Login",
     accountnumber: "Account Number",
-    search: "Search"
+    search: "Search",
+    searchHeading: "Search Customer"
 }

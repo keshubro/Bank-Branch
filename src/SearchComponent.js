@@ -43,18 +43,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 width: 550px;
                
             }
-            /*
-            .search-component{
-                background-color: white;
-            }
-
-            .container{
-                width: 500px;
-                background-color: lightblue;
-                box-shadow: 5px 10px 18px #888888;
-                border-radius: 5px;
-            }
-            */
+           
             .search-customer{
                 padding-top:15px;
             }
@@ -71,6 +60,11 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 background-color: green;
                 color:white;
                 border-radius:5px;
+            }
+
+            lion-button:hover {
+                background-color: #057305c2;
+                cursor:pointer;
             }
 
             button{
@@ -129,10 +123,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 padding: 20px;
             }
 
-            #nomatch{
-                display: none;
-            }
-
+            
             
 
         `
@@ -170,6 +161,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     updated()
     {
         super.updated();
+        //this.cards=[];
         // debugger;
         // The user should only be able to enter a number
         this.shadowRoot.getElementById('search').addEventListener('input', function(){
@@ -219,25 +211,25 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             // If nothing is there in the input field
             matches = [];
             this.matchList.innerHTML = '';
-            this.shadowRoot.getElementById('nomatch').style.display = 'none';
+            
         }
 
         // If the value entered does not match any accountno in the database
-        if(searchText.length >=3)
-        {
-            // debugger;
-            console.log(this.shadowRoot.getElementById('nomatch'));
-            if(matches.length == 0)
-            {
-                this.shadowRoot.getElementById('nomatch').style.display = 'block';
-                this.shadowRoot.getElementById('nomatch').innerHTML = `<p style="color:red">No match found !</p>`;
-            }
-            else
-            {
-                this.shadowRoot.getElementById('nomatch').style.display = 'none';
-            }
+        // if(searchText.length >=3)
+        // {
+        //     // debugger;
+        //     console.log(this.shadowRoot.getElementById('nomatch'));
+        //     if(matches.length == 0)
+        //     {
+        //         this.shadowRoot.getElementById('nomatch').style.display = 'block';
+        //         this.shadowRoot.getElementById('nomatch').innerHTML = `<p style="color:red">No match found !</p>`;
+        //     }
+        //     else
+        //     {
+        //         this.shadowRoot.getElementById('nomatch').style.display = 'none';
+        //     }
             
-        }
+        // }
 
         this.outputHtml(matches);
     }
@@ -271,6 +263,15 @@ export class SearchComponent extends LocalizeMixin(LitElement){
           console.log("fetched after search button clicked")
         console.log(response.data);
         this.cards=response.data;
+        console.log("cards data");
+        console.log(this.cards);
+        if(this.cards.length < 1){
+            this.shadowRoot.getElementById('alert-container').style.display='block';
+            this.shadowRoot.getElementById('alert-container').innerHTML = `<p style="color:red">No match found !</p>`;
+        }
+        else{
+            this.shadowRoot.getElementById('alert-container').style.display='none';
+        }
       })
       .catch(error => {
         console.log("failed to fetch the data");
@@ -294,13 +295,13 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
                     <div class="container">
                         <div class="search-customer">
-                            <h2>Search Customer</h2>
+                            <h2>${localize.msg('lit-html-example:searchHeading')}</h2>
                         </div>
                         <div class="account-number">
                             <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}">Account Number</lion-input>
                             
                             <div id="match-list"></div>
-                            <div id="nomatch"></div>
+                            
                         </div>
                         <div class="search">    
                             <lion-button  @click=${this.searchBtnClicked}>${localize.msg('lit-html-example:search')}</lion-button>
@@ -310,6 +311,10 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 </form>
             </lion-form>
             <div class="searchresults">
+
+            <div id="alert-container">
+            
+            </div>
            
             <div class="cards-container">
                 ${this.cards.map(
