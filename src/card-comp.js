@@ -23,6 +23,13 @@ class cardComp extends LitElement {
             border-radius: 4px;
             box-shadow: 5px 10px 8px #888888;
             width: 200px;
+            justify-content: space-around;
+        }
+
+        .card-items:hover{
+            background-color: #dee2e6;
+            width: 220px;
+            cursor:pointer;
         }
         .card-items > * {
             padding: 8px;
