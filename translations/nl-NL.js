@@ -1,4 +1,5 @@
 export default {
+    logindetails: "Inloggegevens",
     heading: "Afdeling Bankieren",
     username: "Gebruikersnaam",
     password: "Wachtwoord",
