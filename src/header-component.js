@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit-element';
 import '@lion/button/lion-button.js';
 import { localize,LocalizeMixin } from '@lion/localize';
 
-
 export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
     static get localizeNamespaces() {
@@ -14,14 +13,14 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
     static get styles() {
         return css`
-        .header-cnt, .home-link{
+        .header-cnt, .home-link, .logout-part{
           padding:5px;
           text-align: center;
           color:white;
           background-color: brown;
         }
 
-        .home-link > a{
+        .home-link > a, #logout-link{
             text-decoration: none;
             color: white;
         }
@@ -30,10 +29,10 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
             display: flex;
             justify-content: center;
             align-items: center;
-            
+            padding-left: 15px;
         }
 
-        .home-link-a{
+        .home-link-a, #logout-link, #loggedin-user{
             display: none;
         }
 
@@ -72,13 +71,18 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
   render() {
     return html`
     <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    
     <div class="container-fluid">
       <div class="row">
-        <div class="col home-link">
+        <div class="col-3 home-link d-flex justify-content-start">
             <a href="/search" class="home-link-a">Home</a>
         </div>
-        <div class="col-10 header-cnt" id="heading">
+        <div class="col-6 header-cnt" id="heading">
         ${localize.msg('lit-html-example:heading')}
+        </div>
+        <div class="col logout-part">
+            <strong id="loggedin-user"></strong>
+            <a id="logout-link">Logout</a>   
         </div>
         <div class="col align-middle header-cnt">
           <div class="btn-container">
@@ -96,24 +100,30 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
         // debugger;
         if(window.location.pathname == '/')
         {
-            console.log(this.shadowRoot);
+            console.log( this.shadowRoot.querySelector('#logout-link'));
             this.shadowRoot.querySelector('.home-link-a').style.display = "none";
+            this.shadowRoot.querySelector('.home-link-a').style.display = "none";
+            this.shadowRoot.querySelector('#logout-link').style.display = "none";
+            this.shadowRoot.querySelector('#loggedin-user').style.display = "none";
         }
         else
         {
             this.shadowRoot.querySelector('.home-link-a').style.display = "block";
+            this.shadowRoot.querySelector('#logout-link').setAttribute('href', '/');
+            this.shadowRoot.querySelector('#logout-link').style.display = "block";
+            this.shadowRoot.querySelector('#loggedin-user').innerHTML = `Hi, Keshav`;
+            this.shadowRoot.querySelector('#loggedin-user').style.display = "block";
         }
     }
 
-  updated(){
-    this.buttonEL=this.shadowRoot.querySelector("#btnEl");
-    this.buttonNL=this.shadowRoot.querySelector("#btnNL");
-  } 
+    updated(){
+        this.buttonEL=this.shadowRoot.querySelector("#btnEl");
+        this.buttonNL=this.shadowRoot.querySelector("#btnNL");
+    } 
 
     firstUpdated()
     {
         super.firstUpdated();
-        debugger;
         window.addEventListener('popstate', this.routeChanged.bind(this));
     }
 

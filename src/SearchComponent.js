@@ -195,22 +195,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             
         }
 
-        // If the value entered does not match any accountno in the database
-        // if(searchText.length >=3)
-        // {
-        //     // debugger;
-        //     console.log(this.shadowRoot.getElementById('nomatch'));
-        //     if(matches.length == 0)
-        //     {
-        //         this.shadowRoot.getElementById('nomatch').style.display = 'block';
-        //         this.shadowRoot.getElementById('nomatch').innerHTML = `<p style="color:red">No match found !</p>`;
-        //     }
-        //     else
-        //     {
-        //         this.shadowRoot.getElementById('nomatch').style.display = 'none';
-        //     }
-            
-        // }
+        
 
         this.outputHtml(matches);
     }
