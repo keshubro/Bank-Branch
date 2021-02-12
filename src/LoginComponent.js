@@ -6,6 +6,7 @@ import '@lion/button/lion-button.js';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
+import { ajax } from '@lion/ajax';
 
 export class LoginComponent extends LocalizeMixin(LitElement){
 
@@ -88,33 +89,56 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 
     constructor(){
         super();
+        this.errorMessage = null;
     }
 
 
     static get properties() {
         return{
-            'type' : 'string'
-        }
+            errorMessage: { type: String }
+        };
+    }
+
+    
+    authenticateUser(ev){
+
+        ev.preventDefault()
+
+        const formData = ev.target.serializedValue;
+        
+        const url = 'http://localhost:3000/auth/login';
+         
+        ajax
+          .post(url,formData)
+          
+          .then(response => {
+            this.errorMessage = null;
+            window.location.href = "/search";
+          })
+          .catch(error => {
+              this.errorMessage = "Invalid Username or Password";
+        });
     }
 
     render() {
         loadDefaultFeedbackMessages();
         return html`
-            <lion-form>
-                <form class="login-form" @submit=${ev => ev.preventDefault()}>
+            <lion-form @submit=${this.authenticateUser}>
+                <form class="login-form" @submit= ${(ev) =>ev.preventDefault()}>
                     <div class="container">
                         <div class="title">
                             <h2>Login Details</h2>
                         </div>
                         <div class="username">
-                            <lion-input name= "user-name" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required()]}">Username</lion-input>
+                            <lion-input name= "username" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required()]}">Username</lion-input>
                         </div>
                         <div class="password">
-                            <lion-input type="password" name= "password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Password</lion-input>
+                            <lion-input name= "password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Required()]}">Password</lion-input>
                         </div>
                         <div class="login">
-                            <a href="/search"><lion-button id="loginBtn">${localize.msg('lit-html-example:btn')}</lion-button></a>
+                            <button type="submit" >${localize.msg('lit-html-example:btn')}</button>
                         </div>
+                        <div>${this.errorMessage}</div>
                     </div>
                 </form>
             </lion-form>
@@ -124,45 +148,3 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 }
 
 window.customElements.define('login-component', LoginComponent);
-
-
-
-
-
-// import { LitElement, html } from "lit-element";
-// import '@lion/button/lion-button.js';
-
-// export class LoginComponent extends LitElement
-// {
-//     constructor()
-//     {
-//         super();
-//     }
-
-//     // updated()
-//     // {
-//     //     super.updated();
-//     //     this.shadowRoot.querySelector('lion-button').addEventListener('click', this.btnClicked);
-//     // }
-
-//     // btnClicked()
-//     // {
-//     //     // debugger;
-//     //     window.location.pathname="/about";
-//     // }
-
-//     render()
-//     {
-//         return html`
-//             <div>Login Page</div>
-//             <lion-button><a href="/about">Click me link</a></lion-button>
-//             <button><a href="/about">Click me btn</a></button>
-//             <a href="/about">Keshav</a>
-//         `;
-//     }
-// }
-
-// customElements.define('login-component', LoginComponent);
-
-
-// {/* <button><a href="/about">Click me</a></button> */}
