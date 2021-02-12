@@ -5,5 +5,19 @@ export default {
     btn: "Login",
     accountnumber: "Account Number",
     search: "Search",
-    searchHeading: "Search Customer"
+    searchHeading: "Search Customer",
+    personalDetalis: "Personal Details",
+    name: "Name",
+    surName: "SurName",
+    dob:"DOB",
+    email: "Email",
+    mobileNo: "Mobile Number",
+    addressDetails: "Address Details",
+    apartmentNo: "Apartment No",
+    street: "Street",
+    city: "City",
+    pincode: "Pincode",
+    state: "State",
+    back: "Back",
+    update: "Update"
 }

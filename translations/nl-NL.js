@@ -5,5 +5,19 @@ export default {
     btn: "Log in",
     accountnumber: "Rekeningnummer",
     search: "Zoeken",
-    searchHeading: "Zoek Klant"
+    searchHeading: "Zoek Klant",
+    personalDetalis: "Persoonlijke Gegevens",
+    name:"Naam",
+    surName: "Achternaam",
+    dob:"Geboortedatum",
+    email: "E-mail",
+    mobileNo: "Mobiel Nummer",
+    addressDetails: "Adresgegevens",
+    apartmentNo: "Appartement Nr",
+    street: "Straat",
+    city: "Stad",
+    pincode: "Pincode",
+    state: "Staat",
+    back: "Terug",
+    update: "Bijwerken"
 }

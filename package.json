@@ -28,6 +28,7 @@
         "@lion/form": "^0.7.14",
         "@lion/form-core": "^0.7.0",
         "@lion/input": "^0.10.13",
+        "@lion/input-datepicker": "^0.18.18",
         "@lion/input-email": "^0.9.13",
         "@lion/localize": "^0.15.4",
         "@lion/radio-group": "^0.12.13",

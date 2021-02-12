@@ -4,9 +4,7 @@ import '@lion/input/lion-input.js';
 import '@lion/button/lion-button.js';
 import { ajax } from '@lion/ajax';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
-import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
-//import { ajax } from '@lion/ajax';
 import './card-comp.js';
 
 
@@ -54,6 +52,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
             input{
                 border-radius: 5px;
+                border:1px solid black;
             }
 
             lion-button{
@@ -67,38 +66,18 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 cursor:pointer;
             }
 
-            button{
-                margin: 0px;
-                font-size: 14px;
-                height:30px;
-                border: 1px solid #fff; 
-                background-color: transparent;
-            }
-
+            
           
             .search{
                 
                 text-align: right;
                 padding: 15px;
-               /* text-transform: uppercase;*/
                 font-size: 16px;
                 font-weight: bold;
                 outline: none; 
                 
             }
             
-
-            button:hover,
-            button:active,
-            button:focus 
-            {
-                background-color: white;
-                color: steelblue;
-                border: 1px solid steelblue;
-                outline: none;
-                cursor: pointer;
-                
-            }  
             
             h1{
                 margin:0px;
@@ -118,13 +97,10 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 flex-wrap: wrap;
             }
 
-            .searchresults{
-               // background: lightgrey;
+            .search-results-container{
                 padding: 20px;
             }
-
-            
-            
+    
 
         `
 
@@ -161,8 +137,6 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     updated()
     {
         super.updated();
-        //this.cards=[];
-        // debugger;
         // The user should only be able to enter a number
         this.shadowRoot.getElementById('search').addEventListener('input', function(){
             if(isNaN(this.value))
@@ -255,16 +229,12 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
     fetchDetails(accno){
         const url = 'http://localhost:3000/customers?accountno_like=' + accno;
-        console.log(url);
-
+        
         ajax
       .get(url)
       .then(response => {
-          console.log("fetched after search button clicked")
-        console.log(response.data);
         this.cards=response.data;
-        console.log("cards data");
-        console.log(this.cards);
+    
         if(this.cards.length < 1){
             this.shadowRoot.getElementById('alert-container').style.display='block';
             this.shadowRoot.getElementById('alert-container').innerHTML = `<p style="color:red">No match found !</p>`;
@@ -281,11 +251,20 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
     searchBtnClicked(){
         this.matchList.innerHTML='';
-        console.log("serach btn clicked");
         const accno = this.shadowRoot.getElementById('search').value;
-        console.log(accno);
-        this.fetchDetails(accno);
+        
+        if(accno == ''){
+            this.shadowRoot.getElementById('alert-container').style.display='block';
+            this.shadowRoot.getElementById('alert-container').innerHTML = `<p style="color:red">Please enter a account number !!</p>`;
+        }
+        else{
+            this.shadowRoot.getElementById('alert-container').style.display='none';
+            this.fetchDetails(accno);
+        }
+        
     }
+
+    
 
     render() {
         loadDefaultFeedbackMessages();
@@ -310,7 +289,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                     
                 </form>
             </lion-form>
-            <div class="searchresults">
+            <div class="search-results-container">
 
             <div id="alert-container">
             
@@ -336,7 +315,3 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 window.customElements.define('search-component', SearchComponent);
 
 
-
-
-
-// .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}"
