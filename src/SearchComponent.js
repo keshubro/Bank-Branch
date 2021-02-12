@@ -100,8 +100,6 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             .search-results-container{
                 padding: 20px;
             }
-    
-
         `
 
     }
@@ -261,6 +259,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     render() {
         loadDefaultFeedbackMessages();
         return html`
+        
             <div class="search-comp-container">
             <lion-form >
                 <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
