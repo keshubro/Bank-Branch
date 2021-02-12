@@ -8,6 +8,8 @@ import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
 import { ajax } from '@lion/ajax';
 
+
+
 export class LoginComponent extends LocalizeMixin(LitElement){
 
     static get localizeNamespaces() {
@@ -83,6 +85,10 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 text-decoration: none;
             }
 
+            #errormessage{
+                color: red;
+            }
+
         `
 
     }
@@ -90,6 +96,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
     constructor(){
         super();
         this.errorMessage = null;
+        loadDefaultFeedbackMessages();
     }
 
 
@@ -99,7 +106,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
         };
     }
 
-    
+        
     authenticateUser(ev){
 
         ev.preventDefault()
@@ -107,38 +114,48 @@ export class LoginComponent extends LocalizeMixin(LitElement){
         const formData = ev.target.serializedValue;
         
         const url = 'http://localhost:3000/auth/login';
+
+        const username = this.shadowRoot.getElementById('username').value;
+        const password = this.shadowRoot.getElementById('password').value;
+        
+        if(username && password){
+
+            ajax
+            .post(url,formData)
+            
+            .then(response => {
+                this.errorMessage = null;
+                sessionStorage.setItem("username", username);
+                window.location.href = "/search";
+            })
+            .catch(error => {
+                this.errorMessage = "Invalid Username or Password";
+            });
+        }else{
+           console.log("field is empty"); 
+        }
          
-        ajax
-          .post(url,formData)
-          
-          .then(response => {
-            this.errorMessage = null;
-            window.location.href = "/search";
-          })
-          .catch(error => {
-              this.errorMessage = "Invalid Username or Password";
-        });
     }
 
     render() {
-        loadDefaultFeedbackMessages();
+        
         return html`
             <lion-form @submit=${this.authenticateUser}>
                 <form class="login-form" @submit= ${(ev) =>ev.preventDefault()}>
                     <div class="container">
                         <div class="title">
-                            <h2>Login Details</h2>
+                            <h2>${localize.msg('lit-html-example:logindetails')}</h2>
                         </div>
                         <div class="username">
-                            <lion-input name= "username" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required()]}">Username</lion-input>
+                            <lion-input id="username" name="username" .fieldName="${localize.msg('lit-html-example:username')}" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid Username' })]}">Username</lion-input>
                         </div>
                         <div class="password">
-                            <lion-input name= "password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Required()]}">Password</lion-input>
+                            <lion-input id="password" type="password" name="password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid password' })]}">Password</lion-input>
                         </div>
                         <div class="login">
                             <button type="submit" >${localize.msg('lit-html-example:btn')}</button>
                         </div>
-                        <div>${this.errorMessage}</div>
+                        <div id="errormessage">${this.errorMessage}</div>
                     </div>
                 </form>
             </lion-form>
