@@ -22,18 +22,18 @@ class cardComp extends LitElement {
             flex:100%;
             border-radius: 4px;
             box-shadow: 5px 10px 8px #888888;
-            width: 200px;
-            justify-content: space-around;
+           font-size:18px;
         }
 
         .card-items:hover{
             background-color: #dee2e6;
-            width: 220px;
+            font-size: 20px;
             cursor:pointer;
         }
         .card-items > * {
             padding: 8px;
             border-bottom: 2px solid lightgrey;
+            
             text-align: center;
         }
 
@@ -46,11 +46,19 @@ class cardComp extends LitElement {
       `;
   }
 
+  updated(){
+      this.shadowRoot.getElementById('card-items').addEventListener('click',this.cardClicked);
+  }
+
+  cardClicked(){
+      window.location.href='/details';
+  }
+
 
   render() {
     return html`
    
-		<div class="card-items"> 
+		<div class="card-items" id="card-items"> 
             <div><b>${this.name}</b></div>
             <div id="accno">${this.accountno}</div>  
         </div>       

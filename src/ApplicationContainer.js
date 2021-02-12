@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit-element";
 import './header-component';
 import './LoginComponent';
 import './SearchComponent';
+import './customer-form-component';
 import { Router } from '@vaadin/router';
 
 export class ApplicationContainer extends LitElement
@@ -35,7 +36,7 @@ export class ApplicationContainer extends LitElement
         router.setRoutes([
             {path: '/', component: 'login-component'},
             {path: '/search', component: 'search-component'},
-            {path: '/details', component: 'personal-details-component'},
+            {path: '/details', component: 'customer-form-component'},
             {path: '/updated', component: 'updated-details-component'},
             {path: '/otpvalidation', component: 'otp-validation-component'},
             {path: '/success', component: 'success-component'},
