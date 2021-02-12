@@ -100,8 +100,6 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             .search-results-container{
                 padding: 20px;
             }
-    
-
         `
 
     }
@@ -129,15 +127,14 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         .then(response => {
             console.log(response.data);
             this.customers = response.data;
-        })
-        
-
+        });
     }
 
     updated()
     {
         super.updated();
         // The user should only be able to enter a number
+        console.log(this.shadowRoot);
         this.shadowRoot.getElementById('search').addEventListener('input', function(){
             if(isNaN(this.value))
             {
@@ -151,7 +148,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
         console.log(this.matchList);
 
-        this.search.addEventListener('input', () => this.searchStates(this.search.value));
+        this.search.addEventListener('input', () => this.searchStates(this.search.value).bind(this));
         this.matchList.addEventListener('click', this.itemClicked.bind(this));
     }
 
@@ -163,15 +160,23 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
     }
 
-     searchStates(searchText)
+    firstUpdated()
     {
-        // debugger;
+        super.firstUpdated();
+
+        ajax
+        .get('http://localhost:3000/customers')
+        .then(response => {
+            // console.log(response.data);
+            this.customers = response.data;
+        });
+    }
+
+    searchStates(searchText)
+    {
         
 
-        // const res = await fetch('http://localhost:3000/customers');
-        // const customers = await res.json();
-
-        let customers=this.customers;
+        let customers = this.customers;
         
         //Get matches to current text input
         let matches = customers.filter(customer => {
@@ -188,22 +193,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             
         }
 
-        // If the value entered does not match any accountno in the database
-        // if(searchText.length >=3)
-        // {
-        //     // debugger;
-        //     console.log(this.shadowRoot.getElementById('nomatch'));
-        //     if(matches.length == 0)
-        //     {
-        //         this.shadowRoot.getElementById('nomatch').style.display = 'block';
-        //         this.shadowRoot.getElementById('nomatch').innerHTML = `<p style="color:red">No match found !</p>`;
-        //     }
-        //     else
-        //     {
-        //         this.shadowRoot.getElementById('nomatch').style.display = 'none';
-        //     }
-            
-        // }
+        
 
         this.outputHtml(matches);
     }
@@ -269,6 +259,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     render() {
         loadDefaultFeedbackMessages();
         return html`
+        
             <div class="search-comp-container">
             <lion-form >
                 <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>

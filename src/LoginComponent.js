@@ -66,20 +66,8 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 outline: none; 
             }
             
-            lion-button:active,
-            lion-button:focus 
-            {
-                background-color: white;
-                color: steelblue;
-                border: 1px solid steelblue;
-                outline: none;
-                cursor: pointer;
-                
-            }    
-
             h2{
                 text-align: center;
-                
             }
 
             a{
