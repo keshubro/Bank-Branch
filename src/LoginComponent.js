@@ -55,6 +55,11 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 border-radius:5px;
             }
 
+            lion-button:hover {
+                background-color: #057305c2;
+                cursor:pointer;
+            }
+
             .login{
                 
                 text-align: right;
@@ -64,9 +69,8 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 outline: none; 
             }
             
-            button:hover,
-            button:active,
-            button:focus 
+            lion-button:active,
+            lion-button:focus 
             {
                 background-color: white;
                 color: steelblue;
@@ -153,7 +157,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                             <lion-input id="password" type="password" name="password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid password' })]}">Password</lion-input>
                         </div>
                         <div class="login">
-                            <button type="submit" >${localize.msg('lit-html-example:btn')}</button>
+                            <lion-button type="submit" >${localize.msg('lit-html-example:btn')}</lion-button>
                         </div>
                         <div id="errormessage">${this.errorMessage}</div>
                     </div>
