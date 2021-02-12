@@ -1,4 +1,5 @@
 export default {
+    logindetails: "Login Details",
     heading: "Branch Banking",
     username: "Username",
     password: "Password",

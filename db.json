@@ -2,6 +2,8 @@
   "customers" : [
     {
        "id": "1",
+       "username": "john.doe",
+       "password": "john.doe@123",
        "accountno": "1065420859612356588",
        "name": "John",
        "surname": "Doe",

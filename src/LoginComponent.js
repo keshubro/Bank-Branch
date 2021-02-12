@@ -6,6 +6,9 @@ import '@lion/button/lion-button.js';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
+import { ajax } from '@lion/ajax';
+
+
 
 export class LoginComponent extends LocalizeMixin(LitElement){
 
@@ -18,14 +21,11 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 
     static get styles() {
         return css`
-            .login-form{
-                //background-color: white;
-            }
 
             .container{
                 width: 500px;
                 //background-color: lightblue;
-               // box-shadow: 5px 10px 18px #888888;
+                //box-shadow: 5px 10px 18px #888888;
                // border-radius: 5px;
                 height: 100%;
             }
@@ -52,6 +52,11 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 border-radius:5px;
             }
 
+            lion-button:hover {
+                background-color: #057305c2;
+                cursor:pointer;
+            }
+
             .login{
                 
                 text-align: right;
@@ -61,9 +66,8 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 outline: none; 
             }
             
-            button:hover,
-            button:active,
-            button:focus 
+            lion-button:active,
+            lion-button:focus 
             {
                 background-color: white;
                 color: steelblue;
@@ -82,39 +86,77 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 text-decoration: none;
             }
 
+            #errormessage{
+                color: red;
+            }
+
         `
 
     }
 
     constructor(){
         super();
+        this.errorMessage = null;
+        loadDefaultFeedbackMessages();
     }
 
 
     static get properties() {
         return{
-            'type' : 'string'
+            errorMessage: { type: String }
+        };
+    }
+
+        
+    authenticateUser(ev){
+
+        ev.preventDefault()
+
+        const formData = ev.target.serializedValue;
+        
+        const url = 'http://localhost:3000/auth/login';
+
+        const username = this.shadowRoot.getElementById('username').value;
+        const password = this.shadowRoot.getElementById('password').value;
+        
+        if(username && password){
+
+            ajax
+            .post(url,formData)
+            
+            .then(response => {
+                this.errorMessage = null;
+                sessionStorage.setItem("username", username);
+                window.location.href = "/search";
+            })
+            .catch(error => {
+                this.errorMessage = "Invalid Username or Password";
+            });
+        }else{
+           console.log("field is empty"); 
         }
+         
     }
 
     render() {
-        loadDefaultFeedbackMessages();
+        
         return html`
-            <lion-form>
-                <form class="login-form" @submit=${ev => ev.preventDefault()}>
+            <lion-form @submit=${this.authenticateUser}>
+                <form class="login-form" @submit= ${(ev) =>ev.preventDefault()}>
                     <div class="container">
                         <div class="title">
-                            <h2>Login Details</h2>
+                            <h2>${localize.msg('lit-html-example:logindetails')}</h2>
                         </div>
                         <div class="username">
-                            <lion-input name= "user-name" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required()]}">Username</lion-input>
+                            <lion-input id="username" name="username" .fieldName="${localize.msg('lit-html-example:username')}" label="${localize.msg('lit-html-example:username')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid Username' })]}">Username</lion-input>
                         </div>
                         <div class="password">
-                            <lion-input type="password" name= "password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Pattern(/^[a-zA-Z\s]*$/), new Required()]}">Password</lion-input>
+                            <lion-input id="password" type="password" name="password" label="${localize.msg('lit-html-example:password')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid password' })]}">Password</lion-input>
                         </div>
                         <div class="login">
-                            <a href="/search"><lion-button id="loginBtn">${localize.msg('lit-html-example:btn')}</lion-button></a>
+                            <lion-button type="submit" >${localize.msg('lit-html-example:btn')}</lion-button>
                         </div>
+                        <div id="errormessage">${this.errorMessage}</div>
                     </div>
                 </form>
             </lion-form>
@@ -124,45 +166,3 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 }
 
 window.customElements.define('login-component', LoginComponent);
-
-
-
-
-
-// import { LitElement, html } from "lit-element";
-// import '@lion/button/lion-button.js';
-
-// export class LoginComponent extends LitElement
-// {
-//     constructor()
-//     {
-//         super();
-//     }
-
-//     // updated()
-//     // {
-//     //     super.updated();
-//     //     this.shadowRoot.querySelector('lion-button').addEventListener('click', this.btnClicked);
-//     // }
-
-//     // btnClicked()
-//     // {
-//     //     // debugger;
-//     //     window.location.pathname="/about";
-//     // }
-
-//     render()
-//     {
-//         return html`
-//             <div>Login Page</div>
-//             <lion-button><a href="/about">Click me link</a></lion-button>
-//             <button><a href="/about">Click me btn</a></button>
-//             <a href="/about">Keshav</a>
-//         `;
-//     }
-// }
-
-// customElements.define('login-component', LoginComponent);
-
-
-// {/* <button><a href="/about">Click me</a></button> */}
