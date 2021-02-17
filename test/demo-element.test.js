@@ -16,4 +16,8 @@
 
 //     expect(el.title).to.equal('LitElement');
 //   });
+<<<<<<< HEAD
 // });
+=======
+// });
+>>>>>>> 4912933 (Add commented demo element test js same as that of main)
