@@ -37,7 +37,8 @@ export class ApplicationContainer extends LitElement
         router.setRoutes([
             {path: '/', component: 'login-component'},
             {path: '/search', component: 'search-component'},
-            {path: '/details', component: 'customer-form-component'},
+            {path: '/custform', component: 'customer-form-component'},
+            {path: '/details/:id', component: 'customer-form-component'},
             {path: '/updated', component: 'updated-details-component'},
             {path: '/otpvalidation', component: 'otp-validation-component'},
             {path: '/success', component: 'success-component'},
@@ -51,7 +52,7 @@ export class ApplicationContainer extends LitElement
     {
         return html`
             <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+            <base href="/">
             <div id="header-div">
                 <header-component></header-component>
             </div>
