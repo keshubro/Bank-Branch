@@ -148,7 +148,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
         console.log(this.matchList);
 
-        this.search.addEventListener('input', () => this.searchStates(this.search.value).bind(this));
+        this.search.addEventListener('input', () => this.searchStates(this.search.value));
         this.matchList.addEventListener('click', this.itemClicked.bind(this));
     }
 

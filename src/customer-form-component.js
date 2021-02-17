@@ -6,6 +6,8 @@ import '@lion/select/lion-select.js';
 import '@lion/input/lion-input.js';
 import '@lion/input-email/lion-input-email.js';
 import '@lion/input-datepicker/lion-input-datepicker.js';
+import { ajax } from '@lion/ajax';
+import { nothing } from 'lit-html';
 
 
 export class CustomerFormComponent extends LocalizeMixin(LitElement) {
@@ -17,6 +19,12 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         ];
       }
 
+    static get properties() {
+        return{
+            customerDetails: { type: Object },
+            isLoading: { type: Boolean}
+        }
+    }
 
     
     static get styles() {
@@ -59,17 +67,75 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
            `;
     }
     
+    connectedCallback(){
+        super.connectedCallback();
+        this.isLoading = true;
+        
+        /* console.log(location.search);
+        const queryString=location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const product = urlParams.get('custaccno');
+        console.log(product); */
+
+
+        console.log(location.hash);
+        console.log(location.hash.slice(1));
+
+        const cust_acc_no = location.hash.slice(1);
+
+        //const cust_acc_no = window.location.params.id;
+      
+       //const cust_acc_no = sessionStorage.getItem('accno');
+        const url = 'http://localhost:3000/customers?accountno=' + cust_acc_no;
+        
+        ajax
+      .get(url)
+      .then(response => {
+       
+        //this.isLoading = true;
+        console.log("isLoading:"+this.isLoading);
+        this.customerDetails=response.data;
+        console.log("fetched details");
+        console.log(this.customerDetails[0].name);
+        //console.log(Object.keys(this.customerDetails).length);
+
+      })
+      .catch(error => {
+        console.log("failed to fetch the data");
+        console.log(error);
+      })
+      .finally(() => {
+        console.log("finally block");
+          this.isLoading=false;
+          console.log("isLoading:"+this.isLoading);
+      });
+      
+    }
   
     constructor() {
         super();
+        this.isLoading = false;
+        
+    }
+
+    backBtnHandler(){
+        console.log("back button clicked");
+        window.location.href = "/search";
+    }
+
+    updateBtnHandler(){
+        console.log("update button clicked");
+        
     }
 
     
+    
     render() {
-        return html`
+        return this.isLoading?  html`<div>Loading icon</div>`: 
+         Object.keys(this.customerDetails).length > 0 ? html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
                     <lion-form class="form-container">
-                        <form>
+                        <form @submit= ${(ev) =>ev.preventDefault()}>
                             <div class="container">
                                 <div class="row mb-2">
                                     <div class="col">
@@ -78,27 +144,27 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input class="input-field" name="Name" label="${localize.msg('lit-html-example:name')}"></lion-input>
+                                        <lion-input class="input-field" name="Name" .modelValue=${this.customerDetails[0].name} label="${localize.msg('lit-html-example:name')}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input name="SurName" label="${localize.msg('lit-html-example:surName')}"></lion-input>
+                                        <lion-input name="SurName" .modelValue=${this.customerDetails[0].surname} label="${localize.msg('lit-html-example:surName')}"></lion-input>
                                     </div>
                                 </div>
                                  <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input-datepicker label="${localize.msg('lit-html-example:dob')}" name="DOB"></lion-input-datepicker>
+                                        <lion-input-datepicker .modelValue=${new Date(this.customerDetails[0].dob)} label="${localize.msg('lit-html-example:dob')}" name="DOB"></lion-input-datepicker>
                                     </div>
                                 </div>
                                  <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input-email name="email" label="${localize.msg('lit-html-example:email')}"></lion-input-email>
+                                        <lion-input-email name="email" .modelValue=${this.customerDetails[0].email} label="${localize.msg('lit-html-example:email')}"></lion-input-email>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <lion-input name="mobileNo" label="${localize.msg('lit-html-example:mobileNo')}"></lion-input>
+                                        <lion-input name="mobileNo" .modelValue=${this.customerDetails[0].mobileno} label="${localize.msg('lit-html-example:mobileNo')}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -108,35 +174,35 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input name="apartment" label="${localize.msg('lit-html-example:apartmentNo')}"></lion-input>
+                                        <lion-input name="apartment" .modelValue=${this.customerDetails[0].apartmentno} label="${localize.msg('lit-html-example:apartmentNo')}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input name="street" label="${localize.msg('lit-html-example:street')}"></lion-input>
+                                        <lion-input name="street" .modelValue=${this.customerDetails[0].street} label="${localize.msg('lit-html-example:street')}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input name="city" label="${localize.msg('lit-html-example:city')}"></lion-input>
+                                        <lion-input name="city" .modelValue=${this.customerDetails[0].city} label="${localize.msg('lit-html-example:city')}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input name="pincode" label="${localize.msg('lit-html-example:pincode')}"></lion-input>
+                                        <lion-input name="pincode" .modelValue=${this.customerDetails[0].pincode} label="${localize.msg('lit-html-example:pincode')}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-input name="state" label="${localize.msg('lit-html-example:state')}"></lion-input>
+                                        <lion-input name="state" .modelValue=${this.customerDetails[0].state} label="${localize.msg('lit-html-example:state')}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <lion-button>${localize.msg('lit-html-example:back')}</lion-button>
+                                        <lion-button @click="${this.backBtnHandler}">${localize.msg('lit-html-example:back')}</lion-button>
                                     </div>
                                     <div class="col update">
-                                        <lion-button id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
+                                        <lion-button @click="${this.updateBtnHandler}"id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +210,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                         </form>
                     </lion-form>  
             
-          `;
+          `: nothing
     }
 
 }

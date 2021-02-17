@@ -10,6 +10,8 @@ class cardComp extends LitElement {
       }
     constructor() {
         super();
+        this.accountno='';
+        this.msg='hi';
     }
 
   static get styles(){
@@ -47,12 +49,34 @@ class cardComp extends LitElement {
   }
 
   updated(){
-      this.shadowRoot.getElementById('card-items').addEventListener('click',this.cardClicked);
+      this.shadowRoot.getElementById('card-items').addEventListener('click',() => {
+        console.log("card clicked"); 
+        console.log(this.accountno);
+
+        sessionStorage.setItem('accno',this.accountno);
+
+        window.location.href='/custform/#'+this.accountno;
+        
+        //const url = '/custform/'+this.accountno;
+        //window.location.href= '/custform/'+this.accountno;
+        //window.location.href='/details';
+
+
+        //window.location.href='/details/'+this.accountno;
+
+        /* const obj = { name:'Divya', lastname: 'Ram'};
+        window.location.href='/custform/?custaccno='+obj; */
+      });
+      //console.log(this.accountno);
   }
 
-  cardClicked(){
-      window.location.href='/details';
-  }
+//   cardClicked(){
+//       //window.location.href='/details/'+this.accountno;
+//       console.log("card clicked fun called");
+//       console.log(this.accountno);
+//       console.log(this.msg);
+//       //window.location.href='/details';
+//   }
 
 
   render() {
