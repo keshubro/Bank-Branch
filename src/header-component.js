@@ -1,6 +1,8 @@
 import { LitElement, html, css } from 'lit-element';
 import '@lion/button/lion-button.js';
 import { localize,LocalizeMixin } from '@lion/localize';
+import '../node_modules/@fortawesome/fontawesome-free/js/all.js';
+import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
 export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
@@ -81,6 +83,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
       <div class="row">
         <div class="col-3 home-link d-flex justify-content-start">
             <a href="/search" class="home-link-a">Home</a>
+            <i class="fas fa-camera"></i>
         </div>
         <div class="col-6 header-cnt d-flex align-items-center justify-content-center" id="heading">
         ${localize.msg('lit-html-example:heading')}

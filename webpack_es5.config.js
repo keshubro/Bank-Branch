@@ -59,14 +59,24 @@ module.exports = ({ mode }) => {
           }
         },
         {
-          test: /\.css|\.s(c|a)ss$/,
-          use: [{
-            loader: 'lit-scss-loader',
-            options: {
-              minify: true
-            },
-          }, 'extract-loader', 'css-loader', 'sass-loader'],
+            test: /\.css|\.s(c|a)ss$/,
+            use: [{
+                loader: 'lit-scss-loader',
+                options: {
+                minify: true, // defaults to false
+                },
+            }, 'extract-loader', 'css-loader', 'sass-loader']
+            
+        },
+        {
+            test: /\.(sass|scss|css)$/,
+            use: ['style-loader','css-loader','sass-loader']
+        },
+        {
+            test: /\.(svg|eot|woff|woff2|ttf)$/,
+            use: ['file-loader']
         }
+        
       ]
     },
     plugins

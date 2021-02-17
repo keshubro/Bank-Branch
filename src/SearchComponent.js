@@ -193,8 +193,6 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             
         }
 
-        
-
         this.outputHtml(matches);
     }
 
