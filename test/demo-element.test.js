@@ -1,12 +1,12 @@
-import { html, fixture, expect } from '@open-wc/testing';
+/*import { html, fixture, expect } from '@open-wc/testing';
 
-import '../src/demo-element';
+//import '../src/demo-element';
 
-describe('<demo-element/>', () => {
-  let el;
+//describe('<demo-element/>', () => {
+  //let el;
 
-  beforeEach(async () => {
-    el = await fixture(html`
+  //beforeEach(async () => {
+ --   el = await fixture(html`
       <demo-element></demo-element>
     `);
   });
@@ -16,4 +16,4 @@ describe('<demo-element/>', () => {
 
     expect(el.title).to.equal('LitElement');
   });
-});
+}); */
