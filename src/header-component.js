@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit-element';
 import '@lion/button/lion-button.js';
 import { localize,LocalizeMixin } from '@lion/localize';
-import '../node_modules/@fortawesome/fontawesome-free/js/all.js';
-import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+// import '../node_modules/@fortawesome/fontawesome-free/js/all.js';
+// import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
 export class HeaderComponent extends LocalizeMixin(LitElement)  {
 

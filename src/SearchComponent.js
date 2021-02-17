@@ -100,6 +100,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             .search-results-container{
                 padding: 20px;
             }
+
         `
 
     }
@@ -148,7 +149,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
         console.log(this.matchList);
 
-        this.search.addEventListener('input', () => this.searchStates(this.search.value));
+        this.search.addEventListener('input', () => this.searchStates(this.search.value).bind(this));
         this.matchList.addEventListener('click', this.itemClicked.bind(this));
     }
 
@@ -192,6 +193,8 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             this.matchList.innerHTML = '';
             
         }
+
+        
 
         this.outputHtml(matches);
     }
@@ -256,31 +259,41 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
     render() {
         loadDefaultFeedbackMessages();
-        return html`
-        
-            <div class="search-comp-container">
-            <lion-form >
-                <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
-                    <div class="container">
-                        <div class="search-customer">
-                            <h2>${localize.msg('lit-html-example:searchHeading')}</h2>
-                        </div>
-                        <div class="account-number">
-                            <lion-input name= "account number" id="search" label="${localize.msg('lit-html-example:accountnumber')}">Account Number</lion-input>
-                            
-                            <div id="match-list"></div>
-                            
-                        </div>
-                        <div class="search">    
-                            <lion-button  @click=${this.searchBtnClicked}>${localize.msg('lit-html-example:search')}</lion-button>
-                        </div>
-                    </div>
-                    
-                </form>
-            </lion-form>
-            <div class="search-results-container">
 
-            <div id="alert-container">
+        return html`
+            <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+            <div class="search-comp-container">
+                <lion-form >
+                    <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
+                        <div class="container">
+                            <div class="search-customer mb-3">
+                                <h2>${localize.msg('lit-html-example:searchHeading')}</h2>
+                            </div>
+                            
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-sm-4 col-xs-12">
+                                    <label>${localize.msg('lit-html-example:accountnumber')} :</label>
+                                </div>
+                                <div class="col-sm-8 col-xs-12">
+                                    <lion-input name= "account number" id="search">Account Number</lion-input>
+                                </div>
+                            </div>
+
+                            <div id="match-list"></div>
+
+                            
+                            <div class="search">  
+                                <lion-button  @click=${this.searchBtnClicked}>${localize.msg('lit-html-example:search')}</lion-button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </lion-form>
+                
+                <div class="search-results-container">
+
+                <div id="alert-container">
             
             </div>
            
