@@ -235,7 +235,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <lion-button @click="${this.backBtnHandler}">${localize.msg('lit-html-example:back')}</lion-button>
                                     </div>
                                     <div class="col update">
-                                        <lion-button @click="${this.updateBtnHandler}"id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
+                                        <lion-button @click="${this.updateBtnHandler}" id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
                                     </div>
                                 </div>
                             </div>
