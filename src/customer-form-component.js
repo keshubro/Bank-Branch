@@ -6,6 +6,13 @@ import '@lion/select/lion-select.js';
 import '@lion/input/lion-input.js';
 import '@lion/input-email/lion-input-email.js';
 import '@lion/input-datepicker/lion-input-datepicker.js';
+
+import '@lion/dialog/lion-dialog.js';
+import './style-dialog-content.js';
+
+import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
+import { IsEmail } from '@lion/form-core';
+
 import { ajax } from '@lion/ajax';
 import { nothing } from 'lit-html';
 
@@ -99,7 +106,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         console.log("isLoading:"+this.isLoading);
         this.customerDetails=response.data;
         console.log("fetched details");
-        console.log(this.customerDetails[0].name);
+        console.log(this.customerDetails[0].accountno);
+
         //console.log(Object.keys(this.customerDetails).length);
 
       })
@@ -118,6 +126,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     constructor() {
         super();
         this.isLoading = false;
+        this.updatedDetails = {};
         
     }
 
@@ -128,12 +137,21 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
     updateBtnHandler(){
         console.log("update button clicked");
+        console.log(this.updatedDetails);
+       // e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+
+       const custAccNo = this.customerDetails[0].accountno;
+       const id= this.customerDetails[0].id;
+        window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&accno='+ custAccNo + '&id=' + id;
+
+      // window.location.href='/updated';
         
     }
 
     
     
     render() {
+        loadDefaultFeedbackMessages();
         return this.isLoading?  html`<div>Loading icon</div>`: 
          Object.keys(this.customerDetails).length > 0 ? html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -150,7 +168,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:name')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                            <lion-input class="input-field" name="Name" .modelValue=${this.customerDetails[0].name}></lion-input>
+                                            <lion-input class="input-field" name="Name" .modelValue=${this.customerDetails[0].name} @model-value-changed=${({ target }) =>{ this.updatedDetails.name = target.value;console.log("target model value changed name"+target.value);}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -158,7 +176,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:surName')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input name="SurName" .modelValue=${this.customerDetails[0].surname}></lion-input>
+                                        <lion-input name="SurName" .modelValue=${this.customerDetails[0].surname} @model-value-changed=${({ target }) =>{ this.updatedDetails.surname = target.value;}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -166,7 +184,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:dob')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input-datepicker .modelValue=${new Date(this.customerDetails[0].dob)} name="DOB"></lion-input-datepicker>
+                                        <lion-input-datepicker .modelValue=${new Date(this.customerDetails[0].dob)} name="DOB" @model-value-changed=${({ target }) =>{ this.updatedDetails.dob = target.value;}}></lion-input-datepicker>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -174,7 +192,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:email')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input-email name="email" .modelValue=${this.customerDetails[0].email}></lion-input-email>
+                                        <lion-input-email name="email" .modelValue=${this.customerDetails[0].email} @model-value-changed=${({ target }) =>{ this.updatedDetails.email = target.value;}} .validators="${[new IsEmail(null, { getMessage: () => 'Please select a valid email id' })]}"></lion-input-email>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -182,7 +200,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:mobileNo')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input name="mobileNo" .modelValue=${this.customerDetails[0].mobileno}></lion-input>
+                                        <lion-input name="mobileNo" .modelValue=${this.customerDetails[0].mobileno} @model-value-changed=${({ target }) =>{ this.updatedDetails.mobileno = target.value;}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -195,7 +213,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:apartmentNo')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input name="apartment" .modelValue=${this.customerDetails[0].apartmentno}></lion-input>
+                                        <lion-input name="apartment" .modelValue=${this.customerDetails[0].apartmentno} @model-value-changed=${({ target }) =>{ this.updatedDetails.apartmentno = target.value;}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -203,7 +221,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:street')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input name="street" .modelValue=${this.customerDetails[0].street}></lion-input>
+                                        <lion-input name="street" .modelValue=${this.customerDetails[0].street} @model-value-changed=${({ target }) =>{ this.updatedDetails.street = target.value;}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -211,7 +229,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:city')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input name="city" .modelValue=${this.customerDetails[0].city}></lion-input>
+                                        <lion-input name="city" .modelValue=${this.customerDetails[0].city} @model-value-changed=${({ target }) =>{ this.updatedDetails.city = target.value;}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -219,7 +237,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:pincode')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input name="pincode" .modelValue=${this.customerDetails[0].pincode}></lion-input>
+                                        <lion-input name="pincode" .modelValue=${this.customerDetails[0].pincode} @model-value-changed=${({ target }) =>{ this.updatedDetails.pincode = target.value;}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">
@@ -227,7 +245,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:state')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                        <lion-input name="state" .modelValue=${this.customerDetails[0].state}></lion-input>
+                                        <lion-input name="state" .modelValue=${this.customerDetails[0].state} @model-value-changed=${({ target }) =>{ this.updatedDetails.state = target.value;}}></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -235,7 +253,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <lion-button @click="${this.backBtnHandler}">${localize.msg('lit-html-example:back')}</lion-button>
                                     </div>
                                     <div class="col update">
-                                        <lion-button @click="${this.updateBtnHandler}" id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
+                                        <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>
+                                            <lion-button slot="invoker" id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
+                                            <styled-dialog-content .updatedCustomerDetails="${this.updatedDetails}" @summary-page=${this.updateBtnHandler} slot="content"></styled-dialog-content>
+                                        </lion-dialog>
+                                       
                                     </div>
                                 </div>
                             </div>

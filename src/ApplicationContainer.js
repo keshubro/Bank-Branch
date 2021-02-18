@@ -3,6 +3,7 @@ import './header-component';
 import './LoginComponent';
 import './SearchComponent';
 import './customer-form-component';
+import './updated-details-component';
 import { Router } from '@vaadin/router';
 
 export class ApplicationContainer extends LitElement
@@ -39,7 +40,7 @@ export class ApplicationContainer extends LitElement
             {path: '/search', component: 'search-component'},
             {path: '/custform', component: 'customer-form-component'},
             {path: '/details/:id', component: 'customer-form-component'},
-            {path: '/updated', component: 'updated-details-component'},
+            {path: '/updated/(.*)', component: 'updated-details-component'},
             {path: '/otpvalidation', component: 'otp-validation-component'},
             {path: '/success', component: 'success-component'},
             {path: '/about', component: 'about-component'},
