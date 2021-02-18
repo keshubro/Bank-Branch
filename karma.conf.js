@@ -12,8 +12,8 @@ module.exports = config => {
         // npm run test -- --grep test/bar/*
         { pattern: config.grep ? config.grep : 'test/**/*.test.js', type: 'module' },
       ],
-       browsers: ['Chrome'],
-       singleRun: false,
+      //  browsers: ['Chrome'],
+      //  singleRun: false,
        esm: {
          nodeResolve: true,
        },
