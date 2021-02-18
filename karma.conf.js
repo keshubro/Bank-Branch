@@ -12,7 +12,13 @@ module.exports = config => {
         // npm run test -- --grep test/bar/*
         { pattern: config.grep ? config.grep : 'test/**/*.test.js', type: 'module' },
       ],
-       browsers: ['ChromeHeadless'],
+      browsers: ['ChromeHeadlessCI'],
+      customLaunchers: {
+        ChromeHeadlessCI: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
+      },
        //singleRun: false,
        esm: {
          nodeResolve: true,
