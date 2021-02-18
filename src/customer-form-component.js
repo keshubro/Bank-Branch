@@ -1,16 +1,21 @@
-import { LitElement, html, css } from "lit-element";
-import { localize, LocalizeMixin } from "@lion/localize";
-import "@lion/form/lion-form.js";
-import "@lion/button/lion-button.js";
-import "@lion/select/lion-select.js";
-import "@lion/input/lion-input.js";
-import "@lion/input-email/lion-input-email.js";
-import "@lion/input-datepicker/lion-input-datepicker.js";
-import "@lion/select-rich/lion-select-rich.js";
-import "@lion/listbox/lion-options.js";
-import "@lion/listbox/lion-option.js";
-import "@lion/dialog/lion-dialog.js";
-import "./style-dialog-content.js";
+import { LitElement, html, css } from 'lit-element';
+import { localize,LocalizeMixin } from '@lion/localize';
+import '@lion/form/lion-form.js';
+import '@lion/button/lion-button.js';
+import '@lion/select/lion-select.js';
+import '@lion/input/lion-input.js';
+import '@lion/input-email/lion-input-email.js';
+import '@lion/input-datepicker/lion-input-datepicker.js';
+
+import '@lion/dialog/lion-dialog.js';
+import './style-dialog-content.js';
+
+import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
+import { IsEmail } from '@lion/form-core';
+
+
+import { ajax } from '@lion/ajax';
+import { nothing } from 'lit-html';
 
 import { loadDefaultFeedbackMessages } from "@lion/validate-messages";
 import { IsDate, IsEmail, Required, Validator } from "@lion/form-core";
@@ -276,6 +281,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         this.profileChanged = "false";
         this.cityNotInTheList = true;
         this.listOfCities = [];
+        
     }
 
     backBtnHandler() {
@@ -283,7 +289,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         window.location.href = "/search";
     }
 
-    updateBtnHandler(e) {
+    updateBtnHandler(e){
         console.log("update button clicked");
         console.log(this.updatedDetails);
        // e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));

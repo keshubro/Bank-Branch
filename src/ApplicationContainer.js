@@ -1,12 +1,10 @@
 import { LitElement, html, css } from "lit-element";
-import "./header-component";
-import "./LoginComponent";
-import "./SearchComponent";
-import "./customer-form-component";
-// import './OtpValidationComponent';
-import "./updated-details-component";
-import "./Otp-validation-component";
-import "./SuccessComponent";
+import './header-component';
+import './LoginComponent';
+import './SearchComponent';
+import './customer-form-component';
+import './updated-details-component';
+import { Router } from '@vaadin/router';
 
 //import './demo-component';
 import { Router } from "@vaadin/router";
@@ -59,14 +57,14 @@ export class ApplicationContainer extends LitElement {
         const router = new Router(outlet);
 
         router.setRoutes([
-            { path: "/", component: "login-component" },
-            { path: "/search", component: "search-component" },
-            { path: "/custform", component: "customer-form-component" },
-            { path: "/details/:id", component: "customer-form-component" },
-            { path: "/updated/(.*)", component: "updated-details-component" },
-            { path: "/otpvalidation", component: "otp-validation-component" },
-            { path: "/success", component: "success-component" },
-            { path: "/about", component: "about-component" },
+            {path: '/', component: 'login-component'},
+            {path: '/search', component: 'search-component'},
+            {path: '/custform', component: 'customer-form-component'},
+            {path: '/details/:id', component: 'customer-form-component'},
+            {path: '/updated/(.*)', component: 'updated-details-component'},
+            {path: '/otpvalidation', component: 'otp-validation-component'},
+            {path: '/success', component: 'success-component'},
+            {path: '/about', component: 'about-component'},
         ]);
     }
 
