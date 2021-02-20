@@ -9,30 +9,36 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+   install:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node-version: [12.x]
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
 
+        - name: Set up Node.js
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Run the tests
+          run: npm run test
+
+        - name: Build
+          run: npm run build 
+      
+   deploy:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-
-    #strategy:
-      #matrix:
-       # node-version: [12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+    name: deployment
+    needs: install
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: deploy
+        run: curl -X POST -d {} ${{ secrets.NETLIFY_HOOKS }}
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run the tests
-      run: npm run test
-
-    - name: Build
-      run: npm run build 
     
