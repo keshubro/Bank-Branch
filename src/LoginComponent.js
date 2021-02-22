@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit-element';
 import '@lion/form/lion-form.js';
 import '@lion/input/lion-input.js';
 import '@lion/button/lion-button.js';
+import '@lion/fieldset/lion-fieldset.js';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required, Pattern } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
@@ -66,6 +67,10 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                 font-weight: bold;
                 outline: none; 
             }
+
+            .form-control{
+                padding: 0 0 0 5px;
+            }
             
             h2{
                 text-align: center;
@@ -77,6 +82,28 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 
             #errormessage{
                 color: red;
+            }
+
+            .input-label-prefix{
+                display: block;
+                margin-right: 8px;
+            }
+
+            .input-label{
+                display: none;
+            }
+
+            @media only screen and (max-width: 576px) {
+                .input-label{
+                    display: inline-block;
+                }
+                .input-label-prefix{
+                    display: none;
+                }
+
+                .input-label-suffix{
+                    display: block;
+                }
             }
 
         `
@@ -132,29 +159,29 @@ export class LoginComponent extends LocalizeMixin(LitElement){
         return html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-            <lion-form @submit=${this.authenticateUser}>
+            <lion-form @submit=${this.authenticateUser} responsive>
                 <form class="login-form" @submit= ${(ev) =>ev.preventDefault()}>
                     <div class="cont">
                         <div class="title">
                             <h2>${localize.msg('lit-html-example:logindetails')}</h2>
                         </div>
                         <div class="container">
-                            <div class="row d-flex justify-content-center align-items-center">
-                                <div class="col-sm-3 col-xs-12">
-                                    <label>${localize.msg('lit-html-example:username')} :</label>
-                                </div>
-                                <div class="col-sm-9 col-xs-12">
+                            <div class="row d-flex align-items-end">
+                                <div class="col">
                                     <div class="username">
-                                        <lion-input id="username" name="username" .fieldName="${localize.msg('lit-html-example:username')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid Username' })]}"></lion-input>
+                                        <lion-input id="username" name="username" .fieldName="${localize.msg('lit-html-example:username')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid Username' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:username')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:username')} :</span>
+                                        </lion-input>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row d-flex justify-content-center align-items-center">
-                                <div class="col-sm-3 col-xs-12">
-                                    <label>${localize.msg('lit-html-example:password')} :</label>
-                                </div>
-                                <div class="col-sm-9 col-xs-12">
-                                        <lion-input id="password" type="password" name="password" .validators="${[new Required(null, { getMessage: () => 'Please select a valid password' })]}">Password</lion-input>
+                            <div class="row d-flex align-items-end">
+                                <div class="col">
+                                    <lion-input id="password" type="password" name="password" .validators="${[new Required(null, { getMessage: () => 'Please select a valid password' })]}">
+                                        <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:password')} :</span>
+                                        <span slot="label" class="input-label">${localize.msg('lit-html-example:password')} :</span>
+                                    </lion-input>
                                 </div>
                             </div>
                         </div>
@@ -165,9 +192,14 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                     </div>
                 </form>
             </lion-form>
+
+
+            
         `;
     }
 
 }
 
 window.customElements.define('login-component', LoginComponent);
+
+

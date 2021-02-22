@@ -66,7 +66,9 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 cursor:pointer;
             }
 
-            
+            .form-control{
+                padding: 0 0 0 5px;
+            }
           
             .search{
                 
@@ -99,6 +101,28 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
             .search-results-container{
                 padding: 20px;
+            }
+
+            .input-label-prefix{
+                display: block;
+                margin-right: 8px;
+            }
+
+            .input-label{
+                display: none;
+            }
+
+            @media only screen and (max-width: 576px) {
+                .input-label{
+                    display: inline-block;
+                }
+                .input-label-prefix{
+                    display: none;
+                }
+
+                .input-label-suffix{
+                    display: block;
+                }
             }
 
         `
@@ -271,12 +295,12 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                                 <h2>${localize.msg('lit-html-example:searchHeading')}</h2>
                             </div>
                             
-                            <div class="row d-flex justify-content-center align-items-center">
-                                <div class="col-sm-4 col-xs-12">
-                                    <label>${localize.msg('lit-html-example:accountnumber')} :</label>
-                                </div>
-                                <div class="col-sm-8 col-xs-12">
-                                    <lion-input name= "account number" id="search">Account Number</lion-input>
+                            <div class="row d-flex justify-content-center align-items-end">
+                                <div class="col">
+                                    <lion-input name= "account number" id="search">
+                                        <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:accountnumber')} :</span>
+                                        <span slot="label" class="input-label">${localize.msg('lit-html-example:accountnumber')} :</span>
+                                    </lion-input>
                                 </div>
                             </div>
 

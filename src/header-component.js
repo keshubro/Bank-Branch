@@ -1,6 +1,11 @@
 import { LitElement, html, css } from 'lit-element';
 import '@lion/button/lion-button.js';
 import { localize,LocalizeMixin } from '@lion/localize';
+import '@lion/dialog/lion-dialog.js';
+import '@lion/icon/lion-icon.js';
+import tag from './images/power-off-solid.js';
+import homeIcon from './images/home-solid.js';
+import './LogoutDialogComponent';
 // import '../node_modules/@fortawesome/fontawesome-free/js/all.js';
 // import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
@@ -29,7 +34,8 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
         #logout-link{
             border: none;
-            padding-top: 0;
+            padding: 0;
+            margin: 0;
         }
 
         .home-link{
@@ -64,6 +70,28 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
           background: green;
         }
 
+        #logoutIcon{
+            font-size: 26px;
+            
+        }
+
+        #homeIcon{
+            font-size: 26px;
+        }
+
+        strong{
+            color: black;
+        }   
+
+
+        @media only screen and (max-width: 576px) {
+            #logoutIcon{
+                font-size: 16px;
+                margin-top: 5px;
+            }
+        }
+            
+
         `;
       }
     
@@ -74,6 +102,11 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     this.buttonNL={};
   }
 
+  logoutUser()
+  {
+    window.location.href = '/';
+  }
+
 
   render() {
     return html`
@@ -82,15 +115,25 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     <div class="container-fluid">
       <div class="row">
         <div class="col-3 home-link d-flex justify-content-start">
-            <a href="/search" class="home-link-a">Home</a>
-            <i class="fas fa-camera"></i>
+            <a href="/search" class="home-link-a"><lion-icon aria-label="Pointing left" .svg="${homeIcon}" id="homeIcon"></lion-icon></a>
+            
         </div>
         <div class="col-6 header-cnt d-flex align-items-center justify-content-center" id="heading">
         ${localize.msg('lit-html-example:heading')}
         </div>
-        <div class="col logout-part">
-            <strong id="loggedin-user"></strong>
-            <lion-button id="logout-link">Logout</lion-button>   
+        <div class="col logout-part d-flex justify-content-center align-items-center">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-sm-9 col-xs-4">
+                    <strong id="loggedin-user"></strong>
+                </div>
+                <div class="col-sm-3 col-xs">
+                    <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>
+                        <lion-button id="logout-link" slot="invoker"><lion-icon aria-label="Pointing left" .svg="${tag}" id="logoutIcon"  @click=${this.logoutClicked}></lion-button>   
+                        <styled-dialog-content slot="content" @logout-event=${this.logoutUser}></styled-dialog-content >
+                    </lion-dialog>
+                    <lion-button id="logout-link" slot="invoker"><lion-icon aria-label="Pointing left" .svg="${tag}" id="logoutIcon"  @click=${this.logoutClicked}></lion-button>   
+                </div>
+            </div>
         </div>
         <div class="col align-middle header-cnt">
           <div class="btn-container">
@@ -134,9 +177,9 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
         this.buttonEL=this.shadowRoot.querySelector("#btnEl");
         this.buttonNL=this.shadowRoot.querySelector("#btnNL");
 
-        this.shadowRoot.getElementById('logout-link').onclick = function(e){
-            window.location.href = '/';
-        }
+        // this.shadowRoot.getElementById('logout-link').onclick = function(e){
+        //     window.location.href = '/';
+        // }
     } 
 
     firstUpdated()
@@ -144,6 +187,11 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
         super.firstUpdated();
         // debugger;
         window.addEventListener('load', this.routeChanged.bind(this));
+    }
+
+    logoutClicked(e)
+    {
+        debugger;
     }
 
   changeLangToEL(){
