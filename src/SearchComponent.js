@@ -121,15 +121,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         }
     }
 
-    firstUpdated(){
-        super.firstUpdated();
-        ajax
-        .get('http://localhost:3000/customers')
-        .then(response => {
-            console.log(response.data);
-            this.customers = response.data;
-        });
-    }
+    
 
     updated()
     {
@@ -149,7 +141,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
         console.log(this.search);
         console.log(this.matchList);
 
-        this.search.addEventListener('input', () => this.searchStates(this.search.value).bind(this));
+        this.search.addEventListener('input', () => this.searchStates(this.search.value));
         this.matchList.addEventListener('click', this.itemClicked.bind(this));
     }
 
@@ -164,7 +156,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
     firstUpdated()
     {
         super.firstUpdated();
-
+        console.log("first updated 2");
         ajax
         .get('http://localhost:3000/customers')
         .then(response => {
