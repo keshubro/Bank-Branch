@@ -1,4 +1,11 @@
 {
+  "users" : [
+    {
+      "username": "john.doe",
+      "password": "john.doe@123"
+    }
+
+  ],
   "customers": [
     {
       "id": "1",
@@ -66,7 +73,7 @@
       "dob": "1998/10/22",
       "email": "ks@gmail.com",
       "mobileno": "9488705123",
-      "apartmentno": "755",
+      "apartmentno": "765",
       "street": "AB Street",
       "city": "Bangalore",
       "pincode": "560300",
