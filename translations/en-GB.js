@@ -23,5 +23,9 @@ export default {
     update: "Update",
     otpValidation: "OTP Validation",
     otpCode: "OTP Code",
+<<<<<<< HEAD
     validate: "Validation"
+=======
+    validate: "Validate"
+>>>>>>> 47b69fc (Otp component added)
 }
