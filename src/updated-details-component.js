@@ -7,16 +7,16 @@ export class updatedDetailsComponent extends LitElement{
     static get properties() {
         return{
             updatedCustomerDetails: { type: Object },
-            customerAccountNo : { type: String },
-            id : {type: String}
+            customerAccountNo: {type: String},
+            customerId : {type: String}
         }
     }
 
     static get styles() {
         return css`
             .update-container{
-                /*  background-color : pink;
-              border:none;*/
+                 /*background-color : pink;
+                 border:none; */
                  font-size:20px;
                  width:500px;
             }
@@ -72,11 +72,11 @@ export class updatedDetailsComponent extends LitElement{
         this.updatedCustomerDetails = JSON.parse(customerSetails);
         console.log(this.updatedCustomerDetails);
 
-        this.customerAccountNo = urlParams.get('accno');
-        //console.log(this.customerAccountNo);
+         this.customerAccountNo = urlParams.get('custAccNo');
+        console.log(this.customerAccountNo);
 
-        this.id = urlParams.get('id');;
-        console.log(this.id);
+        this.customerId = urlParams.get('custId');;
+        console.log(this.customerId);
     }
 
     updated(){
@@ -85,6 +85,7 @@ export class updatedDetailsComponent extends LitElement{
 
     editBtnHandler(){
         console.log("edit btn handler");
+        window.location.href='/custform/#'+this.customerAccountNo;
     }
 
     onUpdateHandler(){
@@ -93,10 +94,12 @@ export class updatedDetailsComponent extends LitElement{
               surname: 'Kennedy',
               apartmentno: '300',
           };
-        const url = 'http://localhost:3000/customers/'+ this.id;
+
+        const data = this.updatedCustomerDetails;
+        const url = 'http://localhost:3000/customers/'+ this.customerId;
         
           ajax
-            .patch(url, body)
+            .patch(url, data)
             .then(response => {
               console.log("PATCH successful");
             })

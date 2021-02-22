@@ -11,7 +11,7 @@ import '@lion/dialog/lion-dialog.js';
 import './style-dialog-content.js';
 
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
-import { IsEmail } from '@lion/form-core';
+import { IsEmail,Required } from '@lion/form-core';
 
 import { ajax } from '@lion/ajax';
 import { nothing } from 'lit-html';
@@ -141,8 +141,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        // e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
 
        const custAccNo = this.customerDetails[0].accountno;
-       const id= this.customerDetails[0].id;
-        window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&accno='+ custAccNo + '&id=' + id;
+       const customerId= this.customerDetails[0].id;
+        window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId;
 
       // window.location.href='/updated';
         
@@ -168,7 +168,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <label>${localize.msg('lit-html-example:name')} :</label>
                                     </div>
                                     <div class="col-sm-8 col-xs-12">
-                                            <lion-input class="input-field" name="Name" .modelValue=${this.customerDetails[0].name} @model-value-changed=${({ target }) =>{ this.updatedDetails.name = target.value;console.log("target model value changed name"+target.value);}}></lion-input>
+                                            <lion-input class="input-field" name="Name" .modelValue=${this.customerDetails[0].name} @model-value-changed=${({ target }) =>{ this.updatedDetails.name = target.value;console.log("target model value changed name"+target.value);}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid name' })]}"></lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3 justify-content-center align-items-end">

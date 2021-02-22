@@ -1,9 +1,20 @@
 {
   "customers": [
     {
-      "surname": "Kennedy",
-      "apartmentno": "300",
-      "id": "1"
+      "id": "1",
+      "username": "john.doe",
+      "password": "john.doe@123",
+      "accountno": "1065420859612356588",
+      "name": "John",
+      "surname": "Doe",
+      "dob": "1995/05/05",
+      "email": "jd@gmail.com",
+      "mobileno": "7856942319",
+      "apartmentno": "143",
+      "street": "XYZ Street",
+      "city": "Bangalore",
+      "pincode": "560001",
+      "state": "Karnataka"
     },
     {
       "id": "2",
@@ -26,11 +37,11 @@
       "surname": "Parker",
       "dob": "1990/07/29",
       "email": "rp@gmail.com",
-      "mobileno": "8900942779",
+      "mobileno": "8900942055",
       "apartmentno": "115",
-      "street": "NK Street",
+      "street": "ABC Street",
       "city": "Bangalore",
-      "pincode": "560001",
+      "pincode": "560003",
       "state": "Karnataka"
     },
     {
@@ -55,7 +66,7 @@
       "dob": "1998/10/22",
       "email": "ks@gmail.com",
       "mobileno": "9488705123",
-      "apartmentno": "191",
+      "apartmentno": "755",
       "street": "AB Street",
       "city": "Bangalore",
       "pincode": "560300",
@@ -72,7 +83,7 @@
       "apartmentno": "198",
       "street": "AR Street",
       "city": "Bangalore",
-      "pincode": "560001",
+      "pincode": "560003",
       "state": "Karnataka"
     },
     {
@@ -107,11 +118,11 @@
       "id": "9",
       "accountno": "1087294859612356588",
       "name": "Aditi",
-      "surname": "Singh",
+      "surname": "Sharma",
       "dob": "1995/08/15",
-      "email": "as@gmail.com",
+      "email": "asa@gmail.com",
       "mobileno": "9856243712",
-      "apartmentno": "208",
+      "apartmentno": "210",
       "street": "XY Street",
       "city": "Bangalore",
       "pincode": "560043",
