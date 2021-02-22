@@ -6,8 +6,42 @@ import '@lion/select/lion-select.js';
 import '@lion/input/lion-input.js';
 import '@lion/input-email/lion-input-email.js';
 import '@lion/input-datepicker/lion-input-datepicker.js';
+
+import '@lion/dialog/lion-dialog.js';
+import './style-dialog-content.js';
+
+import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
+import { IsDate,IsEmail,Required,Validator } from '@lion/form-core';
+
 import { ajax } from '@lion/ajax';
 import { nothing } from 'lit-html';
+
+
+class MyValidator extends Validator {
+    static get validatorName() {
+      return 'myValidator';
+    }
+    
+    execute(modelValue) {
+      
+        console.log(modelValue.length);
+        if (isNaN(modelValue)) {   
+            return true;
+        }else if(modelValue.length != 10) {
+            return true;
+        }else{
+            return false;
+        }
+          
+    }
+    
+    
+    static getMessage({ fieldName, modelValue}) {
+
+      return 'Please enter a valid mobile no';
+    }
+  }
+
 
 
 export class CustomerFormComponent extends LocalizeMixin(LitElement) {
@@ -121,7 +155,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         console.log("isLoading:"+this.isLoading);
         this.customerDetails=response.data;
         console.log("fetched details");
-        console.log(this.customerDetails[0].name);
+        console.log(this.customerDetails[0].accountno);
+
         //console.log(Object.keys(this.customerDetails).length);
 
       })
@@ -140,6 +175,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     constructor() {
         super();
         this.isLoading = false;
+        this.updatedDetails = {};
         
     }
 
@@ -148,14 +184,53 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         window.location.href = "/search";
     }
 
-    updateBtnHandler(){
+    updateBtnHandler(e){
         console.log("update button clicked");
+        console.log(this.updatedDetails);
+       // e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+
+       const isEmpty = this.validateFiels();
+       console.log("isEmpty"+isEmpty);
+       if(!(isEmpty)){
+            const custAccNo = this.customerDetails[0].accountno;
+            const customerId= this.customerDetails[0].id;
+            window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId;
+       }
+       else {
+           alert("All fields are required");
+           e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+       }
+      // window.location.href='/updated';
         
+    }
+
+    validateFiels(){
+
+        const name = this.shadowRoot.getElementById('name').value;
+        const surName = this.shadowRoot.getElementById('surName').value;
+        const dob = this.shadowRoot.getElementById('dob').value;
+        const emailID = this.shadowRoot.getElementById('emailId').value;
+        const mobileNo = this.shadowRoot.getElementById('mobileNo').value;
+
+        const apartmentNo = this.shadowRoot.getElementById('apartmentNo').value;
+        const street = this.shadowRoot.getElementById('street').value;
+        const city = this.shadowRoot.getElementById('city').value;
+        const pincode = this.shadowRoot.getElementById('pincode').value;
+        const state = this.shadowRoot.getElementById('state').value;
+        
+        if ( name == '' || surName == '' || dob == '' || emailID == '' || mobileNo == '' || apartmentNo == '' || street == '' || city == '' || pincode == '' || state == ''){
+            return true;
+        }else{
+            return false;
+        }
+
+       
     }
 
     
     
     render() {
+        loadDefaultFeedbackMessages();
         return this.isLoading?  html`<div>Loading icon</div>`: 
          Object.keys(this.customerDetails).length > 0 ? html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -257,7 +332,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <lion-button @click="${this.backBtnHandler}">${localize.msg('lit-html-example:back')}</lion-button>
                                     </div>
                                     <div class="col update">
-                                        <lion-button @click="${this.updateBtnHandler}" id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
+                                        <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>
+                                            <lion-button slot="invoker" id="updateBtn">${localize.msg('lit-html-example:update')}</lion-button>
+                                            <styled-dialog-content .updatedCustomerDetails="${this.updatedDetails}" @summary-page=${this.updateBtnHandler} slot="content"></styled-dialog-content>
+                                        </lion-dialog>
+                                       
                                     </div>
                                 </div>
                             </div>

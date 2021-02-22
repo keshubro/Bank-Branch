@@ -24,7 +24,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
           padding:5px;
           text-align: center;
           color:white;
-          background-color: brown;
+          background-color: #ff6200;
         }
 
         .home-link > a, #logout-link{
