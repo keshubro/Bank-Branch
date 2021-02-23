@@ -17,8 +17,8 @@ server.use(bodyParser.json())
 
 // Check if the user exists in database
 function isAuthenticated({username, password}){
-    console.log(userdb.customers);
-    return userdb.customers.findIndex(user => user.username === username && user.password === password) !== -1
+    console.log(userdb.users);
+    return userdb.users.findIndex(user => user.username === username && user.password === password) !== -1
     
   }
 

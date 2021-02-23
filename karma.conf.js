@@ -12,11 +12,24 @@ module.exports = config => {
         // npm run test -- --grep test/bar/*
         { pattern: config.grep ? config.grep : 'test/**/*.test.js', type: 'module' },
       ],
-      browsers: ['Chrome'],
-      singleRun: false,
-      esm: {
-        nodeResolve: true,
+      reporters: ['progress', 'coverage'],
+      preprocessors: {
+        // source files, that you wanna generate coverage for
+        // do not include tests or libraries
+        // (these files will be instrumented by Istanbul)
+        'src/**/*.js': ['coverage']
       },
+      browsers: ['ChromeHeadlessCI'],
+      customLaunchers: {
+        ChromeHeadlessCI: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
+      },
+       //singleRun: false,
+       esm: {
+         nodeResolve: true,
+       },
     }),
   );
   return config;

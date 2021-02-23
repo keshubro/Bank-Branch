@@ -5,7 +5,7 @@ import '@lion/input/lion-input.js';
 import '@lion/button/lion-button.js';
 import '@lion/fieldset/lion-fieldset.js';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
-import {  Required, Pattern } from '@lion/form-core';
+import {  Required } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
 import { ajax } from '@lion/ajax';
 
