@@ -3,10 +3,7 @@
 
 name: CI/CD
 
-on:
-  push:
-  pull_request:
-    branches: [ main ]
+on: push
 
 jobs:
    install:
@@ -30,8 +27,8 @@ jobs:
           run: npm run test
 
         - name: Build
-          run: npm run hello 
-          # shows the UI
+          run: npm run build:es5
+         
       
    deploy:
     if: github.ref == 'refs/heads/master'
