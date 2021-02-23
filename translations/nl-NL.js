@@ -20,5 +20,8 @@ export default {
     pincode: "Pincode",
     state: "Staat",
     back: "Terug",
-    update: "Bijwerken"
+    update: "Bijwerken",
+    otpValidation: "OTP Validatie",
+    otpCode: "OTP Code",
+    validate: "Valideer"
 }

@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
-
 import { ajax } from '@lion/ajax';
+import './Otp-validation-component';
+import '@lion/dialog/lion-dialog.js';
 
 export class updatedDetailsComponent extends LitElement{
     
@@ -90,10 +91,6 @@ export class updatedDetailsComponent extends LitElement{
 
     onUpdateHandler(){
         console.log("Update handler");
-        const body = {
-              surname: 'Kennedy',
-              apartmentno: '300',
-          };
 
         const data = this.updatedCustomerDetails;
         const url = 'http://localhost:3000/customers/'+ this.customerId;
@@ -113,7 +110,7 @@ export class updatedDetailsComponent extends LitElement{
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
             <div class="update-container">
             <h2>Updated Details</h2>
-
+            
             <div class="details container">
             ${Object.entries(this.updatedCustomerDetails).map(entry => html`
             <div class="row mb-2">
@@ -133,11 +130,13 @@ export class updatedDetailsComponent extends LitElement{
                     <lion-button @click="${this.editBtnHandler}">Edit</lion-button>
                 </div>
                 <div class="col update">
-                    <lion-button id="updateBtn"  @click="${this.onUpdateHandler}">Update</lion-button>
-                                       
+                    <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>
+                        <lion-button slot="invoker" id="updateBtn">Update</lion-button>
+                        <otp-validation-component slot="content"></otp-validation-component>
+                    </lion-dialog>                 
                 </div>
             </div>
-            
+            </div>
         `;
     }
 
