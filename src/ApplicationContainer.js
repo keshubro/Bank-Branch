@@ -4,6 +4,8 @@ import './LoginComponent';
 import './SearchComponent';
 import './customer-form-component';
 import './updated-details-component';
+import './Otp-validation-component';
+import './SuccessComponent';
 import { Router } from '@vaadin/router';
 
 export class ApplicationContainer extends LitElement
