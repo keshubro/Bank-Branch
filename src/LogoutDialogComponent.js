@@ -83,4 +83,4 @@ export class LogoutDialogComponent extends LitElement
 }
 
 
-customElements.define("styled-dialog-content", LogoutDialogComponent);
+customElements.define("logout-dialog-content", LogoutDialogComponent);

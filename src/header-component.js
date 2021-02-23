@@ -129,7 +129,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
                 <div class="col-sm-3 col-xs">
                     <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>
                         <lion-button id="logout-link" slot="invoker"><lion-icon aria-label="Pointing left" .svg="${tag}" id="logoutIcon"  @click=${this.logoutClicked}></lion-button>   
-                        <styled-dialog-content slot="content" @logout-event=${this.logoutUser}></styled-dialog-content >
+                        <logout-dialog-content slot="content" @logout-event=${this.logoutUser}></logout-dialog-content >
                     </lion-dialog>
                     <lion-button id="logout-link" slot="invoker"><lion-icon aria-label="Pointing left" .svg="${tag}" id="logoutIcon"  @click=${this.logoutClicked}></lion-button>   
                 </div>
