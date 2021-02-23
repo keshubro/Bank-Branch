@@ -23,5 +23,6 @@ export default {
     update: "Update",
     otpValidation: "OTP Validation",
     otpCode: "OTP Code",
-    validate: "Validation"
+    validate: "Validate"
+
 }

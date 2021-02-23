@@ -21,7 +21,7 @@ export default {
     state: "Staat",
     back: "Terug",
     update: "Bijwerken",
-    otpValidation: "OTP Validatie",
-    otpCode: "OTP Code",
+    otpvalidation: "OTP-validatie",
+    otpCode: "otp-code",
     validate: "Valideer"
 }
