@@ -3,6 +3,7 @@ import './header-component';
 import './LoginComponent';
 import './SearchComponent';
 import './customer-form-component';
+// import './OtpValidationComponent';
 import './updated-details-component';
 import './Otp-validation-component';
 import './SuccessComponent';

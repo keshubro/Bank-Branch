@@ -11,7 +11,7 @@ import '@lion/dialog/lion-dialog.js';
 import './style-dialog-content.js';
 
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
-import { IsDate,IsEmail,Required,Validator } from '@lion/form-core';
+import { IsDate, IsEmail, Required,Validator } from '@lion/form-core';
 
 import { ajax } from '@lion/ajax';
 import { nothing } from 'lit-html';
@@ -101,6 +101,28 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 text-align:right;
             }
 
+            .input-label-prefix{
+                display: block;
+                margin-right: 8px;
+            }
+
+            .input-label{
+                display: none;
+            }
+
+            @media only screen and (max-width: 576px) {
+                .input-label{
+                    display: inline-block;
+                }
+                .input-label-prefix{
+                    display: none;
+                }
+
+                .input-label-suffix{
+                    display: block;
+                }
+            }
+
            `;
     }
     
@@ -185,12 +207,12 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     validateFiels(){
 
         const name = this.shadowRoot.getElementById('name').value;
-        const surName = this.shadowRoot.getElementById('surName').value;
+        const surName = this.shadowRoot.getElementById('surname').value;
         const dob = this.shadowRoot.getElementById('dob').value;
-        const emailID = this.shadowRoot.getElementById('emailId').value;
-        const mobileNo = this.shadowRoot.getElementById('mobileNo').value;
+        const emailID = this.shadowRoot.getElementById('email').value;
+        const mobileNo = this.shadowRoot.getElementById('mobile').value;
 
-        const apartmentNo = this.shadowRoot.getElementById('apartmentNo').value;
+        const apartmentNo = this.shadowRoot.getElementById('apartmentno').value;
         const street = this.shadowRoot.getElementById('street').value;
         const city = this.shadowRoot.getElementById('city').value;
         const pincode = this.shadowRoot.getElementById('pincode').value;
@@ -220,89 +242,89 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         <p style="font-size:20px;"><b> ${localize.msg('lit-html-example:personalDetalis')}</b></p>
                                     </div>
                                 </div>
-                                <div class="row mb-3 d-flex justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:name')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                            <lion-input class="input-field" id="name" name="Name" .modelValue=${this.customerDetails[0].name} @model-value-changed=${({ target }) =>{ this.updatedDetails.name = target.value;console.log("target model value changed name"+target.value);}} .validators="${[new Required(null, { getMessage: () => 'Please enter a name' })]}"></lion-input>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">    
-                                        <label>${localize.msg('lit-html-example:surName')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input id="surName" name="SurName" .modelValue=${this.customerDetails[0].surname} @model-value-changed=${({ target }) =>{ this.updatedDetails.surname = target.value;}} .validators="${[new Required(null, { getMessage: () => 'Please select a SurName' })]}"></lion-input>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:dob')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input-datepicker id="dob" .modelValue=${new Date(this.customerDetails[0].dob)} name="DOB" @model-value-changed=${({ target }) =>{ this.updatedDetails.dob = target.value;}} ></lion-input-datepicker>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:email')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input-email id="emailId" name="email" .modelValue=${this.customerDetails[0].email} @model-value-changed=${({ target }) =>{ this.updatedDetails.email = target.value;}} .validators="${[new IsEmail(null, { getMessage: () => 'Please select a valid email id' }),new Required(null, { getMessage: () => 'Please enter a email id' })]}"></lion-input-email>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:mobileNo')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input id="mobileNo" name="mobileNo" .modelValue=${this.customerDetails[0].mobileno} @model-value-changed=${({ target }) =>{ this.updatedDetails.mobileno = target.value;}} .validators="${[new Required(null, { getMessage: () => 'Please enter a value' }),new MyValidator()]}"></lion-input>
-                                    </div>
-                                </div>
-                                <div class="row mb-2">
+                                <div class="row mb-3">
                                     <div class="col">
+                                        <lion-input class="input-field" id="name" name="Name" .modelValue=${this.customerDetails[0].name} @model-value-changed=${({target}) => {this.updatedDetails.name = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid name' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:name')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:name')} :</span>
+                                        </lion-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="surname" name="SurName" .modelValue=${this.customerDetails[0].surname} @model-value-changed=${({target}) => {this.updatedDetails.surname = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid surname' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:surName')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:surName')} :</span>
+                                        </lion-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="dob" name="Dob" .modelValue=${this.customerDetails[0].dob} @model-value-changed=${({target}) => {this.updatedDetails.dob = target.value}}>
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:dob')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:dob')} :</span>
+                                        </lion-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="email" name="email" .modelValue=${this.customerDetails[0].email} @model-value-changed=${({target}) => {this.updatedDetails.email = target.value}} .validators="${[new IsEmail(null, { getMessage: () => 'Please select a valid email' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:email')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:email')} :</span>
+                                        </lion-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="mobile" name="mobile" .modelValue=${this.customerDetails[0].mobileno} @model-value-changed=${({target}) => {this.updatedDetails.mobileno = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid mobile number' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:mobileNo')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:mobileNo')} :</span>
+                                        </lion-input>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col d-flex align-items-end">
                                         <p style="font-size:20px;"><b>${localize.msg('lit-html-example:addressDetails')} </b></p>
                                     </div>
                                 </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:apartmentNo')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input id="apartmentNo" name="apartment" .modelValue=${this.customerDetails[0].apartmentno} @model-value-changed=${({ target }) =>{ this.updatedDetails.apartmentno = target.value;}} .validators="${[new Required(null, { getMessage: () => 'Please enter a Apartment No' })]}"></lion-input>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:street')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input id="street" name="street" .modelValue=${this.customerDetails[0].street} @model-value-changed=${({ target }) =>{ this.updatedDetails.street = target.value;}} .validators="${[new Required(null, { getMessage: () => 'Please enter a street name' })]}"></lion-input>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="apartmentno" name="apartmentno" .modelValue=${this.customerDetails[0].apartmentno} @model-value-changed=${({target}) => {this.updatedDetails.apartmentno = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid apartment number' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:apartmentNo')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:apartmentNo')} :</span>
+                                        </lion-input>
                                     </div>
                                 </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:city')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input id="city" name="city" .modelValue=${this.customerDetails[0].city} @model-value-changed=${({ target }) =>{ this.updatedDetails.city = target.value;}} .validators="${[new Required(null, { getMessage: () => 'Please enter a city' })]}"></lion-input>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:pincode')} :</label>
-                                    </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input id="pincode" name="pincode" .modelValue=${this.customerDetails[0].pincode} @model-value-changed=${({ target }) =>{ this.updatedDetails.pincode = target.value;}} .validators="${[new Required(null, { getMessage: () => 'Please enter a pincode' })]}"></lion-input>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="street" name="street" .modelValue=${this.customerDetails[0].street} @model-value-changed=${({target}) => {this.updatedDetails.street = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid street' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:street')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:street')} :</span>
+                                        </lion-input>
                                     </div>
                                 </div>
-                                <div class="row mb-3 justify-content-center align-items-end">
-                                    <div class="col-sm-4 col-xs-12">
-                                        <label>${localize.msg('lit-html-example:state')} :</label>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="city" name="city" .modelValue=${this.customerDetails[0].city} @model-value-changed=${({target}) => {this.updatedDetails.city = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid city' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:city')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:city')} :</span>
+                                        </lion-input>
                                     </div>
-                                    <div class="col-sm-8 col-xs-12">
-                                        <lion-input id="state" name="state" .modelValue=${this.customerDetails[0].state} @model-value-changed=${({ target }) =>{ this.updatedDetails.state = target.value;}} .validators="${[new Required(null, { getMessage: () => 'Please enter a state' })]}"></lion-input>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="pincode" name="pincode" .modelValue=${this.customerDetails[0].pincode} @model-value-changed=${({target}) => {this.updatedDetails.pincode = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid pincode' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:pincode')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:pincode')} :</span>
+                                        </lion-input>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <lion-input class="input-field" id="state" name="state" .modelValue=${this.customerDetails[0].state} @model-value-changed=${({target}) => {this.updatedDetails.state = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid state' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:state')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:state')} :</span>
+                                        </lion-input>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
