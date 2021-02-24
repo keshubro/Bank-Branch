@@ -8,14 +8,12 @@
   "customers": [
     {
       "id": "1",
-      "username": "john.doe",
-      "password": "john.doe@123",
       "accountno": "1065420859612356588",
       "name": "Keshav",
-      "surname": "Doe",
-      "dob": "1995/05/05",
+      "surname": "Does",
+      "dob": "1995/05/07",
       "email": "jd@gmail.com",
-      "mobileno": "7856942319",
+      "mobileno": "7856942310",
       "apartmentno": "143",
       "street": "XYZ Stre",
       "city": "Bangalore",
