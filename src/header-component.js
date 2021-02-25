@@ -150,9 +150,18 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     {
         console.log('route changed');
         // debugger;
+        if(window.location.pathname !== '/')
+        {
+            if(!sessionStorage.getItem('username'))
+            {
+                window.location.href = '/';
+            }
+        }
+
         if(window.location.pathname == '/')
         {
             sessionStorage.removeItem('username');
+            sessionStorage.removeItem('accno');
             this.shadowRoot.querySelector('.home-link-a').style.display = "none";
             this.shadowRoot.querySelector('#logout-link').style.display = "none";
             this.shadowRoot.querySelector('#loggedin-user').style.display = "none";

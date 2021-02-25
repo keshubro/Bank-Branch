@@ -2,10 +2,15 @@ import { LitElement, html, css } from 'lit-element';
 import '@lion/form/lion-form.js';
 import '@lion/input/lion-input.js';
 import '@lion/button/lion-button.js';
+import '@lion/tooltip/lion-tooltip.js';
+import '@lion/icon/lion-icon.js';
+import info from './images/info-circle-solid.js';
+// import homeIcon from './images/home-solid.js';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
 import { ajax } from '@lion/ajax';
+import './StyledTooltipComponent';
 
 
 export class OtpValidationComponent extends LocalizeMixin(LitElement){
@@ -44,7 +49,14 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                 font-size: 14px;
                 height:30px;
                 border: 1px solid #fff; 
-                background-color: transparent;
+                background: transparent;
+                color: white;
+            }
+
+            button.info-tooltip{
+                background: black;
+                border: none;
+                text-align: center;
             }
 
             lion-button{
@@ -96,8 +108,9 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             padding:25px;
 
             
-        }
+            }
 
+            
         `
 
     }
@@ -201,11 +214,19 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                 <div class="container dailog-cont">
                     
                     <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-sm-3 col-xs-12">
-                            <label>${localize.msg('lit-html-example:otpCode')} :</label>
+                        <div class="col-sm-5 col-xs-12">
+                            <label>${localize.msg('lit-html-example:otpCode')} 
+                            <lion-tooltip has-arrow .config=${{ popperConfig: { placement: 'bottom' } }}>
+                                <button slot="invoker" class="info-tooltip"  id="bottom-tooltip"><lion-icon aria-label="Pointing left" .svg="${info}" id="logoutIcon"  @click=${this.logoutClicked}></button>
+                                <tooltip-component slot="content" class="demo-tooltip-content"></tooltip-component>
+                            </lion-tooltip>
+                            :</label>
+                            
+                            
                         </div>
-                        <div class="col-sm-9 col-xs-12">
+                        <div class="col-sm-7 col-xs-12">
                             <div class="otpCode">
+                                
                                 <lion-input id="otpCode" name="otpCode" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid OTP' })]}"></lion-input>
                             </div>
                         </div>
