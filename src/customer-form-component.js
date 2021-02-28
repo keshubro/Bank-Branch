@@ -67,6 +67,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                  background-color : #e9ecef;
                  border:none;
                  font-size:17px;
+                 width: 350px;
+                 margin-top:25px;
                 // width:500px;
             }
 
@@ -122,6 +124,14 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                     display: block;
                 }
             }
+
+            @media only screen and (min-width: 700px) {
+                .form-container{
+                    width:550px;
+                }
+                
+            }
+
 
            `;
     }

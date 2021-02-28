@@ -22,12 +22,15 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 
     static get styles() {
         return css`
-
+            .login-container{
+                margin-top: 150px;
+            }
             .cont{
                 //width: 500px;
                 //background-color: lightblue;
                 //box-shadow: 5px 10px 18px #888888;
                // border-radius: 5px;
+               //margin-top: 150px;
                 height: 100%;
             }
             
@@ -159,7 +162,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
         return html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-            <lion-form @submit=${this.authenticateUser} responsive>
+            <lion-form class="login-container" @submit=${this.authenticateUser} responsive>
                 <form class="login-form" @submit= ${(ev) =>ev.preventDefault()}>
                     <div class="cont">
                         <div class="title">

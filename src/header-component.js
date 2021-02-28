@@ -127,7 +127,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
         <div class="col logout-part d-flex justify-content-center align-items-center">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-sm-9 col-xs-4">
-                    <strong id="loggedin-user"></strong>
+                    <strong id="loggedin-user" style="color: white;"></strong>
                 </div>
                 <div class="col-sm-3 col-xs">
                     <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>

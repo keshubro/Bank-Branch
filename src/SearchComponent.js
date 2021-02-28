@@ -39,6 +39,9 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             
             .search-comp-container{
                 //width: 550px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                
             }
            
@@ -75,6 +78,8 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 background: #e9ecef;
                 border: none;
                 padding: 25px;
+                width: 350px;
+                //width:400px;
                // border-radius: 5px;
                 //box-shadow: 5px 10px 8px #888888;
             }
@@ -132,7 +137,25 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                 .input-label-suffix{
                     display: block;
                 }
+
+                .cards-container{
+                    display:flex;
+                    flex-direction:column;
+                }
+
             }
+
+            @media only screen and (min-width: 700px) {
+                .search-form{
+                    width:550px;
+                }
+                .cards-container{
+                    justify-content: space-around;
+                }
+
+            }
+
+
 
         `
 
