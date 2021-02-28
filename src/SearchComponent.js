@@ -38,7 +38,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             }
             
             .search-comp-container{
-                width: 550px;
+                //width: 550px;
                
             }
            
@@ -68,6 +68,15 @@ export class SearchComponent extends LocalizeMixin(LitElement){
 
             .form-control{
                 padding: 0 0 0 5px;
+            }
+
+            .search-form{
+                
+                background: #e9ecef;
+                border: none;
+                padding: 25px;
+               // border-radius: 5px;
+                //box-shadow: 5px 10px 8px #888888;
             }
           
             .search{
@@ -280,9 +289,9 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
             <div class="search-comp-container">
-                <lion-form >
+                <lion-form class="search-form">
                     <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
-                        <div class="container">
+                        <div class="container" style="background: transparent;">
                             <div class="search-customer mb-3">
                                 <h2>${localize.msg('lit-html-example:searchHeading')}</h2>
                             </div>

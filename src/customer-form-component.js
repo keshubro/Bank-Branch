@@ -67,7 +67,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                  background-color : #e9ecef;
                  border:none;
                  font-size:17px;
-                 width:500px;
+                // width:500px;
             }
 
             lion-input-datepicker button{
@@ -191,6 +191,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
        const isEmpty = this.validateFiels();
        console.log("isEmpty"+isEmpty);
+
+       const valueChanged = Object.keys(this.updatedDetails).length;
+       if(valueChanged > 0){
+
+       
        if(!(isEmpty)){
             const custAccNo = this.customerDetails[0].accountno;
             const customerId= this.customerDetails[0].id;
@@ -199,6 +204,12 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        else {
            alert("All fields are required");
            e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+       }
+       
+       }
+       else {
+        alert("Please change a value to update");
+        e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
        }
       // window.location.href='/updated';
         

@@ -19,7 +19,12 @@ export class updatedDetailsComponent extends LitElement{
                  /*background-color : pink;
                  border:none; */
                  font-size:20px;
-                 width:500px;
+                 //width:500px;
+
+                 border: 3px solid #d87628;
+                padding: 25px;
+                border-radius: 5px;
+                box-shadow: 5px 10px 8px #adb5bd;
             }
 
             h2{
