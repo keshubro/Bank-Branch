@@ -24,6 +24,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
         return css`
             .login-container{
                 margin-top: 150px;
+                width:350px;
             }
             .cont{
                 //width: 500px;
@@ -108,6 +109,24 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                     display: block;
                 }
             }
+
+            @media only screen and (min-width: 700px) {
+                .login-container{
+                    margin-top: 250px;
+                    width:550px;
+                }
+
+            }
+
+            @media only screen and (min-height: 900px) {
+                .login-container{
+                    margin-top: 350px;
+                    width:650px;
+                }
+
+            }
+
+
 
         `
 
