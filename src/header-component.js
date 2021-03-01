@@ -20,6 +20,9 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
     static get styles() {
         return css`
+        .cf{
+          background-color: blue;
+        }
         .header-cnt, .home-link, .logout-part{
           padding:5px;
           text-align: center;
@@ -112,9 +115,9 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     return html`
     <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-3 home-link d-flex justify-content-start">
+    <div class="container-fluid h-100 cf">
+      <div class="row h-100">
+        <div class="col-2 home-link d-flex justify-content-start">
             <a href="/search" class="home-link-a"><lion-icon aria-label="Pointing left" .svg="${homeIcon}" id="homeIcon"></lion-icon></a>
             
         </div>
@@ -124,7 +127,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
         <div class="col logout-part d-flex justify-content-center align-items-center">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-sm-9 col-xs-4">
-                    <strong id="loggedin-user"></strong>
+                    <strong id="loggedin-user" style="color: white;"></strong>
                 </div>
                 <div class="col-sm-3 col-xs">
                     <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>

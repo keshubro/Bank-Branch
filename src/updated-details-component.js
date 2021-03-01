@@ -19,7 +19,15 @@ export class updatedDetailsComponent extends LitElement{
                  /*background-color : pink;
                  border:none; */
                  font-size:20px;
-                 width:500px;
+                 width:350px;
+                 margin-top: 150px;
+                 border: 3px solid #d87628;
+                padding: 25px;
+                border-radius: 5px;
+                box-shadow: 5px 10px 8px #adb5bd;
+            }
+            p[id="key"]{
+                text-transform: capitalize;
             }
 
             h2{
@@ -50,6 +58,15 @@ export class updatedDetailsComponent extends LitElement{
             .update{
                 text-align:center;
             }
+
+            @media only screen and (min-width: 700px) {
+                .update-container{
+                    width:500px;
+                }
+                
+
+            }
+
 
             
             
@@ -108,14 +125,15 @@ export class updatedDetailsComponent extends LitElement{
     render() {
         return html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-            <div class="update-container">
-            <h2>Updated Details</h2>
-            
-            <div class="details container">
+            <div class="container update-container">
+            <div class="row">
+            <h2><strong>Updated Details</strong></h2>
+            </div>
+            <div class="row details">
             ${Object.entries(this.updatedCustomerDetails).map(entry => html`
             <div class="row mb-2">
                 <div class="col-6 d-flex justify-content-end">
-                    <p>${entry[0]+':'}</p>
+                    <p id="key"><b>${entry[0]+':'}</b></p>
                 </div>
                 <div class="col-6">
                     <p>${entry[1]}</p>
