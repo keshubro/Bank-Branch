@@ -6,7 +6,9 @@ import '@lion/select/lion-select.js';
 import '@lion/input/lion-input.js';
 import '@lion/input-email/lion-input-email.js';
 import '@lion/input-datepicker/lion-input-datepicker.js';
-
+import '@lion/select-rich/lion-select-rich.js';
+import '@lion/listbox/lion-options.js';
+import '@lion/listbox/lion-option.js';
 import '@lion/dialog/lion-dialog.js';
 import './style-dialog-content.js';
 
@@ -40,7 +42,7 @@ class MyValidator extends Validator {
 
       return 'Please enter a valid mobile no';
     }
-  }
+}
 
 
 
@@ -110,6 +112,18 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 display: none;
             }
 
+            #stateSel, #citySel{
+                width: 100%;
+            }
+
+            #otherState{
+                display: none;
+            }
+
+            #otherCity{
+                display:none;
+            }
+
             @media only screen and (max-width: 576px) {
                 .input-label{
                     display: inline-block;
@@ -176,6 +190,33 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         super();
         this.isLoading = false;
         this.updatedDetails = {};
+
+
+        this.stateObject = {
+            "Karnataka": { 
+                "Bangalore": "560008",
+                "Belgaum": "590001",
+                "Mysuru": "570001",
+                "Bidar":"585401",
+                "Chikmanglur": "577101"
+            },
+            "Odisha": {
+                "Bhubaneswar": "750017",
+                "Puri": "752001",
+                "Cuttack": "753001",
+                "Rourkela": "769001",
+                "Sambalpur": "768001",
+            }, 
+            "Maharashtra": {
+                "Mumbai": "400006",
+                "Pune": "770017",
+                "Nagpur": "440001",
+                "Nashik": "420003",
+                "Aurangabad": "431001",
+                "Kolhapur": "416001",
+                "Amravati": "444601"
+            }
+        }
         
     }
 
@@ -214,17 +255,103 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
         const apartmentNo = this.shadowRoot.getElementById('apartmentno').value;
         const street = this.shadowRoot.getElementById('street').value;
-        const city = this.shadowRoot.getElementById('city').value;
+        const city = this.shadowRoot.getElementById('citySel').value;
         const pincode = this.shadowRoot.getElementById('pincode').value;
-        const state = this.shadowRoot.getElementById('state').value;
+        const state = this.shadowRoot.getElementById('stateSel').value;
+        const otherState = this.shadowRoot.getElementById('otherState');
+        const otherCity = this.shadowRoot.getElementById('otherCity');
+        const otherStateValue = this.shadowRoot.getElementById('otherStateInput').value;
+        const otherCityValue = this.shadowRoot.getElementById('otherCityInput').value;
+
+
+        if(otherStateValue !== '' && otherCityValue !== '')
+        {
+            this.updatedDetails.state = otherStateValue;
+            this.updatedDetails.city = otherCityValue;
+        }
+        // console.log(name, surName, dob, emailID, mobileNo, apartmentNo, street, city, pincode, state);
+        console.log(state);
+        console.log(city);
         
-        if ( name == '' || surName == '' || dob == '' || emailID == '' || mobileNo == '' || apartmentNo == '' || street == '' || city == '' || pincode == '' || state == ''){
+        if ( name == '' || surName == '' || dob == '' || emailID == '' || mobileNo == '' || apartmentNo == '' || street == '' || pincode == ''){
+            // console.log(name, surName, dob, emailID, mobileNo, apartmentNo, street, city, pincode, state);
             return true;
         }else{
             return false;
         }
 
        
+    }
+
+    updated()
+    {
+        super.updated();
+
+        let stateObject = this.stateObject;
+        console.log(stateObject);
+        // let updatedDetails = this.updatedDetails;
+        
+        let stateSel = this.shadowRoot.getElementById("stateSel");
+        
+
+        for (let state in stateObject) {
+            stateSel.options[stateSel.options.length] = new Option(state, state);
+        }
+
+        stateSel.options[stateSel.options.length] = new Option('Others', 'Others');
+        stateSel.options[0].remove();
+
+
+        // stateSel.onchange = function () {
+        //     // debugger;
+        //     console.log(this);
+        //     console.log(this.value);
+        //     // updatedDetails.state = this.value;
+        //     citySel.length = 1; // remove all options bar first
+        //     citySel.options[citySel.options.length] = new Option('Please select a city', 'Please select a city');
+        //     citySel.options[0].remove();
+            
+        //     for (let city in stateObject[this.value]) {
+        //         citySel.options[citySel.options.length] = new Option(city, city);
+        //         console.log(citySel);
+        //     }
+        // }
+
+        // citySel.onchange = function(){
+        //     console.log(this.value);
+        //     // updatedDetails.city = this.value;
+        // }
+
+        stateSel.addEventListener('change', this.stateChanged.bind(this));
+
+    }
+
+
+    stateChanged(e)
+    {
+        if(e.target.value == 'Others')
+        {
+            console.log('others selected'); 
+            this.shadowRoot.getElementById('otherState').style.display = 'block';
+            this.shadowRoot.getElementById('otherCity').style.display = 'block';
+            this.shadowRoot.getElementById('mainCity').style.display = 'none';
+        }
+        this.updatedDetails.state = e.target.value;
+        let stateObject = this.stateObject;
+        let citySel = this.shadowRoot.getElementById("citySel");
+        
+        citySel.length = 1; // remove all options bar first
+        citySel.options[citySel.options.length] = new Option('Please select a city', 'Please select a city');
+        citySel.options[0].remove();
+        
+        for (let city in stateObject[e.target.value]) {
+            citySel.options[citySel.options.length] = new Option(city, city);
+            console.log(citySel);
+        }
+
+        citySel.addEventListener('change', function(e){
+            this.updatedDetails.city = e.target.value;
+        }.bind(this));
     }
 
     
@@ -288,19 +415,41 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    <div class="col-3">
+                                        <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:state')} :</span>
+                                        <span slot="label" class="input-label">${localize.msg('lit-html-example:state')} :</span>
+                                    </div>
+                                    <div class="col-9">
+                                        <select name="state" label="hello" id="stateSel" size="1">
+                                            <option value="" selected="selected">${this.customerDetails[0].state}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3" id="otherState">
                                     <div class="col">
-                                        <lion-input class="input-field" id="state" name="state" .modelValue=${this.customerDetails[0].state} @model-value-changed=${({target}) => {this.updatedDetails.state = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid state' })]}">
-                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:state')} :</span>
-                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:state')} :</span>
+                                        <lion-input class="input-field" id="otherStateInput" name="otherState" .validators="${[new Required(null, { getMessage: () => 'Please select a valid state' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:otherState')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:otherState')} :</span>
                                         </lion-input>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                <div class="row mb-3" id="mainCity">
+                                    <div class="col-3">
+                                        <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:city')} :</span>
+                                        <span slot="label" class="input-label">${localize.msg('lit-html-example:city')} :</span>
+                                    </div>
+                                    <div class="col-9">
+                                        <select name="country" id="citySel" size="1">
+                                            <option value="" selected="selected">${this.customerDetails[0].city}</option>
+                                        </select>           
+                                    </div>
+                                </div>
+                                <div class="row mb-3" id="otherCity">
                                     <div class="col">
-                                        <lion-input class="input-field" id="city" name="city" .modelValue=${this.customerDetails[0].city} @model-value-changed=${({target}) => {this.updatedDetails.city = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid city' })]}">
-                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:city')} :</span>
-                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:city')} :</span>
+                                        <lion-input class="input-field" id="otherCityInput" name="otherCity" .validators="${[new Required(null, { getMessage: () => 'Please select a valid city' })]}">
+                                            <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:otherCity')} :</span>
+                                            <span slot="label" class="input-label">${localize.msg('lit-html-example:otherCity')} :</span>
                                         </lion-input>
                                     </div>
                                 </div>
@@ -328,8 +477,6 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         </lion-input>
                                     </div>
                                 </div>
-                                
-                                
                                 <div class="row mb-3">
                                     <div class="col">
                                         <lion-button @click="${this.backBtnHandler}">${localize.msg('lit-html-example:back')}</lion-button>

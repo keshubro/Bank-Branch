@@ -200,7 +200,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
     logoutClicked(e)
     {
-        debugger;
+        // debugger;
     }
 
   changeLangToEL(){

@@ -25,16 +25,16 @@
     {
       "id": "2",
       "accountno": "1069188859612356588",
-      "name": "James",
+      "name": "Jame",
       "surname": "Smith",
-      "dob": "1992/08/04",
+      "dob": "1992/08/10",
       "email": "js@gmail.com",
       "mobileno": "9988942319",
       "apartmentno": "209",
       "street": "ABC Street",
-      "city": "Bangalore",
-      "pincode": "560001",
-      "state": "Karnataka"
+      "city": "Nashik",
+      "pincode": "750017",
+      "state": "Maharashtra"
     },
     {
       "id": "3",
@@ -46,8 +46,8 @@
       "mobileno": "8900942055",
       "apartmentno": "115",
       "street": "ABC Street",
-      "city": "Bangalore",
-      "pincode": "560003",
+      "city": "Mysuru",
+      "pincode": "570001",
       "state": "Karnataka"
     },
     {
@@ -60,9 +60,9 @@
       "mobileno": "7755282779",
       "apartmentno": "131",
       "street": "JP Street",
-      "city": "Bangalore",
-      "pincode": "560047",
-      "state": "Karnataka"
+      "city": "Mumbai",
+      "pincode": "400006",
+      "state": "Maharashtra"
     },
     {
       "id": "5",
@@ -74,9 +74,9 @@
       "mobileno": "9488705123",
       "apartmentno": "765",
       "street": "AB Street",
-      "city": "Bangalore",
-      "pincode": "560300",
-      "state": "Karnataka"
+      "city": "Puri",
+      "pincode": "752001",
+      "state": "Odisha"
     },
     {
       "id": "6",
@@ -88,9 +88,9 @@
       "mobileno": "8965234751",
       "apartmentno": "198",
       "street": "AR Street",
-      "city": "Bangalore",
-      "pincode": "560003",
-      "state": "Karnataka"
+      "city": "Cuttack",
+      "pincode": "753001",
+      "state": "Odisha"
     },
     {
       "id": "7",
@@ -103,7 +103,7 @@
       "apartmentno": "207",
       "street": "MG Street",
       "city": "Bangalore",
-      "pincode": "560047",
+      "pincode": "560008",
       "state": "Karnataka"
     },
     {
@@ -116,9 +116,9 @@
       "mobileno": "944352779",
       "apartmentno": "106",
       "street": "JS Street",
-      "city": "Bangalore",
-      "pincode": "560043",
-      "state": "Karnataka"
+      "city": "Nagpur",
+      "pincode": "440001",
+      "state": "Maharashtra"
     },
     {
       "id": "9",
@@ -131,7 +131,7 @@
       "apartmentno": "210",
       "street": "XY Street",
       "city": "Bangalore",
-      "pincode": "560043",
+      "pincode": "560008",
       "state": "Karnataka"
     },
     {
@@ -144,9 +144,9 @@
       "mobileno": "9220941119",
       "apartmentno": "605",
       "street": "JK Street",
-      "city": "Bangalore",
-      "pincode": "560300",
-      "state": "Karnataka"
+      "city": "Pune",
+      "pincode": "770017",
+      "state": "Maharashtra"
     }
   ]
 }

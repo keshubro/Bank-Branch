@@ -216,7 +216,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-sm-5 col-xs-12">
                             <label>${localize.msg('lit-html-example:otpCode')} 
-                            <lion-tooltip has-arrow .config=${{ popperConfig: { placement: 'bottom' } }}>
+                            <lion-tooltip has-arrow .config=${{ popperConfig: { placement: 'top' } }}>
                                 <button slot="invoker" class="info-tooltip"  id="bottom-tooltip"><lion-icon aria-label="Pointing left" .svg="${info}" id="logoutIcon"  @click=${this.logoutClicked}></button>
                                 <tooltip-component slot="content" class="demo-tooltip-content"></tooltip-component>
                             </lion-tooltip>
