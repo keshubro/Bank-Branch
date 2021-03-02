@@ -180,7 +180,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
         
         return html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+           <div>
             <lion-form class="login-container" @submit=${this.authenticateUser} responsive>
                 <form class="login-form" @submit= ${(ev) =>ev.preventDefault()}>
                     <div class="cont">
@@ -214,7 +214,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                     </div>
                 </form>
             </lion-form>
-
+            </div> 
 
             
         `;
