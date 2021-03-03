@@ -21,7 +21,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         return css`
 
             .cont{
-                width: 70vw;
+                width: 50vw;
                 //box-shadow: 5px 10px 18px #888888;
                 height: 100%;
                 background-color : #f7f3f2;
@@ -30,10 +30,6 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                 border:2px solid white;
             }
             
-            lion-input{
-                padding-top: 15px;
-            }
-
 
             input{
                 border-radius: 5px;
@@ -65,8 +61,8 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
             .validate{
                 
-                text-align: right;
-                padding: 15px;
+                text-align: center;
+                padding: 15px 0;
                 font-size: 16px;
                 font-weight: bold;
                 outline: none; 
@@ -93,8 +89,8 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             font-size: 20px;
 
             .button-container{
-            text-align: right;
-            padding:25px;
+            text-align: center;
+            /* padding-bottom:25px; */
 
             p{
                 text-align: center;
@@ -205,19 +201,25 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
             <div id="alert-cont" class="cont">
-                <lion-button id="x-btn">x</lion-button>
-                <div class="title">
-                    <h3>${localize.msg('lit-html-example:otpValidation')}</h3>
+                <div class="row d-flex justify-content-center pt-1 pb-3">
+                    <div class="col-11">
+                        <div class="title">
+                            <h3><strong>${localize.msg('lit-html-example:otpValidation')}</strong></h3>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <lion-button id="x-btn">x</lion-button>
+                    </div>
                 </div>
-                <div class="container dailog-cont">
+                <div class="container-fluid dailog-cont">
                     
                     <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-sm-3 col-xs-12">
+                        <div class="col-12">
                             <label>${localize.msg('lit-html-example:otpCode')} :</label>
                         </div>
-                        <div class="col-sm-9 col-xs-12">
+                        <div class="col-12">
                             <div class="otpCode">
-                                <lion-input id="otpCode" name="otpCode" @model-value-changed="${this.handleInputChange}" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please enter a valid OTP' })]}"></lion-input>
+                                <lion-input id="otpCode" name="otpCode" type="password" @model-value-changed="${this.handleInputChange}" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please enter a valid OTP' })]}"></lion-input>
                             </div>
                         </div>
                     </div>

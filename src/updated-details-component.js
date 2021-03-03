@@ -61,7 +61,7 @@ export class updatedDetailsComponent extends LitElement{
 
             @media only screen and (min-width: 700px) {
                 .update-container{
-                    width:500px;
+                    width:50vw;
                 }
                 
 

@@ -189,7 +189,7 @@ export class LoginComponent extends LocalizeMixin(LitElement){
         
         return html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-           <div class="bgImg">
+           <div class="bgIm">
                 <lion-form class="login-container" @submit=${this.authenticateUser} responsive>
                     <form class="login-form" @submit= ${(ev) =>ev.preventDefault()}>
                         <div class="cont">

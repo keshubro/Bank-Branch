@@ -13,10 +13,10 @@ export class StyleDialogContent extends LitElement {
             padding-left:25px;
         }
         .dailog-container{
-            width: 400px;
-            background-color : black;
+            width: 50vw;
+            background-color : #f7f3f2;
             border-radius: 4px;
-            color:white;
+            color:black;
             border:2px solid white;
         }
 
@@ -26,7 +26,7 @@ export class StyleDialogContent extends LitElement {
             padding: 5px 20px;
             border-radius: 5px;
             cursor: pointer;
-            background-color: dodgerblue;
+            background-color: #5ea15ec2;
         }
 
         .button-container{
@@ -34,11 +34,15 @@ export class StyleDialogContent extends LitElement {
             padding:25px;
         }
         #x-btn{
-            background-color:black;
-            color:white;
+            background-color:#f7f3f2;
+            color:black;
             float:right;
             margin:5px;
             font-size: 20px;
+        }
+        lion-button:hover {
+                background-color: #1e881ec2;
+                cursor:pointer;
         }
         `;
     }
