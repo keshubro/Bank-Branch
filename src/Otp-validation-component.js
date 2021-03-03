@@ -144,6 +144,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
     // }
 
     validateOtp(){
+        
         if(this.shadowRoot.querySelector('#otpCode').value == '123456'){
 
         console.log("UDC connected");
@@ -175,8 +176,12 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
               console.log(error);
             });
             
+        }else{
+            this.errorMessage = "Enter a valid OTP";
         }
+        
     }
+
     updated(){
         this.shadowRoot.querySelector('#cancel-btn').addEventListener('click', ()=>{
             this.dispatchEvent(new CustomEvent( 'close-overlay', { bubbles: true } ));
@@ -188,7 +193,10 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
     }
           
-    
+    handleInputChange(){
+            this.errorMessage = "";
+
+    }
         
     render() {
         
@@ -196,7 +204,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-            <div class="cont">
+            <div id="alert-cont" class="cont">
                 <lion-button id="x-btn">x</lion-button>
                 <div class="title">
                     <h3>${localize.msg('lit-html-example:otpValidation')}</h3>
@@ -209,11 +217,12 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                         </div>
                         <div class="col-sm-9 col-xs-12">
                             <div class="otpCode">
-                                <lion-input id="otpCode" name="otpCode" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid OTP' })]}"></lion-input>
+                                <lion-input id="otpCode" name="otpCode" @model-value-changed="${this.handleInputChange}" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please enter a valid OTP' })]}"></lion-input>
                             </div>
                         </div>
                     </div>
                     <div class="validate">
+                        
                         <div class="btn-container">
                             <lion-button id="validate" type="submit" @click = ${this.validateOtp}>${localize.msg('lit-html-example:validate')}</lion-button>
                             <lion-button id="cancel-btn" @click = ${this.cancelOption}>Cancel</lion-button>
