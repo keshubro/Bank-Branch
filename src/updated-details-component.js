@@ -72,12 +72,9 @@ export class updatedDetailsComponent extends LitElement{
 
             @media only screen and (min-width: 700px) {
                 .update-container{
-<<<<<<< HEAD
                     width:50vw;
-=======
                     width:500px;
                     margin-top:220px;
->>>>>>> cf4cf49 (Update details comp changed few styles)
                 }
                 
 

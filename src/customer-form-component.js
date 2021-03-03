@@ -114,7 +114,6 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 display: none;
             }
 
-<<<<<<< HEAD
             #stateSel, #citySel{
                 width: 100%;
             }
@@ -126,7 +125,6 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             #otherCity{
                 display:none;
             }
-=======
 
             .loader {
                 border: 16px solid white;
@@ -149,7 +147,6 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
               }
->>>>>>> cf4cf49 (Update details comp changed few styles)
 
             @media only screen and (max-width: 576px) {
                 .input-label{

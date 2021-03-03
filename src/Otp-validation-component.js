@@ -26,7 +26,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         return css`
 
             .cont{
-                width: 80vw;
+                width: 350px;
                 //box-shadow: 5px 10px 18px #888888;
                 height: 100%;
                 background-color : #f7f3f2;
@@ -122,6 +122,9 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         super();
         this.errorMessage = null;
         loadDefaultFeedbackMessages();
+        this.stateId = '';
+        this.newArr = '';
+        this.stateData = '';
     }
 
 
@@ -172,11 +175,41 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
          this.customerAccountNo = urlParams.get('custAccNo');
         console.log(this.customerAccountNo);
 
-        this.customerId = urlParams.get('custId');;
+        this.customerId = urlParams.get('custId');
+        this.stateId = urlParams.get('stateId');
         console.log(this.customerId);
 
         const data = this.updatedCustomerDetails;
         const url = 'http://localhost:3000/customers/'+ this.customerId;
+
+        const stateUrl = 'http://localhost:3000/states/'+ this.stateId;
+
+            if(sessionStorage.getItem('newCity') == 'yes')
+            {
+
+                ajax
+                .get(stateUrl)
+                .then(response => {
+                    console.log('response is');
+                    console.log(response.data);
+                    this.newArr = [...response.data.cities, this.updatedCustomerDetails.city];
+                    console.log(this.newArr);
+                    this.stateData = {"cities": this.newArr};
+                    console.log('after');
+                    console.log(this.stateData);
+
+                    sessionStorage.removeItem('newCity');
+                    ajax
+                    .patch(stateUrl, this.stateData)
+                    .then(response => {
+                        console.log("state updated successful");
+                    })
+                    .catch(error => {
+                    console.log(error);
+                    });
+                });
+
+            }
         
           ajax
             .patch(url, data)
