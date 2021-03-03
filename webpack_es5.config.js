@@ -22,7 +22,11 @@ const polyfils = [
 
 const plugins = [
   new webpack.ProgressPlugin(),
+<<<<<<< HEAD
   new CopyWebpackPlugin([...polyfils, ...[{from:'src/images', to:'images'}]], {
+=======
+  new CopyWebpackPlugin([...polyfils,...[{from:'src/images', to:'images'}]], {
+>>>>>>> cf4cf49 (Update details comp changed few styles)
     ignore: ['.DS_Store']
   })
 ];
