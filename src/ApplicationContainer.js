@@ -49,7 +49,7 @@ export class ApplicationContainer extends LitElement
     {
         super.updated();
 
-
+        // debugger;
         const outlet = this.shadowRoot.getElementById('outlet');
         const router = new Router(outlet);
 

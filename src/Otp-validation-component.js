@@ -2,10 +2,15 @@ import { LitElement, html, css } from 'lit-element';
 import '@lion/form/lion-form.js';
 import '@lion/input/lion-input.js';
 import '@lion/button/lion-button.js';
+import '@lion/tooltip/lion-tooltip.js';
+import '@lion/icon/lion-icon.js';
+import info from './images/info-circle-solid.js';
+// import homeIcon from './images/home-solid.js';
 import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
 import {  Required } from '@lion/form-core';
 import { localize,LocalizeMixin } from '@lion/localize';
 import { ajax } from '@lion/ajax';
+import './StyledTooltipComponent';
 
 
 export class OtpValidationComponent extends LocalizeMixin(LitElement){
@@ -21,7 +26,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         return css`
 
             .cont{
-                width: 50vw;
+                width: 80vw;
                 //box-shadow: 5px 10px 18px #888888;
                 height: 100%;
                 background-color : #f7f3f2;
@@ -40,7 +45,14 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                 font-size: 14px;
                 height:30px;
                 border: 1px solid #fff; 
-                background-color: transparent;
+                background: transparent;
+                color: white;
+            }
+
+            button.info-tooltip{
+                color: black;
+                border: none;
+                text-align: center;
             }
 
             lion-button{
@@ -92,11 +104,16 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             text-align: center;
             /* padding-bottom:25px; */
 
-            p{
-                text-align: center;
+            
             }
+            @media only screen and (min-width: 576px) {
+            .cont{
+                width: 30vw;
+            }
+
         }
 
+            
         `
 
     }
@@ -215,8 +232,17 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                     
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-12">
-                            <label>${localize.msg('lit-html-example:otpCode')} :</label>
+                            <label>${localize.msg('lit-html-example:otpCode')} 
+                            <lion-tooltip has-arrow .config=${{ popperConfig: { placement: 'top' } }}>
+                                <button slot="invoker" class="info-tooltip"  id="bottom-tooltip"><lion-icon aria-label="Pointing left" .svg="${info}" id="logoutIcon"  @click=${this.logoutClicked}></button>
+                                <tooltip-component slot="content" class="demo-tooltip-content"></tooltip-component>
+                            </lion-tooltip>
+                            :</label>
+                            
+                            
                         </div>
+                        
+                        
                         <div class="col-12">
                             <div class="otpCode">
                                 <lion-input id="otpCode" name="otpCode" type="password" @model-value-changed="${this.handleInputChange}" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please enter a valid OTP' })]}"></lion-input>

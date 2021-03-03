@@ -18,7 +18,7 @@ export class LogoutDialogComponent extends LitElement
             padding-left:25px;
         }
         .dailog-container{
-            width: 50vw;
+            width: 30vw;
             background-color : #f7f3f2;
             border-radius: 4px;
             color:black;
@@ -48,6 +48,13 @@ export class LogoutDialogComponent extends LitElement
         lion-button:hover {
                 background-color: #1e881ec2;
                 cursor:pointer;
+        }
+
+        @media only screen and (max-width: 576px) {
+            .dailog-container{
+                width: 70vw;
+            }
+
         }
         `;
     }
