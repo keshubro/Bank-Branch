@@ -12,8 +12,14 @@ export class StyledTooltipComponent extends LitElement
         return css`
             p{
                 margin:0;
-                padding:0 0 0 15px;
+                padding:5px;
                 color: rgb(255, 98, 0);
+                background: black;
+                background-color: black;
+                color: #dee2e6;
+                text-align: center;
+                border-radius: 6px;
+                font-size: 14px;
             }
         `;
     }
@@ -21,7 +27,7 @@ export class StyledTooltipComponent extends LitElement
     render()
     {
         return html`
-            <p>OTP sent !</p>
+            <p>OTP sent to the registered mobile number</p>
         `;
     }
 }

@@ -26,7 +26,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         return css`
 
             .cont{
-                width: 50vw;
+                width: 80vw;
                 //box-shadow: 5px 10px 18px #888888;
                 height: 100%;
                 background-color : #f7f3f2;
@@ -50,7 +50,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             }
 
             button.info-tooltip{
-                background: black;
+                color: black;
                 border: none;
                 text-align: center;
             }
@@ -106,6 +106,12 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
             
             }
+            @media only screen and (min-width: 576px) {
+            .cont{
+                width: 30vw;
+            }
+
+        }
 
             
         `
@@ -116,9 +122,6 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         super();
         this.errorMessage = null;
         loadDefaultFeedbackMessages();
-        this.stateId = '';
-        this.newArr = '';
-        this.stateData = '';
     }
 
 
@@ -169,52 +172,21 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
          this.customerAccountNo = urlParams.get('custAccNo');
         console.log(this.customerAccountNo);
 
-        this.customerId = urlParams.get('custId');
-        this.stateId = urlParams.get('stateId');
+        this.customerId = urlParams.get('custId');;
         console.log(this.customerId);
 
         const data = this.updatedCustomerDetails;
         const url = 'http://localhost:3000/customers/'+ this.customerId;
-        const stateUrl = 'http://localhost:3000/states/'+ this.stateId;
         
-
-            if(sessionStorage.getItem('newCity') == 'yes')
-            {
-                
-                ajax
-                .get(stateUrl)
-                .then(response => {
-                    console.log('response is');
-                    console.log(response.data);
-                    this.newArr = [...response.data.cities, this.updatedCustomerDetails.city];
-                    console.log(this.newArr);
-                    this.stateData = {"cities": this.newArr};
-                    console.log('after');
-                    console.log(this.stateData);
-
-                    sessionStorage.removeItem('newCity');
-                    ajax
-                    .patch(stateUrl, this.stateData)
-                    .then(response => {
-                        console.log("state updated successful");
-                    })
-                    .catch(error => {
-                    console.log(error);
-                    });
-                });
-
-            }
-        
-        
-            ajax
+          ajax
             .patch(url, data)
             .then(response => {
-            console.log("PATCH successful");
-            window.location.href = '/success';
-            
+              console.log("PATCH successful");
+              window.location.href = '/success';
+              
             })
             .catch(error => {
-            console.log(error);
+              console.log(error);
             });
             
         }else{
@@ -232,16 +204,6 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             this.dispatchEvent(new CustomEvent( 'close-overlay', { bubbles: true } ));
         });
 
-        const queryString=location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const customerSetails = urlParams.get('custUpdatedDetails');
-        const updatedCustomerDetails = JSON.parse(customerSetails);
-        /* console.log('hm'); */
-        if(sessionStorage.getItem('newState') == 'yes'){
-        console.log(updatedCustomerDetails.state);
-        sessionStorage.removeItem('newState');
-        }
-        
     }
           
     handleInputChange(){
