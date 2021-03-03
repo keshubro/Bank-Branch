@@ -26,19 +26,15 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         return css`
 
             .cont{
-                width: 500px;
+                width: 50vw;
                 //box-shadow: 5px 10px 18px #888888;
                 height: 100%;
-                background-color : black;
+                background-color : #f7f3f2;
                 border-radius: 4px;
-                color:white;
+                color:black;
                 border:2px solid white;
             }
             
-            lion-input{
-                padding-top: 15px;
-            }
-
 
             input{
                 border-radius: 5px;
@@ -60,25 +56,25 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             }
 
             lion-button{
-                background-color: green;
-                color:white;
+                background-color: #5ea15ec2;
+                color:black;
                 border-radius:5px;
                 margin:5px;
                 padding: 5px 20px;
                 border-radius: 5px;
                 cursor: pointer;
-                background-color: dodgerblue;
+                /* background-color: dodgerblue; */
             }
 
             lion-button:hover {
-                background-color: #057305c2;
+                background-color: #1e881ec2;;
                 cursor:pointer;
             }
 
             .validate{
                 
-                text-align: right;
-                padding: 15px;
+                text-align: center;
+                padding: 15px 0;
                 font-size: 16px;
                 font-weight: bold;
                 outline: none; 
@@ -93,19 +89,20 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             }
 
             #errormessage{
-                color: red;
+                text-align: center;
+                color: #FF0000;
             }
 
             #x-btn{
-            background-color:black;
-            color:white;
+            background-color:#f7f3f2;
+            color:#000000;
             float: right;
             margin:5px;
             font-size: 20px;
 
             .button-container{
-            text-align: right;
-            padding:25px;
+            text-align: center;
+            /* padding-bottom:25px; */
 
             
             }
@@ -154,6 +151,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
     // }
 
     validateOtp(){
+        
         if(this.shadowRoot.querySelector('#otpCode').value == '123456'){
 
         console.log("UDC connected");
@@ -185,8 +183,12 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
               console.log(error);
             });
             
+        }else{
+            this.errorMessage = "Enter a valid OTP";
         }
+        
     }
+
     updated(){
         this.shadowRoot.querySelector('#cancel-btn').addEventListener('click', ()=>{
             this.dispatchEvent(new CustomEvent( 'close-overlay', { bubbles: true } ));
@@ -198,7 +200,10 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
     }
           
-    
+    handleInputChange(){
+            this.errorMessage = "";
+
+    }
         
     render() {
         
@@ -206,15 +211,21 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-            <div class="cont">
-                <lion-button id="x-btn">x</lion-button>
-                <div class="title">
-                    <h3>${localize.msg('lit-html-example:otpValidation')}</h3>
+            <div id="alert-cont" class="cont">
+                <div class="row d-flex justify-content-center pt-1 pb-3">
+                    <div class="col-11">
+                        <div class="title">
+                            <h3><strong>${localize.msg('lit-html-example:otpValidation')}</strong></h3>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <lion-button id="x-btn">x</lion-button>
+                    </div>
                 </div>
-                <div class="container dailog-cont">
+                <div class="container-fluid dailog-cont">
                     
                     <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-sm-5 col-xs-12">
+                        <div class="col-12">
                             <label>${localize.msg('lit-html-example:otpCode')} 
                             <lion-tooltip has-arrow .config=${{ popperConfig: { placement: 'top' } }}>
                                 <button slot="invoker" class="info-tooltip"  id="bottom-tooltip"><lion-icon aria-label="Pointing left" .svg="${info}" id="logoutIcon"  @click=${this.logoutClicked}></button>
@@ -224,14 +235,16 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                             
                             
                         </div>
-                        <div class="col-sm-7 col-xs-12">
+                        
+                        
+                        <div class="col-12">
                             <div class="otpCode">
-                                
-                                <lion-input id="otpCode" name="otpCode" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please select a valid OTP' })]}"></lion-input>
+                                <lion-input id="otpCode" name="otpCode" type="password" @model-value-changed="${this.handleInputChange}" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please enter a valid OTP' })]}"></lion-input>
                             </div>
                         </div>
                     </div>
                     <div class="validate">
+                        
                         <div class="btn-container">
                             <lion-button id="validate" type="submit" @click = ${this.validateOtp}>${localize.msg('lit-html-example:validate')}</lion-button>
                             <lion-button id="cancel-btn" @click = ${this.cancelOption}>Cancel</lion-button>
