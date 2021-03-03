@@ -262,7 +262,8 @@
       "stateName": "Delhi",
       "cities": [
         "Delhi",
-        "New Delhi"
+        "New Delhi",
+        "MyCity"
       ]
     },
     {
@@ -1467,11 +1468,11 @@
       "dob": "1990/07/29",
       "email": "rpp@gmail.com",
       "mobileno": "8900942022",
-      "apartmentno": "116",
+      "apartmentno": "122",
       "street": "ABC Stree",
-      "city": "Bangalore",
+      "city": "MyCity",
       "pincode": "560002",
-      "state": "Karnataka"
+      "state": "Delhi"
     },
     {
       "id": "4",
@@ -1523,7 +1524,7 @@
       "dob": "1991/03/27",
       "email": "mg@gmail.com",
       "mobileno": "9102942779",
-      "apartmentno": "207",
+      "apartmentno": "205",
       "street": "MG Street",
       "city": "Bangalore",
       "pincode": "560008",

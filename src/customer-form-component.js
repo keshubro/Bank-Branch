@@ -126,6 +126,28 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 display:none;
             }
 
+            .loader {
+                border: 16px solid white;
+                border-radius: 50%;
+                border-top: 16px solid grey;
+                width: 60px;
+                height: 60px;
+                margin-top:150px;
+                -webkit-animation: spin 2s linear infinite; /* Safari */
+                animation: spin 2s linear infinite;
+              }
+              
+              /* Safari */
+              @-webkit-keyframes spin {
+                0% { -webkit-transform: rotate(0deg); }
+                100% { -webkit-transform: rotate(360deg); }
+              }
+              
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+
             @media only screen and (max-width: 576px) {
                 .input-label{
                     display: inline-block;
@@ -190,7 +212,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
       })
       .finally(() => {
         console.log("finally block");
-          this.isLoading=false;
+        setTimeout(() => this.isLoading = false, 2000);
+          //this.isLoading=false;
           console.log("isLoading:"+this.isLoading);
       });
 
@@ -408,7 +431,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     
     render() {
         loadDefaultFeedbackMessages();
-        return this.isLoading?  html`<div>Loading icon</div>`: 
+        return this.isLoading?  html`<div class="loader"></div>`: 
          Object.keys(this.customerDetails).length > 0 ? html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
                     <lion-form class="form-container">

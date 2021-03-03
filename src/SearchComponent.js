@@ -46,7 +46,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             }
            
             .search-customer{
-                padding-top:15px;
+                padding:15px 0px;
             }
             
             lion-input{
@@ -120,10 +120,12 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             .input-label-prefix{
                 display: block;
                 margin-right: 8px;
+                font-size:20px;
             }
 
             .input-label{
                 display: none;
+                font-size:20px;
             }
 
             @media only screen and (max-width: 576px) {
@@ -150,7 +152,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                     width:550px;
                 }
                 .cards-container{
-                    justify-content: space-around;
+                    justify-content: center;
                 }
 
             }
@@ -316,7 +318,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
                     <form autocomplete="off" class="search-component" @submit=${ev => ev.preventDefault()}>
                         <div class="container" style="background: transparent;">
                             <div class="search-customer mb-3">
-                                <h2>${localize.msg('lit-html-example:searchHeading')}</h2>
+                                <h2><strong>${localize.msg('lit-html-example:searchHeading')}</strong></h2>
                             </div>
                             
                             <div class="row d-flex justify-content-center align-items-end">

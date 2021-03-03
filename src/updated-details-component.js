@@ -19,21 +19,32 @@ export class updatedDetailsComponent extends LitElement{
                  /*background-color : pink;
                  border:none; */
                  font-size:20px;
-                 width:350px;
+                 width:330px;
                  margin-top: 150px;
-                 border: 3px solid #d87628;
-                padding: 25px;
+                // border: 3px solid #d87628;
+                //padding: 25px;
                 border-radius: 5px;
+                background: #f8f9fac2;
                 box-shadow: 5px 10px 8px #adb5bd;
             }
+            .heading{
+                background-image: linear-gradient(0deg, lightgrey, rgb(248, 249, 250));
+                padding:15px 0px;
+            }
+
+            .details{
+                margin-top: 15px;
+            }
+
+          
             p[id="key"]{
                 text-transform: capitalize;
             }
 
             h2{
-                margin-top: 20px;
+                margin:0px;
                 text-align: center;
-                padding-bottom: 20px;
+               // padding-bottom: 20px;
             }
 
             lion-button {
@@ -62,8 +73,18 @@ export class updatedDetailsComponent extends LitElement{
             @media only screen and (min-width: 700px) {
                 .update-container{
                     width:50vw;
+                    width:500px;
+                    margin-top:220px;
                 }
                 
+
+            }
+
+            @media only screen and (min-height: 900px) {
+                .update-container{
+                    margin-top: 350px;
+                    width:650px;
+                }
 
             }
 
@@ -126,12 +147,12 @@ export class updatedDetailsComponent extends LitElement{
         return html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
             <div class="container update-container">
-            <div class="row">
+            <div class="row heading">
             <h2><strong>Updated Details</strong></h2>
             </div>
             <div class="row details">
             ${Object.entries(this.updatedCustomerDetails).map(entry => html`
-            <div class="row mb-2">
+            <div class="row mb-2 updated-info">
                 <div class="col-6 d-flex justify-content-end">
                     <p id="key"><b>${entry[0]+':'}</b></p>
                 </div>

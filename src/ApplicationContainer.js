@@ -26,7 +26,7 @@ export class ApplicationContainer extends LitElement
             #header-div{
                 //min-height: 10vh;
                //height:50px;
-               position: sticky;
+               position:sticky;
                top:0;
 
             }
@@ -37,7 +37,7 @@ export class ApplicationContainer extends LitElement
             .body-container {
                // background: black;
                 //height:90%;
-                height: calc(100% - 50px); 
+               // height: calc(100% - 50px); 
             }
             
             

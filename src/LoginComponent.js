@@ -22,6 +22,14 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 
     static get styles() {
         return css`
+            .loginbg{
+                height: 800px;
+                width: 500px;
+                background: url("./images/dummy-logo.png");
+                /* background-color: blue;  */
+                padding: 50px;
+                
+            }
             .login-container{
                 margin: auto;
                 width:350px;
@@ -165,6 +173,8 @@ export class LoginComponent extends LocalizeMixin(LitElement){
 
         const username = this.shadowRoot.getElementById('username').value;
         const password = this.shadowRoot.getElementById('password').value;
+
+        
         
         if(username && password){
 
@@ -221,9 +231,12 @@ export class LoginComponent extends LocalizeMixin(LitElement){
                             </div>
                             <div id="errormessage">${this.errorMessage}</div>
                         </div>
-                    </form>
-                </lion-form>
-            </div> 
+                        
+                    </div>
+                </form>
+            </lion-form>
+            </div>
+
 
             
         `;

@@ -102,6 +102,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
                 padding:0;
             }
         }
+        
             
 
         `;
