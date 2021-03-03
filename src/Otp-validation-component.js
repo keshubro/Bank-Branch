@@ -21,12 +21,12 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         return css`
 
             .cont{
-                width: 500px;
+                width: 70vw;
                 //box-shadow: 5px 10px 18px #888888;
                 height: 100%;
-                background-color : black;
+                background-color : #f7f3f2;
                 border-radius: 4px;
-                color:white;
+                color:black;
                 border:2px solid white;
             }
             
@@ -48,18 +48,18 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             }
 
             lion-button{
-                background-color: green;
-                color:white;
+                background-color: #5ea15ec2;
+                color:black;
                 border-radius:5px;
                 margin:5px;
                 padding: 5px 20px;
                 border-radius: 5px;
                 cursor: pointer;
-                background-color: dodgerblue;
+                /* background-color: dodgerblue; */
             }
 
             lion-button:hover {
-                background-color: #057305c2;
+                background-color: #1e881ec2;;
                 cursor:pointer;
             }
 
@@ -81,12 +81,13 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             }
 
             #errormessage{
-                color: red;
+                text-align: center;
+                color: #FF0000;
             }
 
             #x-btn{
-            background-color:black;
-            color:white;
+            background-color:#f7f3f2;
+            color:#000000;
             float: right;
             margin:5px;
             font-size: 20px;
@@ -95,7 +96,9 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             text-align: right;
             padding:25px;
 
-            
+            p{
+                text-align: center;
+            }
         }
 
         `
