@@ -89,8 +89,17 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
 
         @media only screen and (max-width: 576px) {
             #logoutIcon{
-                font-size: 16px;
+                font-size: 12px;
                 margin-top: 5px;
+            }
+
+            #loggedin-user{
+                font-size: 12px;
+            }
+
+            .logout-div{
+                width: 14px;
+                padding:0;
             }
         }
             
@@ -124,12 +133,12 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
         <div class="col-6 header-cnt d-flex align-items-center justify-content-center" id="heading">
         ${localize.msg('lit-html-example:heading')}
         </div>
-        <div class="col logout-part d-flex justify-content-center align-items-center">
+        <div class="col col-sm-3 logout-part d-flex justify-content-center align-items-center">
             <div class="row d-flex justify-content-center align-items-center">
-                <div class="col-sm-9 col-xs-4">
+                <div class="col-9">
                     <strong id="loggedin-user" style="color: white;"></strong>
                 </div>
-                <div class="col-sm-3 col-xs">
+                <div class="col-3 logout-div">
                     <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>
                         <lion-button id="logout-link" slot="invoker"><lion-icon aria-label="Pointing left" .svg="${tag}" id="logoutIcon"  @click=${this.logoutClicked}></lion-button>   
                         <logout-dialog-content slot="content" @logout-event=${this.logoutUser}></logout-dialog-content >
@@ -138,7 +147,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
                 </div>
             </div>
         </div>
-        <div class="col align-middle header-cnt">
+        <div class="col col-sm-1 align-middle header-cnt">
           <div class="btn-container">
             <lion-button @click=${this.changeLangToEL} id="btnEl">EN</lion-button>
             <lion-button @click=${this.changeLangToNL} id="btnNL">NL</lion-button>

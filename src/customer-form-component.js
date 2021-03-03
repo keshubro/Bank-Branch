@@ -193,6 +193,35 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
           this.isLoading=false;
           console.log("isLoading:"+this.isLoading);
       });
+
+
+      // Fetching the states
+    //   ajax
+    //   .get('./src/state-city.json')
+    //   .then(response => {
+    //     // this.customerDetails=response.data;
+    //     this.stateObject = response.data;
+    //     console.log(response.data);
+    //     // console.log(response.data);
+    //     console.log(this.stateObject);
+    //   })
+    //   .catch(error => {
+    //     console.log("failed to fetch the data");
+    //     console.log(error);
+    //   })
+
+    ajax
+    .get('http://localhost:3000/states')
+    .then(response => {
+      console.log(response);
+      this.stateObject = response.data;
+      console.log('stateObject :');
+      console.log(this.stateObject);
+    })
+    .catch(error => {
+      console.log("failed to fetch the data");
+      console.log(error);
+    })
       
     }
   
@@ -200,33 +229,10 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         super();
         this.isLoading = false;
         this.updatedDetails = {};
-
-
-        this.stateObject = {
-            "Karnataka": { 
-                "Bangalore": "560008",
-                "Belgaum": "590001",
-                "Mysuru": "570001",
-                "Bidar":"585401",
-                "Chikmanglur": "577101"
-            },
-            "Odisha": {
-                "Bhubaneswar": "750017",
-                "Puri": "752001",
-                "Cuttack": "753001",
-                "Rourkela": "769001",
-                "Sambalpur": "768001",
-            }, 
-            "Maharashtra": {
-                "Mumbai": "400006",
-                "Pune": "770017",
-                "Nagpur": "440001",
-                "Nashik": "420003",
-                "Aurangabad": "431001",
-                "Kolhapur": "416001",
-                "Amravati": "444601"
-            }
-        }
+        this.selectedState='';
+        this.selectedCity = '';
+        this.stateId = '';
+        
         
     }
 
@@ -250,7 +256,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        if(!(isEmpty)){
             const custAccNo = this.customerDetails[0].accountno;
             const customerId= this.customerDetails[0].id;
-            window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId;
+            window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId + '&stateId=' + this.stateId;
        }
        else {
            alert("All fields are required");
@@ -273,7 +279,6 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         const dob = this.shadowRoot.getElementById('dob').value;
         const emailID = this.shadowRoot.getElementById('email').value;
         const mobileNo = this.shadowRoot.getElementById('mobile').value;
-
         const apartmentNo = this.shadowRoot.getElementById('apartmentno').value;
         const street = this.shadowRoot.getElementById('street').value;
         const city = this.shadowRoot.getElementById('citySel').value;
@@ -284,15 +289,27 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         const otherStateValue = this.shadowRoot.getElementById('otherStateInput').value;
         const otherCityValue = this.shadowRoot.getElementById('otherCityInput').value;
 
-
-        if(otherStateValue !== '' && otherCityValue !== '')
-        {
-            this.updatedDetails.state = otherStateValue;
-            this.updatedDetails.city = otherCityValue;
-        }
-        // console.log(name, surName, dob, emailID, mobileNo, apartmentNo, street, city, pincode, state);
-        console.log(state);
         console.log(city);
+
+        if(city == 'Please select a city')
+        {
+            return true;
+        }
+
+        if(otherCity.style.display == 'block') 
+        {
+            if(otherCityValue !== '')
+            {
+                this.updatedDetails.city = otherCityValue;
+                sessionStorage.setItem('newCity', 'yes');
+            }
+            else
+            {
+                return true;
+            }
+        }
+        
+        
         
         if ( name == '' || surName == '' || dob == '' || emailID == '' || mobileNo == '' || apartmentNo == '' || street == '' || pincode == ''){
             // console.log(name, surName, dob, emailID, mobileNo, apartmentNo, street, city, pincode, state);
@@ -304,45 +321,21 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        
     }
 
+
     updated()
     {
         super.updated();
 
         let stateObject = this.stateObject;
-        console.log(stateObject);
-        // let updatedDetails = this.updatedDetails;
-        
+        let customerDetails = this.customerDetails;
         let stateSel = this.shadowRoot.getElementById("stateSel");
         
-
-        for (let state in stateObject) {
-            stateSel.options[stateSel.options.length] = new Option(state, state);
-        }
-
-        stateSel.options[stateSel.options.length] = new Option('Others', 'Others');
-        stateSel.options[0].remove();
-
-
-        // stateSel.onchange = function () {
-        //     // debugger;
-        //     console.log(this);
-        //     console.log(this.value);
-        //     // updatedDetails.state = this.value;
-        //     citySel.length = 1; // remove all options bar first
-        //     citySel.options[citySel.options.length] = new Option('Please select a city', 'Please select a city');
-        //     citySel.options[0].remove();
+        console.log('stateobj is');
+        console.log(stateObject);
+        stateObject.forEach((state) => {
+            stateSel.options[stateSel.options.length] = new Option(state.stateName, state.stateName);
+        });
             
-        //     for (let city in stateObject[this.value]) {
-        //         citySel.options[citySel.options.length] = new Option(city, city);
-        //         console.log(citySel);
-        //     }
-        // }
-
-        // citySel.onchange = function(){
-        //     console.log(this.value);
-        //     // updatedDetails.city = this.value;
-        // }
-
         stateSel.addEventListener('change', this.stateChanged.bind(this));
 
     }
@@ -350,27 +343,63 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
     stateChanged(e)
     {
-        if(e.target.value == 'Others')
-        {
-            console.log('others selected'); 
-            this.shadowRoot.getElementById('otherState').style.display = 'block';
-            this.shadowRoot.getElementById('otherCity').style.display = 'block';
-            this.shadowRoot.getElementById('mainCity').style.display = 'none';
-        }
+        // if(e.target.value == 'Others')
+        // {
+        //     console.log('others selected'); 
+        //     this.selectedState = 'Others';
+        //     this.shadowRoot.getElementById('otherState').style.display = 'block';
+        //     this.shadowRoot.getElementById('otherCity').style.display = 'block';
+        //     this.shadowRoot.getElementById('mainCity').style.display = 'none';
+        // }
+        // console.log('city update');
+
+        debugger;
+        
         this.updatedDetails.state = e.target.value;
         let stateObject = this.stateObject;
         let citySel = this.shadowRoot.getElementById("citySel");
+        console.log('stateChanged :' + e.target.value);
         
+        console.log(this.stateObject);
+        console.log(stateObject);
+
+        this.stateObject.forEach((state) => {
+            if(state.stateName == e.target.value)
+            {
+                this.stateId = state.id;
+            }
+        });
         citySel.length = 1; // remove all options bar first
         citySel.options[citySel.options.length] = new Option('Please select a city', 'Please select a city');
         citySel.options[0].remove();
-        
-        for (let city in stateObject[e.target.value]) {
-            citySel.options[citySel.options.length] = new Option(city, city);
-            console.log(citySel);
-        }
+
+        this.stateObject.forEach((state) => {
+            console.log(state);
+            console.log("val : "+e.target.value);
+            if(e.target.value == state.stateName)
+            {
+                state.cities.forEach(function(city){
+                    citySel.options[citySel.options.length] = new Option(city, city);
+                });
+            }
+            // citySel.options[citySel.options.length] = new Option(city, city);
+        });
+
+        citySel.options[citySel.options.length] = new Option('Others', 'Others');
 
         citySel.addEventListener('change', function(e){
+            if(e.target.value == 'Others')
+            {
+                this.selectedState = 'Others';
+                // this.shadowRoot.getElementById('otherState').style.display = 'block';
+                this.shadowRoot.getElementById('otherCity').style.display = 'block';
+                // this.shadowRoot.getElementById('mainCity').style.display = 'none';
+                // this.updatedDetails.city = this.shadowRoot.querySelector('#otherCity').value;
+            }
+            else
+            {
+                this.shadowRoot.getElementById('otherCity').style.display = 'none';
+            }
             this.updatedDetails.city = e.target.value;
         }.bind(this));
     }
