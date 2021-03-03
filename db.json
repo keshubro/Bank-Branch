@@ -263,7 +263,8 @@
       "cities": [
         "Delhi",
         "New Delhi",
-        "MyCity"
+        "MyCity",
+        "Myhome"
       ]
     },
     {
@@ -454,7 +455,8 @@
         "Sahibganj",
         "Saunda",
         "Simdega",
-        "Tenu dam-cum-Kathhara"
+        "Tenu dam-cum-Kathhara",
+        "myJd"
       ]
     },
     {
@@ -603,7 +605,8 @@
         "Tirur",
         "Vaikom",
         "Varkala",
-        "Vatakara"
+        "Vatakara",
+        "Myhome"
       ]
     },
     {
@@ -1498,9 +1501,9 @@
       "mobileno": "9488705123",
       "apartmentno": "765",
       "street": "AB Street",
-      "city": "Puri",
+      "city": "Myhome",
       "pincode": "752001",
-      "state": "Odisha"
+      "state": "Kerela"
     },
     {
       "id": "6",
@@ -1554,9 +1557,9 @@
       "mobileno": "9856243712",
       "apartmentno": "210",
       "street": "XY Street",
-      "city": "Bangalore",
+      "city": "myJd",
       "pincode": "560008",
-      "state": "Karnataka"
+      "state": "Jharkhand"
     },
     {
       "id": "10",
