@@ -262,8 +262,7 @@
       "stateName": "Delhi",
       "cities": [
         "Delhi",
-        "New Delhi",
-        "MyCity"
+        "New Delhi"
       ]
     },
     {
@@ -1442,19 +1441,19 @@
       "mobileno": "7856942319",
       "apartmentno": "142",
       "street": "XYZ Stre",
-      "city": "My home city",
+      "city": "OtherHP",
       "pincode": "577999",
-      "state": "Madhya Pradesh"
+      "state": "Himachal Pradesh"
     },
     {
       "id": "2",
       "accountno": "1069188859612356588",
       "name": "Jame",
       "surname": "Smith",
-      "dob": "1992/08/05",
+      "dob": "1992/08/10",
       "email": "js@gmail.com",
       "mobileno": "9988942319",
-      "apartmentno": "206",
+      "apartmentno": "209",
       "street": "ABC Street",
       "city": "Nashik",
       "pincode": "750017",
@@ -1468,11 +1467,11 @@
       "dob": "1990/07/29",
       "email": "rpp@gmail.com",
       "mobileno": "8900942022",
-      "apartmentno": "122",
+      "apartmentno": "113",
       "street": "ABC Stree",
-      "city": "MyCity",
+      "city": "MYArunachal",
       "pincode": "560002",
-      "state": "Delhi"
+      "state": "Arunachal Pradesh"
     },
     {
       "id": "4",
@@ -1524,7 +1523,7 @@
       "dob": "1991/03/27",
       "email": "mg@gmail.com",
       "mobileno": "9102942779",
-      "apartmentno": "205",
+      "apartmentno": "207",
       "street": "MG Street",
       "city": "Bangalore",
       "pincode": "560008",
