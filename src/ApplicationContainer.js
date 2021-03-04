@@ -7,6 +7,8 @@ import './customer-form-component';
 import './updated-details-component';
 import './Otp-validation-component';
 import './SuccessComponent';
+
+//import './demo-component';
 import { Router } from '@vaadin/router';
 
 export class ApplicationContainer extends LitElement
@@ -38,8 +40,18 @@ export class ApplicationContainer extends LitElement
                // background: black;
                 //height:90%;
                // height: calc(100% - 50px); 
-            }
+               overflow-x: hidden;
+               //overflow:none;
+               //overflow-y: hidden;
             
+            }
+            @media only screen and (max-width: 576px) {
+                .body-container {
+                    height:90vh;
+                    //width:100vw;
+                 
+                 }
+            }
             
 
         `;

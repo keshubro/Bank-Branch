@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "webpack-dev-server --env.mode development --open",
-        "hello": "webpack-dev-server --config=webpack_es5.config.js --env.mode development --open",
+        "app": "webpack-dev-server --config=webpack_es5.config.js --env.mode development --open",
         "json-server": "node ./sever.js",
         "prod": "webpack-dev-server --env.mode production --open",
         "build:es5": "webpack --config=webpack_es5.config.js --env.mode production",
