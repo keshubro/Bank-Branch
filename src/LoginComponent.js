@@ -233,12 +233,14 @@ authenticateUser(ev){
                                     </div>
                                 </div>
                                 <div class="row d-flex align-items-end">
+                                
                                     <div class="col">
                                         <lion-input id="password" type="password" name="password" .validators="${[new Required(null, { getMessage: () => 'Please select a valid password' })]}">
                                             <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:password')} :</span>
                                             <span slot="label" class="input-label">${localize.msg('lit-html-example:password')} :</span>
                                         </lion-input>
                                     </div>
+                                
                                 </div>
                             </div>
                             <div class="login">
@@ -247,12 +249,12 @@ authenticateUser(ev){
                             <div id="errormessage">${this.errorMessage}</div>
                         </div>
                         
-                    </div>
-                </form>
-            </lion-form>
-           
+                    
+                    </form>
+                </lion-form>
+            
+            </div>
         </div>
-    </div>
                       
     `;
   }

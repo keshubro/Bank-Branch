@@ -127,7 +127,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     
     <div class="container-fluid h-100 cf">
       <div class="row h-100">
-        <div class="col-2 home-link d-flex justify-content-start">
+        <div class="col-2 home-link d-flex justify-content-start home-div">
             <a href="/search" class="home-link-a"><lion-icon aria-label="Pointing left" .svg="${homeIcon}" id="homeIcon"></lion-icon></a>
             
         </div>
