@@ -103,6 +103,13 @@ class LoginComponent extends LocalizeMixin(LitElement){
             cursor:pointer;
         }
 
+        lion-input input{
+            padding: 3px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+
         .login{
             
             text-align: right;
@@ -112,10 +119,10 @@ class LoginComponent extends LocalizeMixin(LitElement){
             outline: none; 
         }
 
-        .form-control{
+        /* .form-control{
             padding: 0 0 0 5px;
         }
-        
+         */
         h2{
             text-align: center;
         }
@@ -126,6 +133,8 @@ class LoginComponent extends LocalizeMixin(LitElement){
 
         #errormessage{
             color: red;
+            font-weight:500px;
+            font-size:20px;
         }
 
         .input-label-prefix{

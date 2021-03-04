@@ -123,6 +123,9 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             #stateSel, #citySel{
                 width: 100%;
                 border:1px solid #ced4da;
+                padding: 2px;
+                border-radius: 5px;
+
             }
 
             #otherState{
@@ -495,11 +498,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-3">
+                                    <div class="col-2" style="padding: 0 0 0 12px;">
                                         <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:state')} :</span>
                                         <span slot="label" class="input-label">${localize.msg('lit-html-example:state')} :</span>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-10">
                                         <select name="state" label="hello" id="stateSel" size="1">
                                             <option value="" selected="selected">${this.customerDetails[0].state}</option>
                                         </select>
@@ -515,11 +518,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                 </div>
 
                                 <div class="row mb-3" id="mainCity">
-                                    <div class="col-3">
+                                    <div class="col-2" style="padding: 0 0 0 12px;">
                                         <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:city')} :</span>
                                         <span slot="label" class="input-label">${localize.msg('lit-html-example:city')} :</span>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-10">
                                         <select name="country" id="citySel" size="1">
                                             <option value="" selected="selected">${this.customerDetails[0].city}</option>
                                         </select>           
