@@ -274,7 +274,8 @@
         "Mapusa",
         "Margao",
         "Marmagao",
-        "Panaji"
+        "Panaji",
+        "MyCity"
       ]
     },
     {
@@ -422,7 +423,8 @@
         "Rajauri",
         "Sopore",
         "Srinagar",
-        "Udhampur"
+        "Udhampur",
+        "MyJammu"
       ]
     },
     {
@@ -1171,7 +1173,8 @@
         "Virudhachalam",
         "Virudhunagar",
         "Viswanatham",
-        "Somewhere"
+        "Somewhere",
+        "MyHome"
       ]
     },
     {
@@ -1501,9 +1504,9 @@
       "mobileno": "9488705123",
       "apartmentno": "765",
       "street": "AB Street",
-      "city": "Myhome",
+      "city": "MyHome",
       "pincode": "752001",
-      "state": "Kerela"
+      "state": "Tamil Nadu"
     },
     {
       "id": "6",
@@ -1557,9 +1560,9 @@
       "mobileno": "9856243712",
       "apartmentno": "210",
       "street": "XY Street",
-      "city": "myJd",
+      "city": "MyCity",
       "pincode": "560008",
-      "state": "Jharkhand"
+      "state": "Goa"
     },
     {
       "id": "10",

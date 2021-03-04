@@ -15,12 +15,16 @@ export class updatedDetailsComponent extends LitElement{
 
     static get styles() {
         return css`
+        .update-wrapper{
+            display:flex;
+            height: calc(100vh - 70px);
+            align-items:center;
+        }
             .update-container{
                  /*background-color : pink;
                  border:none; */
                  font-size:20px;
                  width:330px;
-                 margin-top: 150px;
                 // border: 3px solid #d87628;
                 //padding: 25px;
                 border-radius: 5px;
@@ -44,6 +48,7 @@ export class updatedDetailsComponent extends LitElement{
             h2{
                 margin:0px;
                 text-align: center;
+                font-size: 28px;
                // padding-bottom: 20px;
             }
 
@@ -70,24 +75,13 @@ export class updatedDetailsComponent extends LitElement{
                 text-align:center;
             }
 
-            @media only screen and (min-width: 700px) {
+             @media only screen and (min-width: 700px) {
                 .update-container{
-                    width:50vw;
                     width:500px;
-                    margin-top:220px;
                 }
                 
 
             }
-
-            @media only screen and (min-height: 900px) {
-                .update-container{
-                    margin-top: 350px;
-                    width:650px;
-                }
-
-            }
-
 
             
             
@@ -146,6 +140,7 @@ export class updatedDetailsComponent extends LitElement{
     render() {
         return html`
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <div class="update-wrapper">
             <div class="container update-container">
             <div class="row heading">
             <h2><strong>Updated Details</strong></h2>
@@ -176,6 +171,7 @@ export class updatedDetailsComponent extends LitElement{
                 </div>
             </div>
             </div>
+        </div>
         `;
     }
 
