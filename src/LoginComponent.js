@@ -28,7 +28,7 @@ class LoginComponent extends LocalizeMixin(LitElement){
       return css`
 
         .big-image {
-            height: 94vh;
+            height: 93.9vh;
             width: 100vw;
             position: relative;
             background-size: cover;
@@ -103,6 +103,13 @@ class LoginComponent extends LocalizeMixin(LitElement){
             cursor:pointer;
         }
 
+        lion-input input{
+            padding: 3px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+
         .login{
             
             text-align: right;
@@ -112,10 +119,10 @@ class LoginComponent extends LocalizeMixin(LitElement){
             outline: none; 
         }
 
-        .form-control{
+        /* .form-control{
             padding: 0 0 0 5px;
         }
-        
+         */
         h2{
             text-align: center;
         }
@@ -126,6 +133,8 @@ class LoginComponent extends LocalizeMixin(LitElement){
 
         #errormessage{
             color: red;
+            font-weight:500px;
+            font-size:20px;
         }
 
         .input-label-prefix{
@@ -150,6 +159,12 @@ class LoginComponent extends LocalizeMixin(LitElement){
             .input-label-suffix{
                 display: block;
             }
+        }
+
+        @media only screen and (max-width: 700px) {
+            .big-image{
+                height:90vh;
+            } 
         }
 
           
