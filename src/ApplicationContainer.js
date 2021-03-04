@@ -45,13 +45,7 @@ export class ApplicationContainer extends LitElement
                //overflow-y: hidden;
             
             }
-            @media only screen and (max-width: 576px) {
-                .body-container {
-                    height:90vh;
-                    //width:100vw;
-                 
-                 }
-            }
+            
             
 
         `;

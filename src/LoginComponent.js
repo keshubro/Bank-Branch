@@ -28,7 +28,7 @@ class LoginComponent extends LocalizeMixin(LitElement){
       return css`
 
         .big-image {
-            height: 94vh;
+            height: 93.9vh;
             width: 100vw;
             position: relative;
             background-size: cover;
@@ -150,6 +150,12 @@ class LoginComponent extends LocalizeMixin(LitElement){
             .input-label-suffix{
                 display: block;
             }
+        }
+
+        @media only screen and (max-width: 700px) {
+            .big-image{
+                height:90vh;
+            } 
         }
 
           

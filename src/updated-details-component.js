@@ -72,9 +72,9 @@ export class updatedDetailsComponent extends LitElement{
 
             @media only screen and (min-width: 700px) {
                 .update-container{
-                    width:50vw;
+                    //width:50vw;
                     width:500px;
-                    margin-top:220px;
+                    margin-top:200px;
                 }
                 
 
@@ -82,7 +82,7 @@ export class updatedDetailsComponent extends LitElement{
 
             @media only screen and (min-height: 900px) {
                 .update-container{
-                    margin-top: 350px;
+                    margin-top: 300px;
                     width:650px;
                 }
 

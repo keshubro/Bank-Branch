@@ -82,6 +82,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 padding: 0 0 0 5px;
             }
 
+            lion-input ::slotted(*){
+                padding:5px;
+            }
+
+            
             lion-button {
                 margin:10px 10px 20px 10px;
                 color: white;
@@ -108,6 +113,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             .input-label-prefix{
                 display: block;
                 margin-right: 8px;
+                //padding:3px;
             }
 
             .input-label{
@@ -116,6 +122,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
             #stateSel, #citySel{
                 width: 100%;
+                border:1px solid #ced4da;
             }
 
             #otherState{
@@ -474,7 +481,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         </lion-input>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-4">
                                     <div class="col">
                                         <lion-input class="input-field" id="mobile" name="mobile" .modelValue=${this.customerDetails[0].mobileno} @model-value-changed=${({target}) => {this.updatedDetails.mobileno = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid mobile number' })]}">
                                             <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:mobileNo')} :</span>
