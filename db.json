@@ -353,7 +353,8 @@
         "Visnagar",
         "Vyara",
         "Wadhwan",
-        "Wankaner"
+        "Wankaner",
+        "MyGuj"
       ]
     },
     {
@@ -1448,11 +1449,11 @@
       "dob": "1995/05/05",
       "email": "jd@gmail.com",
       "mobileno": "7856942319",
-      "apartmentno": "142",
+      "apartmentno": "148",
       "street": "XYZ Stre",
-      "city": "OtherHP",
+      "city": "MyGuj",
       "pincode": "577999",
-      "state": "Himachal Pradesh"
+      "state": "Gujarat"
     },
     {
       "id": "2",
