@@ -21,7 +21,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement)  {
     static get styles() {
         return css`
         .cf{
-          background-color: blue;
+          background-color: #ff6200;
         }
         .header-cnt, .home-link, .logout-part{
           padding:5px;

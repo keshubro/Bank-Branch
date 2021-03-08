@@ -74,6 +74,9 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 // width:500px;
             }
 
+            img{
+                border-radius: 50%;
+            }
             lion-input-datepicker button{
                 border: none;
             }
@@ -454,6 +457,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
+                                    <img src=${"./images/" + this.customerDetails[0].profileimg}>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
                                         <lion-input class="input-field" id="name" name="Name" .modelValue=${this.customerDetails[0].name} @model-value-changed=${({target}) => {this.updatedDetails.name = target.value}} .validators="${[new Required(null, { getMessage: () => 'Please select a valid name' })]}">
                                             <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:name')} :</span>
                                             <span slot="label" class="input-label">${localize.msg('lit-html-example:name')} :</span>
@@ -498,11 +506,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-2" style="padding: 0 0 0 12px;">
+                                    <div class="col-md-2 col-xs-12" style="padding: 0 0 0 12px;">
                                         <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:state')} :</span>
                                         <span slot="label" class="input-label">${localize.msg('lit-html-example:state')} :</span>
                                     </div>
-                                    <div class="col-10">
+                                    <div class="col-md-10 col-xs-12">
                                         <select name="state" label="hello" id="stateSel" size="1">
                                             <option value="" selected="selected">${this.customerDetails[0].state}</option>
                                         </select>
@@ -518,11 +526,11 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                 </div>
 
                                 <div class="row mb-3" id="mainCity">
-                                    <div class="col-2" style="padding: 0 0 0 12px;">
+                                    <div class="col-md-2 col-xs-12" style="padding: 0 0 0 12px;">
                                         <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:city')} :</span>
                                         <span slot="label" class="input-label">${localize.msg('lit-html-example:city')} :</span>
                                     </div>
-                                    <div class="col-10">
+                                    <div class="col-md-10 col-xs-12">
                                         <select name="country" id="citySel" size="1">
                                             <option value="" selected="selected">${this.customerDetails[0].city}</option>
                                         </select>           

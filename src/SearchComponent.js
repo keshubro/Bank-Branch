@@ -350,7 +350,7 @@ export class SearchComponent extends LocalizeMixin(LitElement){
             <div class="cards-container">
                 ${this.cards.map(
                     card => html`
-                    <card-comp .name=${card.name} .accountno=${card.accountno}></card-comp>
+                    <card-comp .name=${card.name} .profileimg=${card.profileimg} .accountno=${card.accountno}></card-comp>
                     `,
                 )}
             </div>
