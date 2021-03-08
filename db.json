@@ -99,8 +99,7 @@
         "Visakhapatnam",
         "Vizianagaram",
         "Yemmiganur",
-        "Yerraguntla",
-        "MY CITY"
+        "Yerraguntla"
       ]
     },
     {
@@ -215,8 +214,7 @@
         "Sugauli",
         "Sultanganj",
         "Supaul",
-        "Warisaliganj",
-        "MyBiharCity"
+        "Warisaliganj"
       ]
     },
     {
@@ -263,9 +261,7 @@
       "stateName": "Delhi",
       "cities": [
         "Delhi",
-        "New Delhi",
-        "MyCity",
-        "Myhome"
+        "New Delhi"
       ]
     },
     {
@@ -275,8 +271,7 @@
         "Mapusa",
         "Margao",
         "Marmagao",
-        "Panaji",
-        "MyCity"
+        "Panaji"
       ]
     },
     {
@@ -354,8 +349,7 @@
         "Visnagar",
         "Vyara",
         "Wadhwan",
-        "Wankaner",
-        "MyGuj"
+        "Wankaner"
       ]
     },
     {
@@ -425,8 +419,7 @@
         "Rajauri",
         "Sopore",
         "Srinagar",
-        "Udhampur",
-        "MyJammu"
+        "Udhampur"
       ]
     },
     {
@@ -459,8 +452,7 @@
         "Sahibganj",
         "Saunda",
         "Simdega",
-        "Tenu dam-cum-Kathhara",
-        "myJd"
+        "Tenu dam-cum-Kathhara"
       ]
     },
     {
@@ -609,8 +601,7 @@
         "Tirur",
         "Vaikom",
         "Varkala",
-        "Vatakara",
-        "Myhome"
+        "Vatakara"
       ]
     },
     {
@@ -1174,9 +1165,7 @@
         "Viluppuram",
         "Virudhachalam",
         "Virudhunagar",
-        "Viswanatham",
-        "Somewhere",
-        "MyHome"
+        "Viswanatham"
       ]
     },
     {
@@ -1452,9 +1441,9 @@
       "mobileno": "7856942319",
       "apartmentno": "146",
       "street": "XYZ Stre",
-      "city": "MyBiharCity",
+      "city": "MyChandigarh",
       "pincode": "577999",
-      "state": "Bihar"
+      "state": "Chandigarh"
     },
     {
       "id": "2",
@@ -1482,9 +1471,9 @@
       "mobileno": "8900942022",
       "apartmentno": "113",
       "street": "ABC Stree",
-      "city": "MYArunachal",
+      "city": "MyBihar",
       "pincode": "560002",
-      "state": "Arunachal Pradesh"
+      "state": "Bihar"
     },
     {
       "id": "4",
@@ -1512,7 +1501,7 @@
       "mobileno": "9488705123",
       "apartmentno": "765",
       "street": "AB Street",
-      "city": "MyHome",
+      "city": "Chennai",
       "pincode": "752001",
       "state": "Tamil Nadu"
     },
@@ -1572,7 +1561,7 @@
       "mobileno": "9856243712",
       "apartmentno": "210",
       "street": "XY Street",
-      "city": "MyCity",
+      "city": "Panaji",
       "pincode": "560008",
       "state": "Goa"
     },

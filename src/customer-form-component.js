@@ -257,10 +257,47 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     ajax
     .get('http://localhost:3000/states')
     .then(response => {
-      console.log(response);
-      this.stateObject = response.data;
-      console.log('stateObject :');
-      console.log(this.stateObject);
+        console.log(response);
+        this.stateObject = response.data;
+
+        console.log(this.shadowRoot.querySelector('.container'));
+
+        this.stateObject.forEach((state) => {
+             
+            if(state.stateName == this.customerDetails[0].state)
+            {
+                // debugger;
+                
+                state.cities.forEach((city) => {
+                    if(city === this.customerDetails[0].city)
+                    {
+                        // debugger;
+                        this.cityNotInTheList = false;
+                    }
+                    else
+                    {
+                        
+                        console.log(this.shadowRoot);
+                        console.log('this is : ' + this);
+                        // this.shadowRoot.getElementById('citySel').value = 'Others';
+                        // this.shadowRoot.getElementById('otherCity').style.display = 'block';
+                        this.cityNotInTheList = true;
+                    }
+                });
+
+                
+            }
+            // if(state.stateName === this.customerDetails[0].city)
+            // {
+            //     debugger;
+            //     // this.shadowRoot.getElementById('otherCity').style.display = 'none';
+            // }
+            // else
+            // {
+            //     // this.shadowRoot.getElementById('citySel').value = 'Others';
+            //     // this.shadowRoot.getElementById('otherCity').style.display = 'block';
+            // }
+        });
     })
     .catch(error => {
       console.log("failed to fetch the data");
@@ -374,6 +411,20 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     {
         super.updated();
 
+        if(this.cityNotInTheList)
+        {
+            console.log('not in the list');
+            console.log(this.shadowRoot.getElementById('citySel'));
+            let citySel = this.shadowRoot.getElementById('citySel');
+            // citySel.options[citySel.options.length]  = 'Others';
+            // citySel.options[1] = 'Others';
+        }
+
+        else
+        {
+            this.shadowRoot.getElementById('citySel').value = this.customerDetails[0].city;
+        }
+
         let stateObject = this.stateObject;
         let customerDetails = this.customerDetails;
         let stateSel = this.shadowRoot.getElementById("stateSel");
@@ -401,7 +452,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         // }
         // console.log('city update');
 
-        debugger;
+        
         
         this.updatedDetails.state = e.target.value;
         let stateObject = this.stateObject;
@@ -434,6 +485,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         });
 
         citySel.options[citySel.options.length] = new Option('Others', 'Others');
+
+        
 
         citySel.addEventListener('change', function(e){
             if(e.target.value == 'Others')
@@ -584,7 +637,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                 </div>
                                 <div class="row mb-3" id="otherCity">
                                     <div class="col">
-                                        <lion-input class="input-field" id="otherCityInput" name="otherCity" .validators="${[new Required(null, { getMessage: () => 'Please select a valid city' })]}">
+                                        <lion-input class="input-field" id="otherCityInput" name="otherCity" .modelValue=${this.customerDetails[0].city} .validators="${[new Required(null, { getMessage: () => 'Please select a valid city' })]}">
                                             <span slot="prefix" class="input-label-prefix">${localize.msg('lit-html-example:otherCity')} :</span>
                                             <span slot="label" class="input-label">${localize.msg('lit-html-example:otherCity')} :</span>
                                         </lion-input>
