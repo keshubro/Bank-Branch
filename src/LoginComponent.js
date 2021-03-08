@@ -62,18 +62,14 @@ class LoginComponent extends LocalizeMixin(LitElement){
             font-size: 28px;
           }
 
-        //   .login-container{
-        //     margin: 130px;
-        //     width:350px;
-        // }
-        .cont{
-            //width: 500px;
-            //background-color: lightblue;
-            //box-shadow: 5px 10px 18px #888888;
-           // border-radius: 5px;
-           //margin-top: 150px;
-           // height: 100%;
-        }
+           .login-container{
+             background-color: white;
+             color:black;
+             padding: 0 25px 8px;
+             border-radius: 5px;
+           
+         }
+       
         
         lion-input{
             padding-top: 15px;
@@ -105,7 +101,7 @@ class LoginComponent extends LocalizeMixin(LitElement){
 
         lion-input input{
             padding: 3px;
-            border: 1px solid #ccc;
+            border: 1px solid #6c757d;
             border-radius: 4px;
         }
         

@@ -4,7 +4,8 @@ class cardComp extends LitElement {
     static get properties() {
         return {
           name: { type: String },
-          accountno : { type: String }
+          accountno : { type: String },
+          profileimg : { type: String}
           
         };
       }
@@ -39,6 +40,13 @@ class cardComp extends LitElement {
             text-align: center;
         }
 
+        .card-data {
+          border:none;
+        }
+
+        img{
+          border-radius:50%;
+        }
         #accno {
             border:none;
         }
@@ -83,6 +91,7 @@ class cardComp extends LitElement {
     return html`
    
 		<div class="card-items" id="card-items"> 
+            <div class="card-data"><img src=${"./images/" + this.profileimg}></div>
             <div><b>${this.name}</b></div>
             <div id="accno">${this.accountno}</div>  
         </div>       
