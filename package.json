@@ -11,6 +11,7 @@
         "build:es5": "webpack --config=webpack_es5.config.js --env.mode production",
         "build:es6": "webpack --env.mode production",
         "build": "npm run build:es6 && npm run build:es5",
+        "test:cc": "./node_modules/.bin/cucumber-js",
         "test": "karma start",
         "test:coverage": "karma start --coverage",
         "storybook": "start-storybook -p 9006"
@@ -63,6 +64,7 @@
         "@babel/plugin-proposal-optional-chaining": "^7.12.16",
         "@babel/preset-env": "^7.12.16",
         "@babel/preset-typescript": "^7.12.16",
+        "@cucumber/cucumber": "^7.0.0",
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@open-wc/testing": "^2.5.32",
         "@open-wc/testing-karma": "^3.4.8",

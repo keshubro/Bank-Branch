@@ -83,6 +83,7 @@ class cardComp extends LitElement {
     return html`
    
 		<div class="card-items" id="card-items"> 
+            <div><img src="./images/profile1.jpg"></div>
             <div><b>${this.name}</b></div>
             <div id="accno">${this.accountno}</div>  
         </div>       
