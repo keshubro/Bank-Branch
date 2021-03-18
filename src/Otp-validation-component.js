@@ -1,24 +1,25 @@
-import { LitElement, html, css } from 'lit-element';
-import '@lion/form/lion-form.js';
-import '@lion/input/lion-input.js';
-import '@lion/button/lion-button.js';
-import '@lion/tooltip/lion-tooltip.js';
-import '@lion/icon/lion-icon.js';
-import info from './images/info-circle-solid.js';
+import { LitElement, html, css } from "lit-element";
+import "@lion/form/lion-form.js";
+import "@lion/input/lion-input.js";
+import "@lion/button/lion-button.js";
+import "@lion/tooltip/lion-tooltip.js";
+import "@lion/icon/lion-icon.js";
+import info from "./images/info-circle-solid.js";
 // import homeIcon from './images/home-solid.js';
-import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
-import {  Required } from '@lion/form-core';
-import { localize,LocalizeMixin } from '@lion/localize';
-import { ajax } from '@lion/ajax';
-import './StyledTooltipComponent';
+import { loadDefaultFeedbackMessages } from "@lion/validate-messages";
+import { Required } from "@lion/form-core";
+import { localize, LocalizeMixin } from "@lion/localize";
+import { ajax } from "@lion/ajax";
+import "./StyledTooltipComponent";
 
-
-export class OtpValidationComponent extends LocalizeMixin(LitElement){
-
+export class OtpValidationComponent extends LocalizeMixin(LitElement) {
     static get localizeNamespaces() {
         return [
-          { 'lit-html-example': locale => import(`../translations/${locale}.js`) },
-          ...super.localizeNamespaces,
+            {
+                "lit-html-example": (locale) =>
+                    import(`../translations/${locale}.js`),
+            },
+            ...super.localizeNamespaces,
         ];
     }
 
@@ -27,7 +28,6 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
             .cont{
                 width: 350px;
-                //box-shadow: 5px 10px 18px #888888;
                 height: 100%;
                 background-color : #f7f3f2;
                 border-radius: 4px;
@@ -114,22 +114,20 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         }
 
             
-        `
-
+        `;
     }
 
-    constructor(){
+    constructor() {
         super();
         this.errorMessage = null;
         loadDefaultFeedbackMessages();
-        this.stateId = '';
-        this.newArr = '';
-        this.stateData = '';
+        this.stateId = "";
+        this.newArr = "";
+        this.stateData = "";
     }
 
-
     static get properties() {
-        return{
+        return {
             errorMessage: { type: String },
             updatedCustomerDetails: { type: Object },
             customerAccountNo: {type: String},
@@ -225,7 +223,6 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         }else{
             this.errorMessage = "Enter a valid OTP";
         }
-        
     }
 
     saveCustomerDetails(){
@@ -253,15 +250,20 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             this.dispatchEvent(new CustomEvent( 'close-overlay', { bubbles: true } ));
         });
 
+        this.shadowRoot
+            .querySelector("#x-btn")
+            .addEventListener("click", () => {
+                this.dispatchEvent(
+                    new CustomEvent("close-overlay", { bubbles: true })
+                );
+            });
     }
-          
-    handleInputChange(){
-            this.errorMessage = "";
 
+    handleInputChange() {
+        this.errorMessage = "";
     }
-        
+
     render() {
-        
         return html`
 
         <link  rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -270,7 +272,9 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                 <div class="row d-flex justify-content-center pt-1 pb-3">
                     <div class="col-11">
                         <div class="title">
-                            <h3><strong>${localize.msg('lit-html-example:otpValidation')}</strong></h3>
+                            <h3><strong>${localize.msg(
+                                "lit-html-example:otpValidation"
+                            )}</strong></h3>
                         </div>
                     </div>
                     <div class="col-1">
@@ -281,9 +285,13 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                     
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-12">
-                            <label>${localize.msg('lit-html-example:otpCode')} 
-                            <lion-tooltip has-arrow .config=${{ popperConfig: { placement: 'top' } }}>
-                                <button slot="invoker" class="info-tooltip"  id="bottom-tooltip"><lion-icon aria-label="Pointing left" .svg="${info}" id="logoutIcon"  @click=${this.logoutClicked}></button>
+                            <label>${localize.msg("lit-html-example:otpCode")} 
+                            <lion-tooltip has-arrow .config=${{
+                                popperConfig: { placement: "top" },
+                            }}>
+                                <button slot="invoker" class="info-tooltip"  id="bottom-tooltip"><lion-icon aria-label="Pointing left" .svg="${info}" id="logoutIcon"  @click=${
+            this.logoutClicked
+        }></button>
                                 <tooltip-component slot="content" class="demo-tooltip-content"></tooltip-component>
                             </lion-tooltip>
                             :</label>
@@ -294,15 +302,29 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
                         
                         <div class="col-12">
                             <div class="otpCode">
-                                <lion-input id="otpCode" name="otpCode" type="password" @model-value-changed="${this.handleInputChange}" .fieldName="${localize.msg('lit-html-example:otpCode')}" .validators="${[new Required(null, { getMessage: () => 'Please enter a valid OTP' })]}"></lion-input>
+                                <lion-input id="otpCode" name="otpCode" type="password" @model-value-changed="${
+                                    this.handleInputChange
+                                }" .fieldName="${localize.msg(
+            "lit-html-example:otpCode"
+        )}" .validators="${[
+            new Required(null, {
+                getMessage: () => "Please enter a valid OTP",
+            }),
+        ]}"></lion-input>
                             </div>
                         </div>
                     </div>
                     <div class="validate">
                         
                         <div class="btn-container">
-                            <lion-button id="validate" type="submit" @click = ${this.validateOtp}>${localize.msg('lit-html-example:validate')}</lion-button>
-                            <lion-button id="cancel-btn" @click = ${this.cancelOption}>Cancel</lion-button>
+                            <lion-button id="validate" type="submit" @click = ${
+                                this.validateOtp
+                            }>${localize.msg(
+            "lit-html-example:validate"
+        )}</lion-button>
+                            <lion-button id="cancel-btn" @click = ${
+                                this.cancelOption
+                            }>Cancel</lion-button>
                         </div>
                     </div>
                     <div id="errormessage">${this.errorMessage}</div>
@@ -312,4 +334,7 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
     }
 }
 
-window.customElements.define('otp-validation-component', OtpValidationComponent);
+window.customElements.define(
+    "otp-validation-component",
+    OtpValidationComponent
+);

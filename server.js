@@ -66,6 +66,17 @@ server.post('/image',(req, res) => {
 })
 
 
+server.post('/image/save', (req, res) => {
+    console.log(req.body);
+    
+    fs.writeFile(req.body.fileName, req.body.fileData);
+
+    //Store image in db here
+    
+    res.status(200).send("OK");
+})
+
+
 
 server.use(router)
 
