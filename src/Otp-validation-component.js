@@ -133,7 +133,8 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
             errorMessage: { type: String },
             updatedCustomerDetails: { type: Object },
             customerAccountNo: {type: String},
-            customerId : {type: String}
+            customerId : {type: String},
+            profileChanged : {type: String}
         }
     };
     
@@ -179,53 +180,59 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
         this.stateId = urlParams.get('stateId');
         console.log(this.customerId);
 
+        this.profileChanged = urlParams.get('profileChanged');
+        console.log(this.profileChanged);
+
+        const newCustImg = localStorage.getItem("ProfileImg");
+
         const data = this.updatedCustomerDetails;
         const url = 'http://localhost:3000/customers/'+ this.customerId;
 
         const stateUrl = 'http://localhost:3000/states/'+ this.stateId;
 
-            if(sessionStorage.getItem('newCity') == 'yes')
-            {
-
-                ajax
-                .get(stateUrl)
-                .then(response => {
-                    console.log('response is');
-                    console.log(response.data);
-                    this.newArr = [...response.data.cities, this.updatedCustomerDetails.city];
-                    console.log(this.newArr);
-                    this.stateData = {"cities": this.newArr};
-                    console.log('after');
-                    console.log(this.stateData);
-
-                    sessionStorage.removeItem('newCity');
-                    ajax
-                    .patch(stateUrl, this.stateData)
-                    .then(response => {
-                        console.log("state updated successful");
-                    })
-                    .catch(error => {
-                    console.log(error);
-                    });
-                });
-
-            }
-        
-          ajax
-            .patch(url, data)
+            
+        if(this.profileChanged == "true"){
+            console.log("before post request");
+            //const imgName = "custImg" + this.customerId;
+            const data = {
+                custImg : newCustImg
+            };
+            //data[imgName] = newCustImg;
+            const updateImgUrl = "http://localhost:3000/image";
+            ajax
+            .post(updateImgUrl,data)
             .then(response => {
-              console.log("PATCH successful");
-              window.location.href = '/success';
-              
+                console.log("post request successful");
+                //this.saveCustomerDetails();
             })
             .catch(error => {
-              console.log(error);
-            });
+                console.log(error);
+              });
+
+
+        }else{
+            this.saveCustomerDetails();
+        }
+        
+         
             
         }else{
             this.errorMessage = "Enter a valid OTP";
         }
         
+    }
+
+    saveCustomerDetails(){
+        ajax
+        .patch(url, data)
+        .then(response => {
+          console.log("PATCH successful");
+          window.location.href = '/success';
+          
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
 
     updated(){
