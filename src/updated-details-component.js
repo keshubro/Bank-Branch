@@ -9,7 +9,9 @@ export class updatedDetailsComponent extends LitElement{
         return{
             updatedCustomerDetails: { type: Object },
             customerAccountNo: {type: String},
-            customerId : {type: String}
+            customerId : {type: String},
+            customerImage : {type: String},
+            profileChanged : {type: String}
         }
     }
 
@@ -71,6 +73,12 @@ export class updatedDetailsComponent extends LitElement{
                 background-color: rgba(11, 156, 11, 0.9);
             }
 
+            img{
+                border-radius: 50%;
+                width:120px;
+                height:120px;
+            }
+
             .update{
                 text-align:center;
             }
@@ -91,6 +99,7 @@ export class updatedDetailsComponent extends LitElement{
 
     constructor(){
         super();
+        this.custImg={};
         
     }
 
@@ -110,11 +119,47 @@ export class updatedDetailsComponent extends LitElement{
 
         this.customerId = urlParams.get('custId');;
         console.log(this.customerId);
+        
+        this.profileChanged = urlParams.get('profileChanged');
+        console.log(this.profileChanged);
+       
+        //image.src = URL.createObjectURL(res);
+
+        
+
+        // this.customerImage = urlParams.get('custImg');;
+        // console.log(this.customerImage);
+        // this.getImage();
+
+        
+    }
+
+   
+
+    async getImage(){
+        let url = this.customerImage;
+        url= url.slice(5);
+        console.log(url);
+        let file = await fetch(url).then(r => r.blob()).then(blobFile => new File([blobFile], "fileNameGoesHere", { type: "image/png" }));
+        console.log(file);
+        let image = this.shadowRoot.getElementById('profileImg');
+	    //image.src = URL.createObjectURL(file);
+        image.src=this.customerImage;
     }
 
     updated(){
         console.log("UDP updated");
+        let image = this.shadowRoot.getElementById('profileImg');
+        if(this.profileChanged == "true"){
+            const newCustImg = localStorage.getItem("ProfileImg");
+            //let image = this.shadowRoot.getElementById('profileImg');
+            image.src = newCustImg;
+        }else{
+            image.style.display = 'none';
+        }
     }
+
+    
 
     editBtnHandler(){
         console.log("edit btn handler");
@@ -144,6 +189,11 @@ export class updatedDetailsComponent extends LitElement{
             <div class="container update-container">
             <div class="row heading">
             <h2><strong>Updated Details</strong></h2>
+            </div>
+            <div class="row">
+            <div class="col" style="text-align:center;">
+                <img id="profileImg">
+            </div>
             </div>
             <div class="row details">
             ${Object.entries(this.updatedCustomerDetails).map(entry => html`

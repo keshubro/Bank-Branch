@@ -2,6 +2,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const jsonServer = require('json-server');
 const path = require('path');
+const base64ToImage = require('base64-to-image');
 
 const server = jsonServer.create();
 
@@ -32,6 +33,32 @@ server.post('/auth/login', (req, res) => {
       return;
     }
     res.status(200).send("OK");
+})
+
+server.post('/image',(req, res) => {
+  console.log(req.body);
+
+  const objKey = Object.keys(req.body)[0];
+  console.log(objKey);
+
+  let objValue = req.body[objKey];
+  console.log(objValue);
+
+  // let base64Str = objValue.replace("data:", "").replace(/^.+,/,"");
+
+  console.log("After replacing : "+ objValue);
+
+  var path ='./src/images/';
+  var optionalObj = {'fileName': 'profile9'};
+
+  base64ToImage(objValue,path,optionalObj); 
+  
+    
+// Note base64ToImage function returns imageInfo which is an object with imageType and fileName.
+// var imageInfo = base64ToImage(base64Str,path,optionalObj);
+
+
+  res.status(200).send("OK");
 })
 
 

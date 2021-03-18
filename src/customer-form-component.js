@@ -58,7 +58,9 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     static get properties() {
         return{
             customerDetails: { type: Object },
-            isLoading: { type: Boolean}
+            isLoading: { type: Boolean},
+            customerImage: {type: Object},
+            profileChanged: {type: String}
         }
     }
 
@@ -76,6 +78,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
             img{
                 border-radius: 50%;
+                width:120px;
+                height:120px;
             }
             lion-input-datepicker button{
                 border: none;
@@ -268,6 +272,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         this.selectedState='';
         this.selectedCity = '';
         this.stateId = '';
+        this.profileChanged = "false";
         
         
     }
@@ -292,7 +297,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        if(!(isEmpty)){
             const custAccNo = this.customerDetails[0].accountno;
             const customerId= this.customerDetails[0].id;
-            window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId + '&stateId=' + this.stateId;
+            window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId + '&stateId=' + this.stateId + '&profileChanged=' + this.profileChanged;
        }
        else {
            alert("All fields are required");
@@ -439,7 +444,37 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             this.updatedDetails.city = e.target.value;
         }.bind(this));
     }
+     
 
+     
+    loadFile(e){
+        console.log("load file function");
+        let image = this.shadowRoot.getElementById('profileImg');
+	    image.src = URL.createObjectURL(e.target.files[0]);
+        console.log(e.target.files[0]);
+
+        this.profileChanged = "true";
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            //console.log(reader.result);
+            localStorage.setItem("ProfileImg",reader.result);
+        };
+        
+        reader.readAsDataURL(file);
+
+
+      // this.customerImage = URL.createObjectURL(e.target.files[0]);
+
+    //    this.customerImage = e.target.files[0];
+    //    localStorage.setItem('CustProfileImg',this.customerImage);
+
+        // this.customerImage = JSON.stringify(e.target.files[0]);
+        // console.log("inside load file fun customer Image");
+        // console.log(this.customerImage);
+
+    }
     
     
     render() {
@@ -457,8 +492,12 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                    <img src=${"./images/" + this.customerDetails[0].profileimg}>
+                                    <img id="profileImg" src=${"./images/" + this.customerDetails[0].profileimg}>
                                     </div>
+                                    <div class="col-12">
+                                    <input type="file" id="imageUpload" @change=${this.loadFile}>
+                                    </div>
+
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
