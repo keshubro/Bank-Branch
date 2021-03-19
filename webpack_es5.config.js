@@ -41,6 +41,7 @@ module.exports = ({ mode }) => {
       filename: '[name]_es5.bundle.js'
     },
     module: {
+        
       rules: [
         {
           test: /\.js$/,
@@ -79,6 +80,7 @@ module.exports = ({ mode }) => {
         
       ]
     },
+    
     plugins
   },
   modeConfig({mode}))

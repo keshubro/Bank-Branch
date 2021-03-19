@@ -3,16 +3,15 @@ import { LitElement, html, css } from "lit-element";
 class cardComp extends LitElement {
     static get properties() {
         return {
-          name: { type: String },
-          accountno : { type: String },
-          profileimg : { type: String}
-          
+            name: { type: String },
+            accountno: { type: String },
+            profileimg: { type: String },
         };
-      }
+    }
     constructor() {
         super();
-        this.accountno='';
-        this.msg='hi';
+        this.accountno = "";
+        this.msg = "hi";
     }
 
   static get styles(){
@@ -58,50 +57,48 @@ class cardComp extends LitElement {
       `;
   }
 
-  updated(){
-      this.shadowRoot.getElementById('card-items').addEventListener('click',() => {
-        console.log("card clicked"); 
-        console.log(this.accountno);
+    updated() {
+        this.shadowRoot
+            .getElementById("card-items")
+            .addEventListener("click", () => {
+                console.log("card clicked");
+                console.log(this.accountno);
 
-        sessionStorage.setItem('accno',this.accountno);
+                sessionStorage.setItem("accno", this.accountno);
 
-        window.location.href='/custform/#'+this.accountno;
-        
-        //const url = '/custform/'+this.accountno;
-        //window.location.href= '/custform/'+this.accountno;
-        //window.location.href='/details';
+                window.location.href = "/custform/#" + this.accountno;
 
+                //const url = '/custform/'+this.accountno;
+                //window.location.href= '/custform/'+this.accountno;
+                //window.location.href='/details';
 
-        //window.location.href='/details/'+this.accountno;
+                //window.location.href='/details/'+this.accountno;
 
-        /* const obj = { name:'Divya', lastname: 'Ram'};
+                /* const obj = { name:'Divya', lastname: 'Ram'};
         window.location.href='/custform/?custaccno='+obj; */
-      });
-      //console.log(this.accountno);
-  }
+            });
+        //console.log(this.accountno);
+    }
 
-//   cardClicked(){
-//       //window.location.href='/details/'+this.accountno;
-//       console.log("card clicked fun called");
-//       console.log(this.accountno);
-//       console.log(this.msg);
-//       //window.location.href='/details';
-//   }
+    //   cardClicked(){
+    //       //window.location.href='/details/'+this.accountno;
+    //       console.log("card clicked fun called");
+    //       console.log(this.accountno);
+    //       console.log(this.msg);
+    //       //window.location.href='/details';
+    //   }
 
-
-  render() {
-    return html`
-   
-		<div class="card-items" id="card-items"> 
-            <div class="card-data"><img src=${"./images/" + this.profileimg}></div>
-            <div><b>${this.name}</b></div>
-            <div id="accno">${this.accountno}</div>  
-        </div>       
-                      
-    `;
-  }
-
-  
+    render() {
+        return html`
+            <div class="card-items" id="card-items">
+                <div class="card-data">
+                    <img src=${"./images/" + this.profileimg} />
+                </div>
+                <div><b>${this.name}</b></div>
+                <div id="accno">${this.accountno}</div>
+            </div>
+        `;
+    }
 }
 
 customElements.define("card-comp", cardComp);

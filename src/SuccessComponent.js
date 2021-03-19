@@ -1,47 +1,41 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from "lit-element";
 
 export class SuccessComponent extends LitElement {
-
-    static get styles(){
+    static get styles() {
         return css`
-            lion-button{
+            lion-button {
                 background-color: green;
-                color:white;
-                border-radius:5px;
+                color: white;
+                border-radius: 5px;
             }
 
             lion-button:hover {
                 background-color: #057305c2;
-                cursor:pointer;
+                cursor: pointer;
             }
 
-            .home{
+            .home {
                 text-align: right;
             }
-        
         `;
-
     }
 
-    goHome(){
-        window.location.href = '/search';
+    goHome() {
+        window.location.href = "/search";
     }
 
-    constructor(){
+    constructor() {
         super();
     }
 
-    render(){
+    render() {
         return html`
             <h3>Customer Details are Updated Successfully</h3>
             <div class="home">
-                <lion-button  @click = ${this.goHome}>Home</lion-button>
+                <lion-button @click=${this.goHome}>Home</lion-button>
             </div>
-        
-        `
-
+        `;
     }
-
 }
 
-window.customElements.define('success-component', SuccessComponent);
+window.customElements.define("success-component", SuccessComponent);

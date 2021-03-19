@@ -1,12 +1,11 @@
-import { LitElement, html, css } from 'lit-element';
-import { ajax } from '@lion/ajax';
-import './Otp-validation-component';
-import '@lion/dialog/lion-dialog.js';
+import { LitElement, html, css } from "lit-element";
+import { ajax } from "@lion/ajax";
+import "./Otp-validation-component";
+import "@lion/dialog/lion-dialog.js";
 
-export class updatedDetailsComponent extends LitElement{
-    
+export class updatedDetailsComponent extends LitElement {
     static get properties() {
-        return{
+        return {
             updatedCustomerDetails: { type: Object },
             customerAccountNo: {type: String},
             customerId : {type: String},
@@ -17,33 +16,36 @@ export class updatedDetailsComponent extends LitElement{
 
     static get styles() {
         return css`
-        .update-wrapper{
-            display:flex;
-            height: calc(100vh - 70px);
-            align-items:center;
-        }
-            .update-container{
-                 /*background-color : pink;
+            .update-wrapper {
+                display: flex;
+                height: calc(100vh - 70px);
+                align-items: center;
+            }
+            .update-container {
+                /*background-color : pink;
                  border:none; */
-                 font-size:20px;
-                 width:330px;
+                font-size: 20px;
+                width: 330px;
                 // border: 3px solid #d87628;
                 //padding: 25px;
                 border-radius: 5px;
                 background: #f8f9fac2;
                 box-shadow: 5px 10px 8px #adb5bd;
             }
-            .heading{
-                background-image: linear-gradient(0deg, lightgrey, rgb(248, 249, 250));
-                padding:15px 0px;
+            .heading {
+                background-image: linear-gradient(
+                    0deg,
+                    lightgrey,
+                    rgb(248, 249, 250)
+                );
+                padding: 15px 0px;
             }
 
-            .details{
+            .details {
                 margin-top: 15px;
             }
 
-          
-            p[id="key"]{
+            p[id="key"] {
                 text-transform: capitalize;
             }
 
@@ -52,11 +54,11 @@ export class updatedDetailsComponent extends LitElement{
                 margin:0px;
                 text-align: center;
                 font-size: 28px;
-               // padding-bottom: 20px;
+                // padding-bottom: 20px;
             }
 
             lion-button {
-                margin:10px 10px 20px 10px;
+                margin: 10px 10px 20px 10px;
                 color: white;
                 padding: 5px 20px;
                 border-radius: 5px;
@@ -84,41 +86,35 @@ export class updatedDetailsComponent extends LitElement{
                 text-align:center;
             }
 
-             @media only screen and (min-width: 700px) {
-                .update-container{
-                    width:500px;
+            @media only screen and (min-width: 700px) {
+                .update-container {
+                    width: 500px;
                 }
-                
-
             }
-
-            
-            
-
-           `;
+        `;
     }
 
-    constructor(){
+    constructor() {
         super();
         this.custImg={};
         
     }
 
-    connectedCallback(){
+    connectedCallback() {
         super.connectedCallback();
         console.log("UDC connected");
         //console.log(location.search);
-        const queryString=location.search;
+        const queryString = location.search;
         const urlParams = new URLSearchParams(queryString);
-        const customerSetails = urlParams.get('custUpdatedDetails');
+        const customerSetails = urlParams.get("custUpdatedDetails");
         //console.log(product);
         this.updatedCustomerDetails = JSON.parse(customerSetails);
         console.log(this.updatedCustomerDetails);
 
-         this.customerAccountNo = urlParams.get('custAccNo');
+        this.customerAccountNo = urlParams.get("custAccNo");
         console.log(this.customerAccountNo);
 
-        this.customerId = urlParams.get('custId');;
+        this.customerId = urlParams.get("custId");
         console.log(this.customerId);
         
         this.profileChanged = urlParams.get('profileChanged');
@@ -148,16 +144,18 @@ export class updatedDetailsComponent extends LitElement{
         image.src=this.customerImage;
     }
 
-    updated(){
+    updated() {
         console.log("UDP updated");
         let image = this.shadowRoot.getElementById('profileImg');
-        let imageDiv = this.shadowRoot.querySelector('.profileImgDiv');
+        let imageLabel = this.shadowRoot.getElementById('imgLabel');
+        // let imageDiv = this.shadowRoot.querySelector('.profileImgDiv');
         if(this.profileChanged == "true"){
             const newCustImg = localStorage.getItem("ProfileImg");
             //let image = this.shadowRoot.getElementById('profileImg');
             image.src = newCustImg;
         }else{
-            imageDiv.style.display = 'none';
+            image.style.display = 'none';
+            imageLabel.style.display = 'none';
         }
     }
 
@@ -165,22 +163,21 @@ export class updatedDetailsComponent extends LitElement{
 
     editBtnHandler(){
         console.log("edit btn handler");
-        window.location.href='/custform/#'+this.customerAccountNo;
+        window.location.href = "/custform/#" + this.customerAccountNo;
     }
 
-    onUpdateHandler(){
+    onUpdateHandler() {
         console.log("Update handler");
 
         const data = this.updatedCustomerDetails;
-        const url = 'http://localhost:3000/customers/'+ this.customerId;
-        
-          ajax
-            .patch(url, data)
-            .then(response => {
-              console.log("PATCH successful");
+        const url = "http://localhost:3000/customers/" + this.customerId;
+
+        ajax.patch(url, data)
+            .then((response) => {
+                console.log("PATCH successful");
             })
-            .catch(error => {
-              console.log(error);
+            .catch((error) => {
+                console.log(error);
             });
     }
 
@@ -201,19 +198,19 @@ export class updatedDetailsComponent extends LitElement{
                 </div>
                 <div class="col-6">
                     <p>${entry[1]}</p>
+            
                 </div>
             </div>
-            `, )}
-
+            `)}
             </div>
 
             <div class="row mb-3 profileImgDiv d-flex align-items-center">
-            <div class="col-6 d-flex justify-content-end">
-                <p><b>Profile Image:</b></p>
-            </div>
-            <div class="col-6">
-                <img id="profileImg">
-            </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <p id="imgLabel"><b>Profile Image:</b></p>
+                </div>
+                <div class="col-6">
+                    <img id="profileImg">
+                </div>
             </div>
 
             <div class="row mb-3">
@@ -227,13 +224,11 @@ export class updatedDetailsComponent extends LitElement{
                     </lion-dialog>                 
                 </div>
             </div>
-            </div>
-        </div>
         `;
     }
-
 }
 
-window.customElements.define('updated-details-component', updatedDetailsComponent);
-
-
+window.customElements.define(
+    "updated-details-component",
+    updatedDetailsComponent
+);

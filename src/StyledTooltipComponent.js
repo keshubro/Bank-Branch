@@ -1,18 +1,15 @@
 import { LitElement, html, css } from "lit-element";
 
-export class StyledTooltipComponent extends LitElement
-{
-    constructor()
-    {
+export class StyledTooltipComponent extends LitElement {
+    constructor() {
         super();
     }
 
-    static get styles()
-    {
+    static get styles() {
         return css`
-            p{
-                margin:0;
-                padding:5px;
+            p {
+                margin: 0;
+                padding: 5px;
                 color: rgb(255, 98, 0);
                 background: black;
                 background-color: black;
@@ -24,12 +21,9 @@ export class StyledTooltipComponent extends LitElement
         `;
     }
 
-    render()
-    {
-        return html`
-            <p>OTP sent to the registered mobile number</p>
-        `;
+    render() {
+        return html` <p>OTP sent to the registered mobile number</p> `;
     }
 }
 
-customElements.define('tooltip-component', StyledTooltipComponent);
+customElements.define("tooltip-component", StyledTooltipComponent);

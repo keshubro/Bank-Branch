@@ -48,6 +48,8 @@ server.post('/image',(req, res) => {
 
   console.log("After replacing : "+ objValue);
 
+    // const imageName = `profile${}`
+
   var path ='./src/images/';
   var optionalObj = {'fileName': objKey};
 
@@ -63,6 +65,17 @@ server.post('/image',(req, res) => {
 
 
   res.status(200).send(imageInfo);
+})
+
+
+server.post('/image/save', (req, res) => {
+    console.log(req.body);
+    
+    fs.writeFile(req.body.fileName, req.body.fileData);
+
+    //Store image in db here
+    
+    res.status(200).send("OK");
 })
 
 
