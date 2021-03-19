@@ -1448,7 +1448,7 @@
     {
       "id": "2",
       "accountno": "1069188859612356588",
-      "profileimg": "profile2.jpeg",
+      "profileimg": "profile2.png",
       "name": "Jame",
       "surname": "Smith",
       "dob": "1992/08/10",
@@ -1485,9 +1485,9 @@
       "email": "sr@gmail.com",
       "mobileno": "7755282779",
       "apartmentno": "131",
-      "street": "JP Street",
-      "city": "Mumbai",
-      "pincode": "400006",
+      "street": "bhubaneswari marg",
+      "city": "Navi Mumbai",
+      "pincode": "40007",
       "state": "Maharashtra"
     },
     {
@@ -1531,7 +1531,7 @@
       "mobileno": "9102942779",
       "apartmentno": "207",
       "street": "MG Street",
-      "city": "Bangalore",
+      "city": "Bengaluru",
       "pincode": "560008",
       "state": "Karnataka"
     },
@@ -1576,7 +1576,7 @@
       "mobileno": "9220941119",
       "apartmentno": "605",
       "street": "JK Street",
-      "city": "Pune",
+      "city": "MyMaha",
       "pincode": "770017",
       "state": "Maharashtra"
     }

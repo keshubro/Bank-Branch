@@ -198,21 +198,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     connectedCallback() {
         super.connectedCallback();
         this.isLoading = true;
-
-        /* console.log(location.search);
-        const queryString=location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const product = urlParams.get('custaccno');
-        console.log(product); */
-
-        console.log(location.hash);
-        console.log(location.hash.slice(1));
-
         const cust_acc_no = location.hash.slice(1);
-
-        //const cust_acc_no = window.location.params.id;
-
-        //const cust_acc_no = sessionStorage.getItem('accno');
         const url = "http://localhost:3000/customers?accountno=" + cust_acc_no;
 
         ajax.get(url)
@@ -236,65 +222,42 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 console.log("isLoading:" + this.isLoading);
             });
 
-        // Fetching the states
-        //   ajax
-        //   .get('./src/state-city.json')
-        //   .then(response => {
-        //     // this.customerDetails=response.data;
-        //     this.stateObject = response.data;
-        //     console.log(response.data);
-        //     // console.log(response.data);
-        //     console.log(this.stateObject);
-        //   })
-        //   .catch(error => {
-        //     console.log("failed to fetch the data");
-        //     console.log(error);
-        //   })
-
         ajax.get("http://localhost:3000/states")
             .then((response) => {
                 console.log(response);
                 this.stateObject = response.data;
-
+                console.log(this.stateObject);
                 console.log(this.shadowRoot.querySelector(".container"));
 
                 this.stateObject.forEach((state) => {
+                    
                     if (state.stateName == this.customerDetails[0].state) {
-                        // debugger;
-
+                        this.listOfCities = state.cities;
                         state.cities.forEach((city) => {
                             if (city === this.customerDetails[0].city) {
-                                // debugger;
+
                                 this.cityNotInTheList = false;
-                            } else {
-                                let citySel = this.shadowRoot.getElementById(
-                                    "citySel"
-                                );
-                                console.log("citySel :");
-                                console.log(citySel.options);
-                                citySel.options[
-                                    citySel.options.length
-                                ] = new Option("Others", "Others");
-                                citySel.options[0].remove();
-                                this.shadowRoot.querySelector(
-                                    "#otherCity"
-                                ).style.display = "block";
-                                this.shadowRoot.querySelector(
-                                    "#otherCityInput"
-                                ).modelValue = this.customerDetails[0].city;
-                            }
+                            } 
+                            // else {
+                            //     let citySel = this.shadowRoot.getElementById(
+                            //         "citySel"
+                            //     );
+                            //     console.log("citySel :");
+                            //     console.log(citySel.options);
+                            //     citySel.options[
+                            //         citySel.options.length
+                            //     ] = new Option("Others", "Others");
+                            //     citySel.options[0].remove();
+                            //     this.shadowRoot.querySelector(
+                            //         "#otherCity"
+                            //     ).style.display = "block";
+                            //     this.shadowRoot.querySelector(
+                            //         "#otherCityInput"
+                            //     ).modelValue = this.customerDetails[0].city;
+                            // }
                         });
                     }
-                    // if(state.stateName === this.customerDetails[0].city)
-                    // {
-                    //     debugger;
-                    //     // this.shadowRoot.getElementById('otherCity').style.display = 'none';
-                    // }
-                    // else
-                    // {
-                    //     // this.shadowRoot.getElementById('citySel').value = 'Others';
-                    //     // this.shadowRoot.getElementById('otherCity').style.display = 'block';
-                    // }
+                    
                 });
             })
             .catch((error) => {
@@ -311,8 +274,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         this.selectedCity = '';
         this.stateId = '';
         this.profileChanged = "false";
-        
-        
+        this.cityNotInTheList = true;
+        this.listOfCities = [];
     }
 
     backBtnHandler() {
@@ -400,19 +363,12 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
     updated() {
         super.updated();
-
-        console.log(this.cityNotInTheList);
-
         if (this.cityNotInTheList) {
-            console.log("not in the list");
-            // console.log(this.shadowRoot.getElementById('citySel'));
-            // let citySel = this.shadowRoot.getElementById('citySel');
-            // console.log('citySel :');
-            // console.log(citySel.options);
-            // citySel.options[citySel.options.length] = new Option('Others', 'Others');
-            // citySel.options[0].remove();
-            // this.shadowRoot.querySelector('#otherCity').style.display = 'block';
-            // this.shadowRoot.querySelector('#otherCityInput').modelValue = this.customerDetails[0].city;
+            let citySel = this.shadowRoot.getElementById('citySel');
+            citySel.options[citySel.options.length] = new Option('Others', 'Others');
+            citySel.options[0].remove();
+            this.shadowRoot.querySelector('#otherCity').style.display = 'block';
+            this.shadowRoot.querySelector('#otherCityInput').modelValue = this.customerDetails[0].city;
         } else {
             // debugger;
             this.shadowRoot.getElementById(
@@ -423,7 +379,10 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         let stateObject = this.stateObject;
         let customerDetails = this.customerDetails;
         let stateSel = this.shadowRoot.getElementById("stateSel");
-
+        let citySel = this.shadowRoot.getElementById("citySel");
+        // debugger;
+        console.log(stateSel);
+        console.log(this.customerDetails[0].state);
         stateObject.forEach((state) => {
             stateSel.options[stateSel.options.length] = new Option(
                 state.stateName,
@@ -431,20 +390,21 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             );
         });
 
+        
+
+        this.listOfCities.forEach(function (city) {
+            citySel.options[citySel.options.length] = new Option(
+                city,
+                city
+            );
+        });
+
         stateSel.addEventListener("change", this.stateChanged.bind(this));
     }
 
     stateChanged(e) {
-        // if(e.target.value == 'Others')
-        // {
-        //     console.log('others selected');
-        //     this.selectedState = 'Others';
-        //     this.shadowRoot.getElementById('otherState').style.display = 'block';
-        //     this.shadowRoot.getElementById('otherCity').style.display = 'block';
-        //     this.shadowRoot.getElementById('mainCity').style.display = 'none';
-        // }
-        // console.log('city update');
-
+        this.shadowRoot.querySelector('#otherCity').style.display = 'none';
+        this.shadowRoot.querySelector('#otherCityInput').value = '';
         this.updatedDetails.state = e.target.value;
         let stateObject = this.stateObject;
         let citySel = this.shadowRoot.getElementById("citySel");
@@ -503,27 +463,6 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         );
     }
 
-    loadFile(e)
-    {
-        const reader = new FileReader();
-
-        console.log('hgjsdh');
-        debugger;
-        this.customerImage = e.target.files[0]
-        console.log(this.customerImage);
-
-        // reader.readAsDataURL(e.target.files[0]);
-
-        // console.log(URL.createObjectURL(this.customerImage));
-
-        var image = this.shadowRoot.getElementById('profileImage');
-        image.src = URL.createObjectURL(e.target.files[0]);
-        // console.log(URL.createObjectURL(e.target.files[0]));
-        this.customerImage = e.target.files[0];
-        console.log(this.customerImage);
-    }
-     
-
      
     loadFile(e){
         console.log("load file function");
@@ -541,16 +480,6 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         };
         
         reader.readAsDataURL(file);
-
-
-      // this.customerImage = URL.createObjectURL(e.target.files[0]);
-
-    //    this.customerImage = e.target.files[0];
-    //    localStorage.setItem('CustProfileImg',this.customerImage);
-
-        // this.customerImage = JSON.stringify(e.target.files[0]);
-        // console.log("inside load file fun customer Image");
-        // console.log(this.customerImage);
 
     }
     
@@ -739,8 +668,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                                         )} :</span>
                                     </div>
                                     <div class="col-md-10 col-xs-12">
-                                        <select name="country" id="citySel" size="1">
-                                            <option value="" selected="selected">${
+                                        <select name="city" id="citySel" size="1">
+                                            <option selected="selected">${
                                                 this.customerDetails[0].city
                                             }</option>
                                         </select>           
