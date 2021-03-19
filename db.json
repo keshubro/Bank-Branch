@@ -1499,11 +1499,11 @@
       "dob": "1998/10/22",
       "email": "ks@gmail.com",
       "mobileno": "9488705123",
-      "apartmentno": "765",
+      "apartmentno": "762",
       "street": "AB Street",
-      "city": "Chennai",
+      "city": "MyGoa",
       "pincode": "752001",
-      "state": "Tamil Nadu"
+      "state": "Goa"
     },
     {
       "id": "6",
@@ -1516,7 +1516,7 @@
       "mobileno": "8965234751",
       "apartmentno": "199",
       "street": "AR Street",
-      "city": "Cuttack",
+      "city": "MyOdi",
       "pincode": "753001",
       "state": "Odisha"
     },

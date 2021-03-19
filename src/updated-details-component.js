@@ -147,13 +147,15 @@ export class updatedDetailsComponent extends LitElement {
     updated() {
         console.log("UDP updated");
         let image = this.shadowRoot.getElementById('profileImg');
-        let imageDiv = this.shadowRoot.querySelector('.profileImgDiv');
+        let imageLabel = this.shadowRoot.getElementById('imgLabel');
+        // let imageDiv = this.shadowRoot.querySelector('.profileImgDiv');
         if(this.profileChanged == "true"){
             const newCustImg = localStorage.getItem("ProfileImg");
             //let image = this.shadowRoot.getElementById('profileImg');
             image.src = newCustImg;
         }else{
-            imageDiv.style.display = 'none';
+            image.style.display = 'none';
+            imageLabel.style.display = 'none';
         }
     }
 
@@ -203,12 +205,12 @@ export class updatedDetailsComponent extends LitElement {
             </div>
 
             <div class="row mb-3 profileImgDiv d-flex align-items-center">
-            <div class="col-6 d-flex justify-content-end">
-                <p><b>Profile Image:</b></p>
-            </div>
-            <div class="col-6">
-                <img id="profileImg">
-            </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <p id="imgLabel"><b>Profile Image:</b></p>
+                </div>
+                <div class="col-6">
+                    <img id="profileImg">
+                </div>
             </div>
 
             <div class="row mb-3">

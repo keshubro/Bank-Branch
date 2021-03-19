@@ -342,7 +342,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             return true;
         }
 
-        if (otherCity.style.display == "block") {
+        
+        if (otherCity.style.display == "block" && this.customerDetails[0].city != otherCityValue) {
             if (otherCityValue !== "") {
                 this.updatedDetails.city = otherCityValue;
                 sessionStorage.setItem("newCity", "yes");
@@ -399,6 +400,13 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             );
         });
 
+        citySel.options[citySel.options.length] = new Option(
+            'Others',
+            'Others'
+        );
+
+        citySel.addEventListener("change",this.cityChanged.bind(this));
+
         stateSel.addEventListener("change", this.stateChanged.bind(this));
     }
 
@@ -446,21 +454,27 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 
         citySel.addEventListener(
             "change",
-            function (e) {
-                if (e.target.value == "Others") {
-                    this.selectedState = "Others";
-                    // this.shadowRoot.getElementById('otherState').style.display = 'block';
-                    this.shadowRoot.getElementById("otherCity").style.display =
-                        "block";
-                    // this.shadowRoot.getElementById('mainCity').style.display = 'none';
-                    // this.updatedDetails.city = this.shadowRoot.querySelector('#otherCity').value;
-                } else {
-                    this.shadowRoot.getElementById("otherCity").style.display =
-                        "none";
-                }
-                this.updatedDetails.city = e.target.value;
-            }.bind(this)
+            this.cityChanged.bind(this)
         );
+    }
+
+    cityChanged(e) 
+    {
+        if (e.target.value == "Others") {
+            this.selectedState = "Others";
+            // this.shadowRoot.getElementById('otherState').style.display = 'block';
+            this.shadowRoot.getElementById("otherCity").style.display =
+                "block";
+            // this.shadowRoot.getElementById('mainCity').style.display = 'none';
+            // this.updatedDetails.city = this.shadowRoot.querySelector('#otherCity').value;
+        } else {
+            this.shadowRoot.getElementById("otherCity").style.display =
+                "none";
+        }
+        const otherCityValue = this.shadowRoot.querySelector('#otherCityInput').value;
+        debugger;
+        if(e.target.value == 'Others' && otherCityValue != this.cutomerDetails[0].city)
+            this.updatedDetails.city = e.target.value;
     }
 
      
