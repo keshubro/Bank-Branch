@@ -185,25 +185,31 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
 
         const newCustImg = localStorage.getItem("ProfileImg");
 
-        const data = this.updatedCustomerDetails;
-        const url = 'http://localhost:3000/customers/'+ this.customerId;
+        
 
         const stateUrl = 'http://localhost:3000/states/'+ this.stateId;
 
             
         if(this.profileChanged == "true"){
             console.log("before post request");
-            //const imgName = "custImg" + this.customerId;
-            const data = {
-                custImg : newCustImg
-            };
-            //data[imgName] = newCustImg;
+            const imgName = "profile" + this.customerId;
+            const data = {};
+            data[imgName] = newCustImg;
             const updateImgUrl = "http://localhost:3000/image";
             ajax
             .post(updateImgUrl,data)
             .then(response => {
                 console.log("post request successful");
-                //this.saveCustomerDetails();
+                console.log(response.data);
+               // debugger
+                const updatedProfile = response.data;
+                //debugger
+                console.log(typeof(updatedProfile));
+                
+                this.updatedCustomerDetails.profileimg = updatedProfile['fileName'];
+                console.log(this.updatedCustomerDetails);
+               
+                this.saveCustomerDetails();
             })
             .catch(error => {
                 console.log(error);
@@ -223,10 +229,13 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement){
     }
 
     saveCustomerDetails(){
+        const data = this.updatedCustomerDetails;
+        const url = 'http://localhost:3000/customers/'+ this.customerId;
         ajax
         .patch(url, data)
         .then(response => {
           console.log("PATCH successful");
+          localStorage.removeItem('ProfileImg');
           window.location.href = '/success';
           
         })

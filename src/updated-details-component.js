@@ -47,6 +47,7 @@ export class updatedDetailsComponent extends LitElement{
                 text-transform: capitalize;
             }
 
+           
             h2{
                 margin:0px;
                 text-align: center;
@@ -150,12 +151,13 @@ export class updatedDetailsComponent extends LitElement{
     updated(){
         console.log("UDP updated");
         let image = this.shadowRoot.getElementById('profileImg');
+        let imageDiv = this.shadowRoot.querySelector('.profileImgDiv');
         if(this.profileChanged == "true"){
             const newCustImg = localStorage.getItem("ProfileImg");
             //let image = this.shadowRoot.getElementById('profileImg');
             image.src = newCustImg;
         }else{
-            image.style.display = 'none';
+            imageDiv.style.display = 'none';
         }
     }
 
@@ -190,11 +192,7 @@ export class updatedDetailsComponent extends LitElement{
             <div class="row heading">
             <h2><strong>Updated Details</strong></h2>
             </div>
-            <div class="row">
-            <div class="col" style="text-align:center;">
-                <img id="profileImg">
-            </div>
-            </div>
+            
             <div class="row details">
             ${Object.entries(this.updatedCustomerDetails).map(entry => html`
             <div class="row mb-2 updated-info">
@@ -207,6 +205,15 @@ export class updatedDetailsComponent extends LitElement{
             </div>
             `, )}
 
+            </div>
+
+            <div class="row mb-3 profileImgDiv d-flex align-items-center">
+            <div class="col-6 d-flex justify-content-end">
+                <p><b>Profile Image:</b></p>
+            </div>
+            <div class="col-6">
+                <img id="profileImg">
+            </div>
             </div>
 
             <div class="row mb-3">
