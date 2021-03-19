@@ -46,6 +46,8 @@ class cardComp extends LitElement {
 
         img{
           border-radius:50%;
+          width:120px;
+          height:120px;
         }
         #accno {
             border:none;

@@ -49,16 +49,20 @@ server.post('/image',(req, res) => {
   console.log("After replacing : "+ objValue);
 
   var path ='./src/images/';
-  var optionalObj = {'fileName': 'profile9'};
+  var optionalObj = {'fileName': objKey};
 
-  base64ToImage(objValue,path,optionalObj); 
+  var imageInfo= base64ToImage(objValue,path,optionalObj); 
+
+  //var responseMessage = JSON.stringify(imageInfo);
+
+  //console.log(responseMessage);
   
     
 // Note base64ToImage function returns imageInfo which is an object with imageType and fileName.
 // var imageInfo = base64ToImage(base64Str,path,optionalObj);
 
 
-  res.status(200).send("OK");
+  res.status(200).send(imageInfo);
 })
 
 

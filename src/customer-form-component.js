@@ -143,6 +143,10 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
                 display:none;
             }
 
+            #imageUpload{
+                margin: 15px 15px 0 0;
+            }
+
             .loader {
                 border: 16px solid white;
                 border-radius: 50%;
@@ -290,7 +294,10 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        const isEmpty = this.validateFiels();
        console.log("isEmpty"+isEmpty);
 
-       const valueChanged = Object.keys(this.updatedDetails).length;
+       let valueChanged = Object.keys(this.updatedDetails).length;
+       if(this.profileChanged == "true"){
+           valueChanged = 1;
+       }
        if(valueChanged > 0){
 
        
@@ -352,7 +359,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         
         
         
-        if ( name == '' || surName == '' || dob == '' || emailID == '' || mobileNo == '' || apartmentNo == '' || street == '' || pincode == ''){
+        if (name == '' || surName == '' || dob == '' || emailID == '' || mobileNo == '' || apartmentNo == '' || street == '' || pincode == ''){
             // console.log(name, surName, dob, emailID, mobileNo, apartmentNo, street, city, pincode, state);
             return true;
         }else{
