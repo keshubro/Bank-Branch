@@ -48,6 +48,8 @@ server.post('/image',(req, res) => {
 
   console.log("After replacing : "+ objValue);
 
+    // const imageName = `profile${}`
+
   var path ='./src/images/';
   var optionalObj = {'fileName': objKey};
 
