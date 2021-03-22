@@ -181,7 +181,12 @@ class LoginComponent extends LocalizeMixin(LitElement) {
                 .then((response) => {
                     this.errorMessage = null;
                     sessionStorage.setItem("username", username);
-                    window.location.href = "/search";
+
+                    this.dispatchEvent(new CustomEvent('change-route',{bubbles: true, composed: true, detail: {
+                        route: '/search',
+        
+                    }}));
+                    // window.location.href = "/search";
                 })
                 .catch((error) => {
                     this.errorMessage = "Invalid Username or Password";

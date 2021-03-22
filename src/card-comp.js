@@ -58,6 +58,7 @@ class cardComp extends LitElement {
   }
 
     updated() {
+        
         this.shadowRoot
             .getElementById("card-items")
             .addEventListener("click", () => {
@@ -66,7 +67,17 @@ class cardComp extends LitElement {
 
                 sessionStorage.setItem("accno", this.accountno);
 
-                window.location.href = "/custform/#" + this.accountno;
+                const custAccno = {
+                  accno: this.accountno
+                }
+
+                this.dispatchEvent(new CustomEvent('change-route',{bubbles: true, composed: true, detail: {
+                  route: '/custform',
+                  routeData: custAccno
+  
+              }}));
+
+               // window.location.href = "/custform/#" + this.accountno;
 
                 //const url = '/custform/'+this.accountno;
                 //window.location.href= '/custform/'+this.accountno;

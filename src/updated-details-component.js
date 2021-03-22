@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit-element";
 import { ajax } from "@lion/ajax";
 import "./Otp-validation-component";
 import "@lion/dialog/lion-dialog.js";
+import { nothing } from "lit-html";
 
 export class updatedDetailsComponent extends LitElement {
     static get properties() {
@@ -9,8 +10,9 @@ export class updatedDetailsComponent extends LitElement {
             updatedCustomerDetails: { type: Object },
             customerAccountNo: {type: String},
             customerId : {type: String},
-            customerImage : {type: String},
-            profileChanged : {type: String}
+            customerImage : {type: Object},
+            profileChanged : {type: String},
+
         }
     }
 
@@ -97,6 +99,7 @@ export class updatedDetailsComponent extends LitElement {
     constructor() {
         super();
         this.custImg={};
+        this.customerImage={};
         
     }
 
@@ -104,21 +107,21 @@ export class updatedDetailsComponent extends LitElement {
         super.connectedCallback();
         console.log("UDC connected");
         //console.log(location.search);
-        const queryString = location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const customerSetails = urlParams.get("custUpdatedDetails");
-        //console.log(product);
-        this.updatedCustomerDetails = JSON.parse(customerSetails);
-        console.log(this.updatedCustomerDetails);
+        // const queryString = location.search;
+        // const urlParams = new URLSearchParams(queryString);
+        // const customerSetails = urlParams.get("custUpdatedDetails");
+        // //console.log(product);
+        // this.updatedCustomerDetails = JSON.parse(customerSetails);
+        // console.log(this.updatedCustomerDetails);
 
-        this.customerAccountNo = urlParams.get("custAccNo");
-        console.log(this.customerAccountNo);
+        // this.customerAccountNo = urlParams.get("custAccNo");
+        // console.log(this.customerAccountNo);
 
-        this.customerId = urlParams.get("custId");
-        console.log(this.customerId);
+        // this.customerId = urlParams.get("custId");
+        // console.log(this.customerId);
         
-        this.profileChanged = urlParams.get('profileChanged');
-        console.log(this.profileChanged);
+        // this.profileChanged = urlParams.get('profileChanged');
+        // console.log(this.profileChanged);
        
         //image.src = URL.createObjectURL(res);
 
@@ -146,17 +149,18 @@ export class updatedDetailsComponent extends LitElement {
 
     updated() {
         console.log("UDP updated");
-        let image = this.shadowRoot.getElementById('profileImg');
-        let imageLabel = this.shadowRoot.getElementById('imgLabel');
-        // let imageDiv = this.shadowRoot.querySelector('.profileImgDiv');
-        if(this.profileChanged == "true"){
-            const newCustImg = localStorage.getItem("ProfileImg");
-            //let image = this.shadowRoot.getElementById('profileImg');
-            image.src = newCustImg;
-        }else{
-            image.style.display = 'none';
-            imageLabel.style.display = 'none';
-        }
+    
+        // let image = this.shadowRoot.getElementById('profileImg');
+        // let imageLabel = this.shadowRoot.getElementById('imgLabel');
+        // // let imageDiv = this.shadowRoot.querySelector('.profileImgDiv');
+        // if(this.profileChanged == "true"){
+        //     const newCustImg = localStorage.getItem("ProfileImg");
+        //     //let image = this.shadowRoot.getElementById('profileImg');
+        //     image.src = newCustImg;
+        // }else{
+        //     image.style.display = 'none';
+        //     imageLabel.style.display = 'none';
+        // }
     }
 
     
@@ -204,14 +208,18 @@ export class updatedDetailsComponent extends LitElement {
             `)}
             </div>
 
+            ${Object.keys(this.customerImage).length != 0 ? html`
             <div class="row mb-3 profileImgDiv d-flex align-items-center">
                 <div class="col-6 d-flex justify-content-end">
                     <p id="imgLabel"><b>Profile Image:</b></p>
                 </div>
                 <div class="col-6">
-                    <img id="profileImg">
+                
+                    <img id="profileImg" src=${this.customerImage}>
                 </div>
             </div>
+            `:nothing}
+            
 
             <div class="row mb-3">
                 <div class="col update">
@@ -220,7 +228,7 @@ export class updatedDetailsComponent extends LitElement {
                 <div class="col update">
                     <lion-dialog .config=${{ hidesOnOutsideClick: true, hidesOnEsc: true }}>
                         <lion-button slot="invoker" id="updateBtn">Update</lion-button>
-                        <otp-validation-component slot="content"></otp-validation-component>
+                        <otp-validation-component .updatedCustomerDetails=${this.updatedCustomerDetails} .customerAccountNo=${this.customerAccountNo} .customerId=${this.customerId} slot="content"></otp-validation-component>
                     </lion-dialog>                 
                 </div>
             </div>

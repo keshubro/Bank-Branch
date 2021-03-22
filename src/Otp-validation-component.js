@@ -158,67 +158,78 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement) {
     //         });
     // }
 
-    validateOtp(){
+    validateOtp(e){
         
         if(this.shadowRoot.querySelector('#otpCode').value == '123456'){
 
         console.log("UDC connected");
         //console.log(location.search);
-        const queryString=location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const customerSetails = urlParams.get('custUpdatedDetails');
-        //console.log(product);
-        this.updatedCustomerDetails = JSON.parse(customerSetails);
-        console.log(this.updatedCustomerDetails);
+        // const queryString=location.search;
+        // const urlParams = new URLSearchParams(queryString);
+        // const customerSetails = urlParams.get('custUpdatedDetails');
+        // //console.log(product);
+        // this.updatedCustomerDetails = JSON.parse(customerSetails);
+        // console.log(this.updatedCustomerDetails);
 
-         this.customerAccountNo = urlParams.get('custAccNo');
-        console.log(this.customerAccountNo);
+        //  this.customerAccountNo = urlParams.get('custAccNo');
+        // console.log(this.customerAccountNo);
 
-        this.customerId = urlParams.get('custId');
-        this.stateId = urlParams.get('stateId');
-        console.log(this.customerId);
+        // this.customerId = urlParams.get('custId');
+        // this.stateId = urlParams.get('stateId');
+        // console.log(this.customerId);
 
-        this.profileChanged = urlParams.get('profileChanged');
-        console.log(this.profileChanged);
+        // this.profileChanged = urlParams.get('profileChanged');
+        // console.log(this.profileChanged);
 
-        const newCustImg = localStorage.getItem("ProfileImg");
+        // const newCustImg = localStorage.getItem("ProfileImg");
 
         
 
-        const stateUrl = 'http://localhost:3000/states/'+ this.stateId;
+        // const stateUrl = 'http://localhost:3000/states/'+ this.stateId;
 
             
-        if(this.profileChanged == "true"){
-            console.log("before post request");
-            const imgName = "profile" + this.customerId;
-            const data = {};
-            data[imgName] = newCustImg;
-            const updateImgUrl = "http://localhost:3000/image";
-            ajax
-            .post(updateImgUrl,data)
-            .then(response => {
-                console.log("post request successful");
-                console.log(response.data);
-               // debugger
-                const updatedProfile = response.data;
-                //debugger
-                console.log(typeof(updatedProfile));
+        // if(this.profileChanged == "true"){
+        //     console.log("before post request");
+        //     const imgName = "profile" + this.customerId;
+        //     const data = {};
+        //     data[imgName] = newCustImg;
+        //     const updateImgUrl = "http://localhost:3000/image";
+        //     ajax
+        //     .post(updateImgUrl,data)
+        //     .then(response => {
+        //         console.log("post request successful");
+        //         console.log(response.data);
+        //        // debugger
+        //         const updatedProfile = response.data;
+        //         //debugger
+        //         console.log(typeof(updatedProfile));
                 
-                this.updatedCustomerDetails.profileimg = updatedProfile['fileName'];
-                console.log(this.updatedCustomerDetails);
+        //         this.updatedCustomerDetails.profileimg = updatedProfile['fileName'];
+        //         console.log(this.updatedCustomerDetails);
                
-                this.saveCustomerDetails();
-            })
-            .catch(error => {
-                console.log(error);
-              });
+        //         this.saveCustomerDetails();
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //       });
 
 
-        }else{
-            this.saveCustomerDetails();
-        }
+        // }else{
+        //     this.saveCustomerDetails();
+        // }
         
-         
+         this.saveCustomerDetails();
+         console.log("details updated");
+        
+        //  this.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+         debugger
+         console.log(this);
+         this.dispatchEvent(new CustomEvent('change-route',{bubbles: true, composed: true, detail: {
+            route: '/success'
+
+        }}))
+        //window.location.href = '/success';
+
             
         }else{
             this.errorMessage = "Enter a valid OTP";
@@ -233,7 +244,12 @@ export class OtpValidationComponent extends LocalizeMixin(LitElement) {
         .then(response => {
           console.log("PATCH successful");
           localStorage.removeItem('ProfileImg');
-          window.location.href = '/success';
+         // window.location.href = '/success';
+         
+        //  this.dispatchEvent(new CustomEvent('change-route',{bubbles: true, composed: true, detail: {
+        //     route: '/success'
+
+        // }}));
           
         })
         .catch(error => {

@@ -36,47 +36,25 @@ server.post('/auth/login', (req, res) => {
 })
 
 server.post('/image',(req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 
   const objKey = Object.keys(req.body)[0];
-  console.log(objKey);
+  //console.log(objKey);
 
   let objValue = req.body[objKey];
-  console.log(objValue);
-
-  // let base64Str = objValue.replace("data:", "").replace(/^.+,/,"");
-
-  console.log("After replacing : "+ objValue);
-
-    // const imageName = `profile${}`
+  //console.log(objValue);
 
   var path ='./src/images/';
   var optionalObj = {'fileName': objKey};
 
+//image is stored in server
   var imageInfo= base64ToImage(objValue,path,optionalObj); 
-
-  //var responseMessage = JSON.stringify(imageInfo);
-
-  //console.log(responseMessage);
-  
-    
-// Note base64ToImage function returns imageInfo which is an object with imageType and fileName.
-// var imageInfo = base64ToImage(base64Str,path,optionalObj);
-
 
   res.status(200).send(imageInfo);
 })
 
 
-server.post('/image/save', (req, res) => {
-    console.log(req.body);
-    
-    fs.writeFile(req.body.fileName, req.body.fileData);
 
-    //Store image in db here
-    
-    res.status(200).send("OK");
-})
 
 
 

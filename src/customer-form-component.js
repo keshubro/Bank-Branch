@@ -1,27 +1,24 @@
-import { LitElement, html, css } from 'lit-element';
-import { localize,LocalizeMixin } from '@lion/localize';
-import '@lion/form/lion-form.js';
-import '@lion/button/lion-button.js';
-import '@lion/select/lion-select.js';
-import '@lion/input/lion-input.js';
-import '@lion/input-email/lion-input-email.js';
-import '@lion/input-datepicker/lion-input-datepicker.js';
-
-import '@lion/dialog/lion-dialog.js';
-import './style-dialog-content.js';
-
-import { loadDefaultFeedbackMessages } from '@lion/validate-messages';
-import { IsEmail } from '@lion/form-core';
-
-
-import { ajax } from '@lion/ajax';
-import { nothing } from 'lit-html';
+import { LitElement, html, css } from "lit-element";
+import { localize, LocalizeMixin } from "@lion/localize";
+import "@lion/form/lion-form.js";
+import "@lion/button/lion-button.js";
+import "@lion/select/lion-select.js";
+import "@lion/input/lion-input.js";
+import "@lion/input-email/lion-input-email.js";
+import "@lion/input-datepicker/lion-input-datepicker.js";
+import "@lion/select-rich/lion-select-rich.js";
+import "@lion/listbox/lion-options.js";
+import "@lion/listbox/lion-option.js";
+import "@lion/dialog/lion-dialog.js";
+import "./style-dialog-content.js";
 
 import { loadDefaultFeedbackMessages } from "@lion/validate-messages";
 import { IsDate, IsEmail, Required, Validator } from "@lion/form-core";
 
 import { ajax } from "@lion/ajax";
 import { nothing } from "lit-html";
+
+
 // const fs = require('fs');
 // import { fs } from 'fs';
 // console.log('fs');   
@@ -64,7 +61,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             customerDetails: { type: Object },
             isLoading: { type: Boolean},
             customerImage: {type: Object},
-            profileChanged: {type: String}
+            profileChanged: {type: String},
+            custAccno: {type: String}
         }
     }
 
@@ -203,7 +201,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     connectedCallback() {
         super.connectedCallback();
         this.isLoading = true;
-        const cust_acc_no = location.hash.slice(1);
+        //const cust_acc_no = location.hash.slice(1);
+        const cust_acc_no = this.custAccno;
         const url = "http://localhost:3000/customers?accountno=" + cust_acc_no;
 
         ajax.get(url)
@@ -281,6 +280,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         this.profileChanged = "false";
         this.cityNotInTheList = true;
         this.listOfCities = [];
+        this.custAccno="";
         
     }
 
@@ -307,7 +307,19 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        if(!(isEmpty)){
             const custAccNo = this.customerDetails[0].accountno;
             const customerId= this.customerDetails[0].id;
-            window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId + '&stateId=' + this.stateId + '&profileChanged=' + this.profileChanged;
+            const customerInfo = {
+                updatedDetails : this.updatedDetails,
+                accno: custAccNo,
+                custId: customerId,
+                stateId: this.stateId
+            }
+            e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+            this.dispatchEvent(new CustomEvent('change-route',{bubbles: true, composed: true, detail: {
+                route: '/updated',
+                routeData: customerInfo,
+
+            }}))
+            //window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId + '&stateId=' + this.stateId + '&profileChanged=' + this.profileChanged;
        }
        else {
            alert("All fields are required");
@@ -490,6 +502,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 	    image.src = URL.createObjectURL(e.target.files[0]);
         console.log(e.target.files[0]);
 
+        this.dispatchEvent(new CustomEvent('image-updated',{bubbles:true, composed:true, detail: e.target.files[0]}));
         this.profileChanged = "true";
         const file = e.target.files[0];
         const reader = new FileReader();

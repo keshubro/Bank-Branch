@@ -220,7 +220,7 @@ export class HeaderComponent extends LocalizeMixin(LitElement) {
     firstUpdated() {
         super.firstUpdated();
         // debugger;
-        window.addEventListener("load", this.routeChanged.bind(this));
+        window.addEventListener("popstate", this.routeChanged.bind(this));
     }
 
     logoutClicked(e) {
