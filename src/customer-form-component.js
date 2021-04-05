@@ -17,6 +17,8 @@ import { IsDate, IsEmail, Required, Validator } from "@lion/form-core";
 
 import { ajax } from "@lion/ajax";
 import { nothing } from "lit-html";
+
+
 // const fs = require('fs');
 // import { fs } from 'fs';
 // console.log('fs');   
@@ -59,7 +61,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
             customerDetails: { type: Object },
             isLoading: { type: Boolean},
             customerImage: {type: Object},
-            profileChanged: {type: String}
+            profileChanged: {type: String},
+            custAccno: {type: String}
         }
     }
 
@@ -198,7 +201,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
     connectedCallback() {
         super.connectedCallback();
         this.isLoading = true;
-        const cust_acc_no = location.hash.slice(1);
+        //const cust_acc_no = location.hash.slice(1);
+        const cust_acc_no = this.custAccno;
         const url = "http://localhost:3000/customers?accountno=" + cust_acc_no;
 
         ajax.get(url)
@@ -276,6 +280,8 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         this.profileChanged = "false";
         this.cityNotInTheList = true;
         this.listOfCities = [];
+        this.custAccno="";
+        
     }
 
     backBtnHandler() {
@@ -283,7 +289,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
         window.location.href = "/search";
     }
 
-    updateBtnHandler(e) {
+    updateBtnHandler(e){
         console.log("update button clicked");
         console.log(this.updatedDetails);
        // e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
@@ -301,7 +307,19 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
        if(!(isEmpty)){
             const custAccNo = this.customerDetails[0].accountno;
             const customerId= this.customerDetails[0].id;
-            window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId + '&stateId=' + this.stateId + '&profileChanged=' + this.profileChanged;
+            const customerInfo = {
+                updatedDetails : this.updatedDetails,
+                accno: custAccNo,
+                custId: customerId,
+                stateId: this.stateId
+            }
+            e.target.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+            this.dispatchEvent(new CustomEvent('change-route',{bubbles: true, composed: true, detail: {
+                route: '/updated',
+                routeData: customerInfo,
+
+            }}))
+            //window.location.href='/updated/?custUpdatedDetails='+ JSON.stringify(this.updatedDetails)+'&custAccNo='+ custAccNo +'&custId=' + customerId + '&stateId=' + this.stateId + '&profileChanged=' + this.profileChanged;
        }
        else {
            alert("All fields are required");
@@ -484,6 +502,7 @@ export class CustomerFormComponent extends LocalizeMixin(LitElement) {
 	    image.src = URL.createObjectURL(e.target.files[0]);
         console.log(e.target.files[0]);
 
+        this.dispatchEvent(new CustomEvent('image-updated',{bubbles:true, composed:true, detail: e.target.files[0]}));
         this.profileChanged = "true";
         const file = e.target.files[0];
         const reader = new FileReader();
