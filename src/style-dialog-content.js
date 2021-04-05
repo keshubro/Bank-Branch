@@ -68,6 +68,7 @@ export class StyleDialogContent extends LitElement {
             .getElementById("proceed-btn")
             .addEventListener("click", () => {
                 //console.log("Proceed btn clicked");
+                debugger
                 this.dispatchEvent(new CustomEvent("summary-page"));
             });
 

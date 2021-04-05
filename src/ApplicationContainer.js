@@ -7,6 +7,8 @@ import "./customer-form-component";
 import "./updated-details-component";
 import "./Otp-validation-component";
 import "./SuccessComponent";
+import './LandingComponent';
+import './QueriesComponent';
 
 //import './demo-component';
 import { Router } from "@vaadin/router";
@@ -20,6 +22,7 @@ export class ApplicationContainer extends LitElement {
     static get properties()
     {
         return{
+            customerInfo : { type: Object},
             customerImage: { type: Object }
         }
     }
@@ -51,22 +54,49 @@ export class ApplicationContainer extends LitElement {
         `;
     }
 
-    updated() {
-        super.updated();
 
-        // debugger;
+    firstUpdated() {
+
+        super.firstUpdated();
+
         const outlet = this.shadowRoot.getElementById("outlet");
         const router = new Router(outlet);
 
+        this.router = router;
+        //this.router.render
+
+
         router.setRoutes([
-            { path: "/", component: "login-component" },
-            { path: "/search", component: "search-component" },
-            { path: "/custform", component: "customer-form-component" },
-            { path: "/details/:id", component: "customer-form-component" },
-            { path: "/updated/(.*)", component: "updated-details-component" },
-            { path: "/otpvalidation", component: "otp-validation-component" },
-            { path: "/success", component: "success-component" },
-            { path: "/about", component: "about-component" },
+            {path: '/', component: 'login-component'},
+            {path: '/landingpage', component: 'landing-component'},
+            {path: '/queries', component: 'queries-component'},
+            {path: '/search', component: 'search-component'},
+            {path: '/custform', action: (context, commands) => {
+                //debugger
+                const stubElement = commands.component('customer-form-component');
+                stubElement.custAccno = this.customerInfo.accno;
+                return stubElement;
+                
+             }},
+            {path: '/updated', action: (context, commands) => {
+                //debugger
+                const stubElement = commands.component('updated-details-component');
+                
+                // if (Object.keys(this.customerImage).length != 0){
+                //     debugger
+                //     stubElement.customerImage = this.customerImage;
+                // }
+
+                if (this.customerImage) {
+                    stubElement.customerImage = this.customerImage;
+                }
+               
+                stubElement.customerAccountNo = this.customerInfo.accno;
+                stubElement.customerId = this.customerInfo.custId;
+                stubElement.updatedCustomerDetails = this.customerInfo.updatedDetails;
+                return stubElement;
+            }},
+            {path: '/success', component: 'success-component'}
         ]);
     }
 
@@ -74,10 +104,30 @@ export class ApplicationContainer extends LitElement {
     {
         super.connectedCallback();
         this.addEventListener('image-updated', this.imageUpdated);
+        this.addEventListener('change-route', (e)=>{
+           // this.router.render(e.detail.path);
+
+            if(e.detail.routeData){
+                
+                this.customerInfo = e.detail.routeData;
+            }
+
+            let obj = {
+                pathname: e.detail.route,
+                search: '',
+                hash: ''
+            };
+            
+            
+            // this.router.render(e.detail.route,'otp','valid', true);
+            this.router.render(obj, true);
+
+        })
     }
 
     imageUpdated(e)
     {
+        debugger;
         this.customerImage = e.detail;
     }
 
@@ -85,6 +135,7 @@ export class ApplicationContainer extends LitElement {
     {
         super.disconnectedCallback();
         this.removeEventListener('image-updated', this.imageUpdated);
+        //this.removeEventListener('image-updated', this.imageUpdated);
     }
 
     render() {
